@@ -25,9 +25,11 @@ and open the template in the editor.
 
                 var marker = new google.maps.Marker({
                     position: mapOptions.center,
+                    animation:google.maps.Animation.BOUNCE,
                     title: 'My Location'
                 });
                 marker.setMap(map);
+                setTimeout(function(){ marker.setAnimation(null); }, 750);
             }
 
             google.maps.event.addDomListener(window, 'load', initialize);
@@ -39,9 +41,11 @@ and open the template in the editor.
 
                 var marker = new google.maps.Marker({
                     position: panPoint,
+                    animation:google.maps.Animation.BOUNCE,
                     title: 'My Location'
                 });
                 marker.setMap(map);
+                setTimeout(function(){ marker.setAnimation(null); }, 750);
             }
 
 
