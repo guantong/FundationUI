@@ -11,18 +11,11 @@
         <input type="text" placeholder="Type in postcode or suburb name"/>
     </div>
     <div class="large-2 small-2 columns">
-        <a href="#" class="button postfix">Search</a>
+        <a href="#" class="button postfix">Go</a>
     </div>
 </div>
-<div class="row">
-    <div class="large-10 small-10 columns">
-        <h2> How is this not changing? </h2>
-    </div>
-    <div class="large-2 small-2 columns">
-        <a href="#" class="button postfix">Search</a>
-    </div>
-</div>
-<div class="row">
+
+<div class="row large-6 large-centered">
     <%@ include file="map.jsp" %>
 </div>
 <!-- END CONTENT -->

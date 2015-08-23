@@ -1,9 +1,41 @@
 @import "settings";
 @import "foundation";
 
-.container-row {
-  //@include grid-row($row-width);
+.bg-pattern-img {
+    /*http://subtlepatterns.com/concrete-seamless/*/
+    background-image: url(../images/concrete_seamless.png);
+    background-repeat:repeat;
+    background-attachment: fixed;
 }
+.div-shadow {
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0px 10px 59px -13px rgba(0,0,0,0.75);
+}
+
+.half-size {
+    width:50%;
+    height:50%;
+}
+
+.container {
+    -webkit-box-shadow: 0px 0px 21px 1px rgba(128,128,128,1);
+    -moz-box-shadow: 0px 0px 21px 1px rgba(128,128,128,1);
+    box-shadow: 0px 0px 21px 1px rgba(128,128,128,1);
+    background-color: #ffffff;
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    @media only screen {
+        width: 100%;
+    } 
+    @media only screen and (min-width: 64.063em) {
+         width: 80%;
+    }
+}
+
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",

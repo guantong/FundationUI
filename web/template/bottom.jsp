@@ -22,19 +22,23 @@
     ==========================================
 --%>
 <!-- FOOTER -->
+<br>
+<br>
+<br>
 <footer class="footer">
     <div class="row full-width">
-        <div class="large-4 columns">
+        <div class="small-6 medium-5 large-4 columns">
             <h4>A1 Foundation</h4>
-            <p>Prepared by:</p>
+            <img class="half-size" src="resources/images/a1_logo.png" alt=""/>
         </div>
 
         <div class="small-6 medium-5 large-4 columns">
             <h4>VictoGreen</h4>
-            <p>Copyright information go here</p>
+            <img class="half-size" src="resources/images/victogreen_logo.png" alt=""/>
         </div>
         <div class="small-6 medium-5 large-4 columns">
             <h4>Links</h4>
+
             <ul class="side-nav">
                 <li class="has-dropdown" id="about"><a href="about.jsp">About</a></li>
                 <li class="has-dropdown" id="guide"><a href="guide.jsp">Guide</a></li>
@@ -50,5 +54,9 @@
 <script src="resources/bower_components/foundation/js/foundation.min.js"></script>
 <script src="resources/js/app.js"></script>
 <!-- END JAVASCRIPT -->
+
+<!-- Closures from the tags opened in the top.jsp file-->
+</div>
+</div>
 </body>
 </html>

@@ -12,8 +12,9 @@
     <%--  <jsp:include page="YOUR-PAGE.jsp"/>  --%>
     -->
     <div class="row">
-        <h2> Heading </h2>
-        <p> Some paragraph. </p>
+        <h2> Guide </h2>
+        <p> Learn more about the terms used in this website at <a href="#">Terminology</a> </p>
+        <p> Browse our <a href="#"> Tips and advice</a> to help better your green act. </p>
     </div>
 
 <!-- END CONTENT -->

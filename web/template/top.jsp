@@ -34,60 +34,69 @@
         <script src="resources/bower_components/modernizr/modernizr.js"></script>
         <link href="resources/css/app.css" rel="stylesheet" type="text/css"/>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <link href="resources/bower_components/foundation-icon-fonts/foundation-icons.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <!-- HEADER -->
-        <div class="contain-to-grid sticky">
-            <nav class="top-bar" data-topbar="true" role="navigation">
-                <ul class="title-area">
-                    <li class="name">
-                        <h1><a href="index.jsp">VictoGreen</a></h1>
-                    </li>
-                    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-                </ul>
-
-                <section class="top-bar-section">
-                    <!-- Right Nav Section -->
-
-                    <ul class="right">
-                        <li class="has-dropdown" id="about">
-                            <a href="about.jsp">About</a>
-                            <ul class="dropdown">
-                                <li id="project"><a href="project.jsp">Project</a></li>
-                                <li id="references"><a href="references.jsp">References</a></li>
-                            </ul>
+        <div class="bg-pattern-img">
+            <!-- HEADER -->
+            <div class="contain-to-grid sticky">
+                <nav class="top-bar" data-topbar="true" role="navigation">
+                    <ul class="title-area">
+                        <li class="name">
+                            <h1><a href="index.jsp">VictoGreen</a></h1>
                         </li>
-                        <li class="has-dropdown" id="guide">
-                            <a href="guide.jsp">Guide</a>
-                            <ul class="dropdown">
-                                <li id="terminology"><a href="terminology.jsp">Terminology</a></li>
-                                <li id="tips"><a href="tips.jsp">Tips and Advice</a></li>
-                            </ul>
-                        </li> <!--Originally called Tips-->
-                        <li id="faq"><a href="faq.jsp">FAQ's</a></li>
-                        <li id="contact-us"><a href="contact-us.jsp">Contact Us</a></li>
+                        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
                     </ul>
 
-                    <!-- Left Nav Section -->
-                    <ul class="left">
-                        <li  id="index"><a href="index.jsp">Home</a></li>
-                    </ul>
-                </section>
-            </nav>
-        </div>
+                    <section class="top-bar-section">
+                        <!-- Left Nav Section -->
+                        <ul class="left">
+                            <li id="index">
+                                <a href="index.jsp">
+                                    <i class="fi-marker"></i>
+                                    &nbsp;
+                                    Home
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- Right Nav Section -->
+                        <ul class="right">
+                            <li id="about" id="about">
+                                <a href="about.jsp">
+                                    <i class="fi-info"></i>
+                                    &nbsp;
+                                    About
+                                </a>
+                            </li>
+                            <li class="has-dropdown" id="guide">
+                                <a href="guide.jsp"><i class="fi-projection-screen"></i>&nbsp; Guide</a>
+                                <ul class="dropdown">
+                                    <li id="terminology"><a href="terminology.jsp">Terminology</a></li>
+                                    <li id="tips"><a href="tips.jsp">Tips and Advice</a></li>
+                                </ul>
+                            </li>
+                            <li id="faq"><a href="faq.jsp"><i class="fi-comment-quotes"></i>&nbsp; FAQ's</a></li>
+                            <li id="contact-us"><a href="contact-us.jsp"><i class="fi-mail"></i>&nbsp; Contact Us</a></li>
+                        </ul>
+                    </section>
+                </nav>
+            </div>
 
-        <!-- JS -->
-        <!-- Active Button Script -->
-        <script type="text/javascript">
-            var currentfilename = '${param.filename}';
-            //alert(currentfilename);
-            document.getElementById(currentfilename).className += "active";
-        </script>
+            <!-- JS -->
+            <!-- Active Button Script -->
+            <script type="text/javascript">
+                var currentfilename = '${param.filename}';
+                //alert(currentfilename);
+                document.getElementById(currentfilename).className += "active";
+            </script>
 
-        <!-- END JS -->
-
-        <div class="row">
-            <h1> ${param.title} </h1>
-        </div>
-        <!-- END HEADER -->
+            <!-- END JS -->
+<div class="container">
+            <div class="row">
+                <h1> ${param.title} </h1>
+            </div>
+            
+            
+            
+            <!-- END HEADER -->

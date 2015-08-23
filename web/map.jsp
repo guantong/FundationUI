@@ -7,15 +7,6 @@ and open the template in the editor.
 <html>
     <head>
         <title>Map</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            html, body, #map-canvas{
-                margin: 0;
-                padding: 0;
-                height: 500px;
-            }
-        </style>
         <script src="http://maps.googleapis.com/maps/api/js"></script>
         <script>
             var map;
@@ -86,11 +77,7 @@ and open the template in the editor.
         </script>
     </head>
     <body>
-        <div class="row">
-            <input type="button" class="button round tiny right" value="Track your location" onclick="pan()" />
-        </div>
-        <div class="row"><div id="map-canvas"></div></div>
-        
+        <div class="div-shadow" id="map-canvas" style="height:500px;"></div>
+        <input type="button" class="button round tiny right" value="Track your location" onclick="pan()" />
     </body>
-
 </html>
