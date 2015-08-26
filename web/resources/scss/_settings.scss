@@ -81,7 +81,7 @@ $include-html-global-classes: $include-html-classes;
 // $include-html-grid-classes: $include-html-classes;
 // $include-xl-html-grid-classes: false;
 
- $row-width: 90%;
+ $row-width: 100%;
 // $total-columns: 12;
 // $column-gutter: rem-calc(30);
 
@@ -926,7 +926,7 @@ $include-html-global-classes: $include-html-classes;
 // We use these to control the left/right nav styles
 // $orbit-nav-bg: transparent;
 // $orbit-nav-bg-hover: rgba(0,0,0,0.3);
-// $orbit-nav-arrow-color: $white;
+ $orbit-nav-arrow-color: $darkgreeny;
 // $orbit-nav-arrow-color-hover: $white;
 
 // We use these to control the timer styles
@@ -1405,11 +1405,11 @@ $include-html-global-classes: $include-html-classes;
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
- $topbar-bg-color: #444444;
-// $topbar-bg: $topbar-bg-color;
+ $topbar-bg-color:  rgba(0,0,0,0.0);
+ $topbar-bg: none;
 
 // Height and margin
- $topbar-height: rem-calc(70);
+ $topbar-height: rem-calc(50);
  $topbar-margin-bottom: 10px;
 
 // Controlling the styles for the title in the top bar
@@ -1417,16 +1417,16 @@ $include-html-global-classes: $include-html-classes;
 // $topbar-title-font-size: rem-calc(17);
 
 // Set the link colors and styles for top-level nav
-// $topbar-link-color: $white;
-// $topbar-link-color-hover: $darkgreeny;
+ $topbar-link-color: $darkgreeny;
+ $topbar-link-color-hover: $lightgreeny;
 // $topbar-link-color-active: $lightgreeny;
 // $topbar-link-color-active-hover: $white;
 // $topbar-link-weight: $font-weight-normal;
 // $topbar-link-font-size: rem-calc(13);
- $topbar-link-hover-lightness: -10%; // Darken by 10%
-// $topbar-link-bg: $topbar-bg;
- $topbar-link-bg-hover: $darkgreeny;
- $topbar-link-bg-color-hover: $darkgreeny;
+// $topbar-link-hover-lightness: -10%; // Darken by 10%
+ $topbar-link-bg:  rgba(0,0,0,0.0);
+ $topbar-link-bg-hover: rgba(0,0,0,0.0);
+ $topbar-link-bg-color-hover: none;
  $topbar-link-bg-active: $lightgreeny;
  $topbar-link-bg-active-hover: $lightgreeny;
 // $topbar-link-font-family: $body-font-family;
@@ -1455,11 +1455,11 @@ $include-html-global-classes: $include-html-classes;
 // $topbar-dropdown-label-bg: $oil;
 
 // Top menu icon styles
-// $topbar-menu-link-transform: uppercase;
-// $topbar-menu-link-font-size: rem-calc(13);
-// $topbar-menu-link-weight: $font-weight-bold;
-// $topbar-menu-link-color: $white;
-// $topbar-menu-icon-color: $white;
+ $topbar-menu-link-transform: uppercase;
+ $topbar-menu-link-font-size: rem-calc(13);
+ //$topbar-menu-link-weight: $font-weight-bold;
+ $topbar-menu-link-color: $darkgreeny;
+ $topbar-menu-icon-color: $darkgreeny;
 // $topbar-menu-link-color-toggled: $jumbo;
 // $topbar-menu-icon-color-toggled: $jumbo;
 // $topbar-menu-icon-position: $opposite-direction; // Change to $default-float for a left menu icon

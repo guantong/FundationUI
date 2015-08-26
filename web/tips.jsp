@@ -9,13 +9,18 @@
 
 <!-- TODO: INSERT CONTENT HERE. Example below.
     Or include another jsp file here using (take out comments):
-    <%--  <jsp:include page="YOUR-PAGE.jsp"/>  --%>
-    -->
+<%--  <jsp:include page="YOUR-PAGE.jsp"/>  --%>
+-->
+<br>
+<div class="text-page-container-header bg-greenscale">
+    <h1> Tips and Advice </h1>
+</div>
+<div class="text-page-container">
     <div class="row">
         <div class="large-6 columns">
             <a class="button large expand">Tips at Home</a>
         </div>
-         <div class="large-6 columns">
+        <div class="large-6 columns">
             <a class="button large expand">Tips at Work</a>
         </div>
     </div>
@@ -72,6 +77,7 @@
             </ul>
         </div>
     </div>
+</div>
 
 <!-- END CONTENT -->
 

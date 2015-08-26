@@ -11,8 +11,12 @@
     Or include another jsp file here using (take out comments):
     <%--  <jsp:include page="YOUR-PAGE.jsp"/>  --%>
     -->
-    <div class="row">
-        
+        <br>
+<div class="text-page-container-header bg-greenscale">
+    <h1> Terminology </h1>
+</div>
+    <div class="text-page-container">
+        <div class="row">Content</div>
     </div>
 
 <!-- END CONTENT -->

@@ -12,14 +12,18 @@ and open the template in the editor.
             var map;
             var lat;
             var lon;
+
             function initialize() {
                 var mapOptions = {
                     zoom: 14,
                     center: new google.maps.LatLng(-37.8180819, 144.968177),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                styles:[{"featureType":"all","elementType":"all","stylers":[{"saturation":-100},{"gamma":0.5}]}]
                 };
+
                 map = new google.maps.Map(document.getElementById('map-canvas'),
                         mapOptions);
+
                 var marker = new google.maps.Marker({
                     position: mapOptions.center,
                     animation:google.maps.Animation.BOUNCE,
@@ -28,11 +32,14 @@ and open the template in the editor.
                 marker.setMap(map);
                 setTimeout(function(){ marker.setAnimation(null); }, 750);
             }
+
             google.maps.event.addDomListener(window, 'load', initialize);
+
             function pan() {
                 getLocation();
                 var panPoint = new google.maps.LatLng(lat.toString(), lon.toString());
                 map.panTo(panPoint);
+
                 var marker = new google.maps.Marker({
                     position: panPoint,
                     animation:google.maps.Animation.BOUNCE,
@@ -41,6 +48,8 @@ and open the template in the editor.
                 marker.setMap(map);
                 setTimeout(function(){ marker.setAnimation(null); }, 750);
             }
+
+
             function getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
@@ -48,10 +57,12 @@ and open the template in the editor.
                     x.innerHTML = "Geolocation is not supported by this browser.";
                 }
             }
+
             function showPosition(position) {
                 lat = position.coords.latitude;
                 lon = position.coords.longitude;
             }
+
             function showError(error) {
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
@@ -71,7 +82,16 @@ and open the template in the editor.
         </script>
     </head>
     <body>
-        <div class="div-shadow" id="map-canvas" style="height:500px;"></div>
-        <input type="button" class="button round tiny right" value="Track your location" onclick="pan()" />
+        <div id="map-canvas" class="bg-height" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+        </div>
+        <div style="margin-top: -70px;">
+            <a onclick="pan()" class="button round tiny right">
+                <div style=" font-size: 14px; color: #FFFFFF;">
+                    <i class="fi-target-two"></i>
+                    Your location
+                </div>
+            </a>
+        </div>
+
     </body>
 </html>

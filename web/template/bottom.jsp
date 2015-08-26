@@ -27,24 +27,22 @@
 <br>
 <footer class="footer">
     <div class="row full-width">
-        <div class="small-6 medium-5 large-4 columns">
-            <h4>A1 Foundation</h4>
-            <img class="half-size" src="resources/images/a1_logo.png" alt=""/>
+        <div class="small-6 medium-6 large-6 columns">
+            <div class="right">
+                <img style="width:100px; height: auto;" class="img-resize" src="resources/images/a1_logo.png" alt=""/>
+                <img style="width:100px; height: auto;" class="img-resize" src="resources/images/victogreen_logo.png" alt=""/>
+            </div>
         </div>
-
-        <div class="small-6 medium-5 large-4 columns">
-            <h4>VictoGreen</h4>
-            <img class="half-size" src="resources/images/victogreen_logo.png" alt=""/>
-        </div>
-        <div class="small-6 medium-5 large-4 columns">
+        <div class="left-border small-6 medium-6 large-6 columns">
             <h4>Links</h4>
 
-            <ul class="side-nav">
-                <li class="has-dropdown" id="about"><a href="about.jsp">About</a></li>
-                <li class="has-dropdown" id="guide"><a href="guide.jsp">Guide</a></li>
-                <li id="faq"><a href="faq.jsp">FAQ's</a></li>
-                <li id="contact-us"><a href="contact-us.jsp">Contact Us</a></li>
-            </ul>
+            <p class="footer-links">
+                <a href="about.jsp">About</a>
+                <a href="guide.jsp">Guide</a>
+                <a href="faq.jsp">FAQ's</a>
+                <a href="contact-us.jsp">Contact Us</a>
+            </p>
+            <p class="copyright"> A1 Foundation © 2015 </p>
         </div>
     </div>
 </footer>
@@ -53,10 +51,25 @@
 <script src="resources/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="resources/bower_components/foundation/js/foundation.min.js"></script>
 <script src="resources/js/app.js"></script>
+
+
+<script>
+    var topbar, yPos;
+function yScroll(){
+    topbar = document.getElementById('topbar');
+    yPos = window.pageYOffset;
+    if(yPos > 150){
+        topbar.style.backgroundColor = "#ffffff";
+    } else {
+        topbar.style.backgroundColor = "transparent";
+    }
+}
+window.addEventListener("scroll", yScroll);
+    </script>
 <!-- END JAVASCRIPT -->
 
 <!-- Closures from the tags opened in the top.jsp file-->
-</div>
+
 </div>
 </body>
 </html>

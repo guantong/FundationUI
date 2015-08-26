@@ -12,8 +12,8 @@
     <%--  <jsp:include page="YOUR-PAGE.jsp"/>  --%>
     -->
     <div class="row">
-        <h2> Heading </h2>
-        <p> Some paragraph. </p>
+        <h2> Project </h2>
+        <p> Learn about the project here. </p>
     </div>
 
 <!-- END CONTENT -->
