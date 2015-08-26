@@ -9515,26 +9515,26 @@ th.hide-for-touch {
   }
 }
 
-/* line 85, ../scss/app.scss */
+/* line 87, ../scss/app.scss */
 .text-page-container-header {
   margin-left: auto;
   margin-right: auto;
   padding: 20px;
 }
-/* line 86, ../scss/app.scss */
+/* line 88, ../scss/app.scss */
 .text-page-container-header h1 {
   color: #ffffff;
   font-size: 30pt;
   text-shadow: 0px 2px 2px #000000;
 }
 @media only screen {
-  /* line 85, ../scss/app.scss */
+  /* line 87, ../scss/app.scss */
   .text-page-container-header {
     width: 100%;
   }
 }
 @media only screen and (min-width: 64.063em) {
-  /* line 85, ../scss/app.scss */
+  /* line 87, ../scss/app.scss */
   .text-page-container-header {
     width: 90%;
     border-top-left-radius: 10px;
@@ -9542,7 +9542,7 @@ th.hide-for-touch {
   }
 }
 
-/* line 103, ../scss/app.scss */
+/* line 105, ../scss/app.scss */
 .text-page-container {
   background-color: #ffffff;
   margin-left: auto;
@@ -9550,13 +9550,13 @@ th.hide-for-touch {
   padding: 20px;
 }
 @media only screen {
-  /* line 103, ../scss/app.scss */
+  /* line 105, ../scss/app.scss */
   .text-page-container {
     width: 100%;
   }
 }
 @media only screen and (min-width: 64.063em) {
-  /* line 103, ../scss/app.scss */
+  /* line 105, ../scss/app.scss */
   .text-page-container {
     width: 90%;
     border-bottom-left-radius: 10px;
@@ -9564,7 +9564,7 @@ th.hide-for-touch {
   }
 }
 
-/* line 119, ../scss/app.scss */
+/* line 121, ../scss/app.scss */
 .green-report h1 {
   color: #66cc00;
   font-family: helvetica;
@@ -9572,54 +9572,62 @@ th.hide-for-touch {
   font-size: 30px;
   text-shadow: 0px 2px 2px #000000;
 }
-/* line 126, ../scss/app.scss */
+/* line 128, ../scss/app.scss */
 .green-report span {
   color: #ffffff;
   font-weight: 400;
   font-size: 40px;
 }
 
-/* line 132, ../scss/app.scss */
+/* line 134, ../scss/app.scss */
 .left-border {
   border-left: 1px solid black;
 }
 
-/* line 135, ../scss/app.scss */
+/* line 137, ../scss/app.scss */
 .footer .footer-links a::after {
   content: "•";
   padding: 0 0.2rem 0 0.4rem;
 }
 
-/* line 139, ../scss/app.scss */
+/* line 141, ../scss/app.scss */
 .footer .footer-links a:last-child::after {
   content: "";
   padding: 0 0.4rem 0 0.8rem;
 }
 
-/* line 143, ../scss/app.scss */
+/* line 145, ../scss/app.scss */
 .footer .copyright {
   color: #8f9296;
   font-size: 0.875rem;
   margin: 0 0 1rem 0;
 }
 
-/* line 150, ../scss/app.scss */
+/* line 152, ../scss/app.scss */
 .header-title h1 {
   padding: 0.1rem;
   font-size: 2.125rem;
 }
 
-/* line 155, ../scss/app.scss */
-.map-container {
-  width: 90%;
-  height: 300px;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 20px;
-  margin-bottom: 20px;
+@media only screen {
+  /* line 157, ../scss/app.scss */
+  .map-container {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 64.063em) {
+  /* line 157, ../scss/app.scss */
+  .map-container {
+    width: 90%;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 }
 
-/* line 166, ../scss/app.scss */
+/* line 174, ../scss/app.scss */
 .bg-greenscale {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#66cc00+0,8ab66b+44,398235+100 */
   background: #66cc00;
@@ -9640,7 +9648,7 @@ th.hide-for-touch {
   /* IE6-9 */
 }
 
-/* line 177, ../scss/app.scss */
+/* line 185, ../scss/app.scss */
 .bg-bluescale {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b7deed+0,71ceef+50,21b4e2+51,b7deed+100;Shape+1+Style */
   background: #b7deed;
@@ -9661,7 +9669,7 @@ th.hide-for-touch {
   /* IE6-9 */
 }
 
-/* line 189, ../scss/app.scss */
+/* line 197, ../scss/app.scss */
 .bg-grayscale {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
   background: #ffffff;
@@ -9682,37 +9690,73 @@ th.hide-for-touch {
   /* IE6-9 */
 }
 
-/* line 201, ../scss/app.scss */
+/* line 209, ../scss/app.scss */
 .bg-darkgreen {
   background: rgba(102, 204, 0, 0.5);
 }
 
-/* line 204, ../scss/app.scss */
+/* line 212, ../scss/app.scss */
 .bg-gray {
   background: #cccccc;
 }
 
-/* line 207, ../scss/app.scss */
+/* line 215, ../scss/app.scss */
 .bg-green {
   background: #66cc00;
 }
 
-/* line 210, ../scss/app.scss */
+@media only screen {
+  /* line 219, ../scss/app.scss */
+  .bg-green-hide {
+    height: 0px;
+  }
+}
+@media only screen and (min-width: 40.063em) {
+  /* line 219, ../scss/app.scss */
+  .bg-green-hide {
+    height: 5px;
+  }
+}
+
+/* line 228, ../scss/app.scss */
 .bg-darkgray {
   background: #444444;
 }
 
-/* line 213, ../scss/app.scss */
-.bg-height {
-  height: inherit;
+@media only screen {
+  /* line 231, ../scss/app.scss */
+  .bg-height {
+    height: 200px;
+  }
+}
+@media only screen and (min-width: 64.063em) {
+  /* line 231, ../scss/app.scss */
+  .bg-height {
+    height: inherit;
+  }
 }
 
-/* line 217, ../scss/app.scss */
+@media only screen {
+  /* line 240, ../scss/app.scss */
+  .map-style {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+}
+@media only screen and (min-width: 64.063em) {
+  /* line 240, ../scss/app.scss */
+  .map-style {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
+
+/* line 251, ../scss/app.scss */
 .remove-gutter {
   padding: 0;
 }
 
-/* line 222, ../scss/app.scss */
+/* line 256, ../scss/app.scss */
 .category-box {
   margin: auto;
   background-color: whitesmoke;

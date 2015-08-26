@@ -89,7 +89,7 @@
                             </ul>
                         </section>
                     </nav>
-                    <div class="row header-title bg-green div-shadow" style="height:5px;">
+                    <div class="row header-title bg-green div-shadow bg-green-hide">
                     </div>
                 </div>
             </div>

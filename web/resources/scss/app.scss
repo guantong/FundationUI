@@ -82,6 +82,8 @@
     }
 }
 
+
+
 .text-page-container-header {
     h1 {
         color: #ffffff;
@@ -153,12 +155,18 @@
 }
 
 .map-container {
-    width: 90%;
-    height: 300px;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    @media only screen {
+        width: 100%;
+    } 
+    @media only screen and (min-width: 64.063em) {
+        width: 90%;
+        height: 300px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 20px;
+        margin-bottom: 20px; 
+    }
+
 }
 
 
@@ -207,11 +215,37 @@
 .bg-green {
     background: #66cc00;
 }
+
+.bg-green-hide {
+    @media only screen {
+        height: 0px;
+    } 
+    @media only screen and (min-width: 40.063em) {
+        height: 5px;
+    }
+}
+
 .bg-darkgray {
     background: #444444;
 }
 .bg-height {
-    height: inherit;
+    @media only screen {
+        height: 200px;
+    } 
+    @media only screen and (min-width: 64.063em) {
+        height: inherit;
+    }
+}
+
+.map-style {
+    @media only screen {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    @media only screen and (min-width: 64.063em) {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
 }
 
 .remove-gutter {

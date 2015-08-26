@@ -82,7 +82,7 @@ and open the template in the editor.
         </script>
     </head>
     <body>
-        <div id="map-canvas" class="bg-height" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+        <div id="map-canvas" class="bg-height map-style">
         </div>
         <div style="margin-top: -70px;">
             <a onclick="pan()" class="button round tiny right">
