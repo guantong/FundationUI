@@ -216,15 +216,6 @@
     background: #66cc00;
 }
 
-.bg-green-hide {
-    @media only screen {
-        height: 0px;
-    } 
-    @media only screen and (min-width: 40.063em) {
-        height: 5px;
-    }
-}
-
 .bg-darkgray {
     background: #444444;
 }
@@ -261,6 +252,15 @@
     padding: 20px;
     font-size: 100 px;
     border-radius: 10px;
+}
+
+.hide-small-show-large {
+    @media only screen {
+        display: none;
+    } 
+    @media only screen and (min-width: 40.063em) {
+        display: block;
+    }
 }
 // Or selectively include components
 // @import

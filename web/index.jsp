@@ -18,7 +18,7 @@
         <p> <i class="fi-magnifying-glass"></i> Enter a suburb name or postcode to get the <a href="terminology.jsp">Green rating</a> result of that suburb.
     </div>
     <div class="large-8 columns  bg-height remove-gutter" >
-        <%@ include file="map1.jsp" %>
+        <%@ include file="map.jsp" %>
     </div>
 </div>
 <div class="green-report row" style="z-index: -1;">

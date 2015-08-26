@@ -9705,58 +9705,45 @@ th.hide-for-touch {
   background: #66cc00;
 }
 
-@media only screen {
-  /* line 219, ../scss/app.scss */
-  .bg-green-hide {
-    height: 0px;
-  }
-}
-@media only screen and (min-width: 40.063em) {
-  /* line 219, ../scss/app.scss */
-  .bg-green-hide {
-    height: 5px;
-  }
-}
-
-/* line 228, ../scss/app.scss */
+/* line 219, ../scss/app.scss */
 .bg-darkgray {
   background: #444444;
 }
 
 @media only screen {
-  /* line 231, ../scss/app.scss */
+  /* line 222, ../scss/app.scss */
   .bg-height {
     height: 200px;
   }
 }
 @media only screen and (min-width: 64.063em) {
-  /* line 231, ../scss/app.scss */
+  /* line 222, ../scss/app.scss */
   .bg-height {
     height: inherit;
   }
 }
 
 @media only screen {
-  /* line 240, ../scss/app.scss */
+  /* line 231, ../scss/app.scss */
   .map-style {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
   }
 }
 @media only screen and (min-width: 64.063em) {
-  /* line 240, ../scss/app.scss */
+  /* line 231, ../scss/app.scss */
   .map-style {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
   }
 }
 
-/* line 251, ../scss/app.scss */
+/* line 242, ../scss/app.scss */
 .remove-gutter {
   padding: 0;
 }
 
-/* line 256, ../scss/app.scss */
+/* line 247, ../scss/app.scss */
 .category-box {
   margin: auto;
   background-color: whitesmoke;
@@ -9765,4 +9752,17 @@ th.hide-for-touch {
   padding: 20px;
   font-size: 100 px;
   border-radius: 10px;
+}
+
+@media only screen {
+  /* line 257, ../scss/app.scss */
+  .hide-small-show-large {
+    display: none;
+  }
+}
+@media only screen and (min-width: 40.063em) {
+  /* line 257, ../scss/app.scss */
+  .hide-small-show-large {
+    display: block;
+  }
 }

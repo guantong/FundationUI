@@ -42,14 +42,16 @@
         <div class="bg-img">
             <!-- HEADER -->
             <div class="row bg-grayscale">
-                <center><a href="index.jsp"><img src="resources/images/victogreen_logo_small.png"/></a>
+                <center>
+                    <div class="hide-small-show-large">
+                        <a href="index.jsp"><img src="resources/images/victogreen_logo_small.png"/></a>
+                    </div>
                 </center>
 
                 <div class="contain-to-grid sticky">
                     <nav class="top-bar" id="topbar" data-topbar role="navigation">
                         <ul class="title-area">
                             <li class="name">
-
                                 <!--<h1><a href="index.jsp">VictoGreen</a></h1>-->
                             </li>
                             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
@@ -89,7 +91,7 @@
                             </ul>
                         </section>
                     </nav>
-                    <div class="row header-title bg-green div-shadow bg-green-hide">
+                    <div class="row header-title bg-green div-shadow hide-small-show-large" style="height: 5px;">
                     </div>
                 </div>
             </div>
