@@ -9,10 +9,12 @@ and open the template in the editor.
         <title>Map</title>
         <script src="http://maps.googleapis.com/maps/api/js"></script>
         <script>
+            // declear var
             var map;
             var lat;
             var lon;
 
+            // initialise map
             function initialize() {
                 var mapOptions = {
                     zoom: 14,
@@ -30,11 +32,13 @@ and open the template in the editor.
                     title: 'My Location'
                 });
                 marker.setMap(map);
+                // stop bounce
                 setTimeout(function(){ marker.setAnimation(null); }, 750);
             }
 
             google.maps.event.addDomListener(window, 'load', initialize);
 
+            // shift scrren to current location
             function pan() {
                 getLocation();
                 var panPoint = new google.maps.LatLng(lat.toString(), lon.toString());
@@ -49,7 +53,7 @@ and open the template in the editor.
                 setTimeout(function(){ marker.setAnimation(null); }, 750);
             }
 
-
+            // get current location
             function getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
@@ -57,12 +61,13 @@ and open the template in the editor.
                     x.innerHTML = "Geolocation is not supported by this browser.";
                 }
             }
-
+            
             function showPosition(position) {
                 lat = position.coords.latitude;
                 lon = position.coords.longitude;
             }
 
+            // error handling if user deny location tracking 
             function showError(error) {
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
