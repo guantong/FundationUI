@@ -39,7 +39,7 @@ and open the template in the editor.
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                     styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -100}, {"gamma": 0.5}]}]
                 };
-
+                
                 map = new google.maps.Map(document.getElementById('map-canvas'),
                         mapOptions);
 
