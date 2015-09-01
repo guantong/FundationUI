@@ -6,55 +6,140 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Map</title>
-        <script src="http://maps.googleapis.com/maps/api/js"></script>
-        // Google analytics tracker
-        <script>
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        <title>Place Autocomplete</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            #map {
+                height: 100%;
+            }
+            .controls {
+                margin-top: 10px;
+                border: 1px solid transparent;
+                border-radius: 2px 0 0 2px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                height: 32px;
+                outline: none;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            }
 
-            ga('create', 'UA-39144765-3', 'auto');
-            ga('send', 'pageview');
+            #pac-input {
+                background-color: #fff;
+                font-family: Roboto;
+                font-size: 15px;
+                font-weight: 300;
+                margin-left: 12px;
+                padding: 0 11px 0 13px;
+                text-overflow: ellipsis;
+                width: 300px;
+            }
 
-        </script>
+            #pac-input:focus {
+                border-color: #4d90fe;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <div id="map" class="bg-height map-style">
+        </div>
+        <div style="margin-top: -70px;">
+            <a onclick="pan()" class="button round tiny right">
+                <div style=" font-size: 14px; color: #FFFFFF;">
+                    <i class="fi-target-two"></i>
+                    Your location
+                </div>
+            </a>
+        </div>
         <script>
             var map;
             var lat;
             var lon;
 
-            function initialize() {
+            function initMap() {
                 var mapOptions = {
                     zoom: 14,
-                    center: new google.maps.LatLng(-37.8180819, 144.968177),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -100}, {"gamma": 0.5}]}]
+                    center: new google.maps.LatLng(-37.811129, 144.9627607),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
-
-                map = new google.maps.Map(document.getElementById('map-canvas'),
+                map = new google.maps.Map(document.getElementById('map'),
                         mapOptions);
 
+                var input = /** @type {!HTMLInputElement} */(
+                        document.getElementById('pac-input'));
+
+                var options = {
+                    //SUMAYA: Setting autocomplete options types to "regions" to get cities, suburbs and postal codes
+                    types: ['(regions)'],
+                    //Restrict search to australia. TODO: Victoria only?
+                    componentRestrictions: {country: "au"}
+                };
+
+                //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                var autocomplete = new google.maps.places.Autocomplete(input, options);
+                autocomplete.bindTo('bounds', map);
+
+                var infowindow = new google.maps.InfoWindow();
                 var marker = new google.maps.Marker({
-                    position: mapOptions.center,
-                    animation: google.maps.Animation.BOUNCE,
-                    title: 'My Location'
+                    map: map,
+                    anchorPoint: new google.maps.Point(0, -29)
                 });
-                marker.setMap(map);
-                setTimeout(function () {
-                    marker.setAnimation(null);
-                }, 750);
+
+
+                autocomplete.addListener('place_changed', function () {
+                    infowindow.close();
+                    marker.setVisible(false);
+                    var place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        window.alert("Autocomplete's returned place contains no geometry");
+                        return;
+                    }
+
+
+                    // If the place has a geometry, then present it on a map.
+                    if (place.geometry.viewport) {
+                        map.fitBounds(place.geometry.viewport);
+                    } else {
+                        map.setCenter(place.geometry.location);
+                        map.setZoom(17);  // Why 17? Because it looks good.
+                    }
+                    marker.setIcon(/** @type {google.maps.Icon} */({
+                        url: place.icon,
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(35, 35)
+                    }));
+                    marker.setPosition(place.geometry.location);
+                    marker.setVisible(true);
+
+                    var address = '';
+                    if (place.address_components) {
+                        address = [
+                            (place.address_components[0] && place.address_components[0].short_name || ''),
+                            (place.address_components[1] && place.address_components[1].short_name || ''),
+                            (place.address_components[2] && place.address_components[2].short_name || '')
+                        ].join(' ');
+                    }
+
+                    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+                    infowindow.open(map, marker);
+                });
+
+
+
             }
+            google.maps.event.addDomListener(window, 'load', initMap());
 
-            google.maps.event.addDomListener(window, 'load', initialize);
-
+            // shift map to current location
             function pan() {
                 getLocation();
                 var panPoint = new google.maps.LatLng(lat.toString(), lon.toString());
@@ -71,7 +156,7 @@ and open the template in the editor.
                 }, 750);
             }
 
-
+            // get current location
             function getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
@@ -85,6 +170,7 @@ and open the template in the editor.
                 lon = position.coords.longitude;
             }
 
+            // error handling if user deny location tracking 
             function showError(error) {
                 switch (error.code) {
                     case error.PERMISSION_DENIED:
@@ -101,19 +187,9 @@ and open the template in the editor.
                         break;
                 }
             }
-        </script>
-    </head>
-    <body>
-        <div id="map-canvas" class="bg-height map-style">
-        </div>
-        <div style="margin-top: -70px;">
-            <a onclick="pan()" class="button round tiny right">
-                <div style=" font-size: 14px; color: #FFFFFF;">
-                    <i class="fi-target-two"></i>
-                    Your location
-                </div>
-            </a>
-        </div>
 
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initMap"
+        async defer></script>
     </body>
 </html>

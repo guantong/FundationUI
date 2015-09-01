@@ -9487,7 +9487,7 @@ th.hide-for-touch {
 @media only screen and (max-width: 40em) {
   /* line 55, ../scss/app.scss */
   .name img {
-    height: 35px;
+    height: 3.125rem;
     margin-top: 5px;
     margin-left: 5px;
   }

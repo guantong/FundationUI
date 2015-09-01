@@ -6,35 +6,21 @@
 <!-- END TOP -->
 
 <!-- CONTENT -->
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-    ga('create', 'UA-39144765-3', 'auto');
-    ga('send', 'pageview');
-
-</script>
 
 <div class="row map-container div-shadow" style="z-index: 1000;">
     <div class="large-4 columns bg-darkgreen bg-height">
         <br>
         <div class="large-8 medium-8 small-12 columns">
-            <input type="text" class="prefix" placeholder="Type in postcode or suburb name"/></div>
+            <!-- pac-input functionality is within map2.jsp -->
+            <input id="pac-input" class="controls" type="text"
+               placeholder="Enter a postcode/suburb">
+        </div>
         <div class="large-4 medium-4 small-12 columns"><a href="#" class="button postfix">Go</a></div>
 
         <p> <i class="fi-magnifying-glass"></i> Enter a suburb name or postcode to get the <a href="terminology.jsp">Green rating</a> result of that suburb.
     </div>
     <div class="large-8 columns  bg-height remove-gutter" >
-        <%@ include file="map.jsp" %>
+        <%@ include file="map1.jsp" %>
     </div>
 </div>
 <div class="green-report row" style="z-index: -1;">

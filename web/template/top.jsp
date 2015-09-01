@@ -39,32 +39,50 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     </head>
     <body>
+        <!--Google Analytics Script, must be included on top of each page, thus it is now placed on this header -->
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-39144765-3', 'auto');
+            ga('send', 'pageview');
+
+        </script>
         <div class="bg-img">
             <!-- HEADER -->
             <div class="row bg-grayscale">
                 <center>
-                    <div class="hide-small-show-large">
-                        <a href="index.jsp"><img src="resources/images/victogreen_logo_small.png"/></a>
-                    </div>
+
                 </center>
 
                 <div class="contain-to-grid sticky">
                     <nav class="top-bar" id="topbar" data-topbar role="navigation">
                         <ul class="title-area">
                             <li class="name">
-                                <!--<h1><a href="index.jsp">VictoGreen</a></h1>-->
+                                <div class="hide-small-show-large">
+                                    <a href="index.jsp"><img src="resources/images/victogreen_logo_small.png"/></a>
+                                </div>
+                                <h1>
+                                    <a href="index.jsp">VictoGreen</a>
+                                </h1>
                             </li>
                             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
                             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
                         </ul>
 
-                        <section class="top-bar-section middle">
-                            <!-- Left Nav Section -->
-                            <ul class="left">
-
-                            </ul>
+                        <section class="top-bar-section">
+                            
                             <!-- Right Nav Section -->
-                            <ul class="">
+                            <ul class="right">
                                 <li id="index">
                                     <a href="index.jsp">
                                         <i class="fi-marker"></i>

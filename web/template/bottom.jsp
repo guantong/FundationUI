@@ -52,13 +52,13 @@
 <script src="resources/bower_components/foundation/js/foundation.min.js"></script>
 <script src="resources/js/app.js"></script>
 
-
+<!-- Scroll script to change topbar bg color to fade to white when page is scrolled down. Because it's a sticky menu-->
 <script>
     var topbar, yPos;
 function yScroll(){
     topbar = document.getElementById('topbar');
     yPos = window.pageYOffset;
-    if(yPos > 150){
+    if(yPos > 1){
         topbar.style.backgroundColor = "#ffffff";
     } else {
         topbar.style.backgroundColor = "transparent";
@@ -70,6 +70,6 @@ window.addEventListener("scroll", yScroll);
 
 <!-- Closures from the tags opened in the top.jsp file-->
 
-</div>
+</div> <!-- the bg img div close tag -->
 </body>
 </html>
