@@ -47,17 +47,17 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        <input id="pac-input" class="controls" type="text"
-               placeholder="Enter a location">
+        <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+
         <button onclick="pan()">Track location</button>
+
         <div id="map"></div>
-        <button onclick="pan()">Track location</button>
 
         <script>
             var map;
             var lat;
             var lon;
-            
+
             function initMap() {
                 var mapOptions = {
                     zoom: 14,
@@ -66,6 +66,14 @@ and open the template in the editor.
                 };
                 map = new google.maps.Map(document.getElementById('map'),
                         mapOptions);
+
+                var layer = new google.maps.FusionTablesLayer({
+                    query: {
+                        select: 'geometry',
+                        from: '1eP2GkW0yhBY7r9uZG_LKiV6E7iFqTZgG256sNg6Q'
+                    }
+                });
+                layer.setMap(map);
 
                 var input = /** @type {!HTMLInputElement} */(
                         document.getElementById('pac-input'));
@@ -121,8 +129,9 @@ and open the template in the editor.
                 });
 
             }
+
             google.maps.event.addDomListener(window, 'load', initMap());
-            
+
             // shift map to current location
             function pan() {
                 getLocation();
