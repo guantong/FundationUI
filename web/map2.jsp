@@ -67,10 +67,16 @@ and open the template in the editor.
                 map = new google.maps.Map(document.getElementById('map'),
                         mapOptions);
 
+                // fusion table query and map style
                 var layer = new google.maps.FusionTablesLayer({
                     query: {
-                        select: 'geometry',
-                        from: '1eP2GkW0yhBY7r9uZG_LKiV6E7iFqTZgG256sNg6Q'
+                        select: "col5\x3e\x3e1",
+                        from: "19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc",
+                        where: ""
+                    },
+                    options: {
+                        styleId: 2,
+                        templateId: 2
                     }
                 });
                 layer.setMap(map);
