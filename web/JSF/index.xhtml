@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>VictoGreen:Homepage</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:param name="filename" value="index" />
+            <ui:define name="content">
+                <!-- CONTENT -->
+                <div class="row">
+                    <div class="scene-element default-container bg-grayalpha" id="info">
+                        <p>
+                            The map below shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.jsp">Green Rating</a>. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb.
+                        </p>
+                        <div class="info-close-button" id="info-btn-close">
+                            <a>
+                                <img src="../resources/images/cross.png"/>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="scene-element row map-container div-shadow" style="z-index: 1000;">
+                    <div class="large-4 columns bg-darkgreen bg-height">
+                        <!-- pac-input functionality is within map2.jsp -->
+                        <input id="pac-input" class="controls" type="text"
+                               placeholder="Enter a postcode/suburb"/>
+                        <div class="large-12" >
+                            <p> <i class="fi-magnifying-glass"></i> Enter a suburb name or postcode to get the  result of that suburb.</p>
+                        </div>
+                    </div>
+                    <div class="large-8 columns bg-height remove-gutter" >
+                        <ui:include src="map.xhtml"/>
+                    </div>
+                </div>
+                <div class="green-report row" style="z-index: -1;">
+                    <center>
+                        <h1><span> South Melbourne </span></h1>
+                        <h1> Green Rating </h1>
+                        <h1> <i class="fi-star"></i><i class="fi-star"></i><i class="fi-star"></i><i class="fi-star"></i> </h1>
+                    </center>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="large-3 columns">
+                            <div class="div-shadow category-box">
+                                Category
+                                <h1><i class="fi-graph-bar"> </i></h1>
+                            </div>
+                        </div>
+                        <div class="large-3 columns">
+                            <div class="div-shadow category-box">
+                                Category
+                                <h1><i class="fi-graph-bar"> </i></h1>
+                            </div>
+                        </div>
+                        <div class="large-3 columns">
+                            <div class="div-shadow category-box">
+                                Category
+                                <h1><i class="fi-graph-bar"> </i></h1>
+                            </div>
+                        </div>
+                        <div class="large-3 columns">
+                            <div class="div-shadow category-box">
+                                Category
+                                <h1><i class="fi-graph-bar"> </i></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <script>
+                    $('#info-btn-close').click((function(e) {
+                        //$('#info').toggleClass('scene-exit');
+                        $('#info').slideUp();
+                    }));
+                </script>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

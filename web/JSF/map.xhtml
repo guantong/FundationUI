@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Place Autocomplete</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+        <meta charset="utf-8"/>
+    </h:head>
+    <h:body>
+        <ui:composition>
+        <div id="map" class="bg-height map-style">
+        </div>
+        <div style="margin-top: -60px; margin-right: 50px;">
+            <a onclick="pan()" class="button round tiny right">
+                <div style=" font-size: 14px; color: #FFFFFF;">
+                    <i class="fi-target-two"></i>
+                    Your location
+                </div>
+            </a>    
+        </div>
+        <h:outputScript library="resources" name="js/googlemapscript.js" target="body" />
+
+        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&amp;libraries=places&amp;callback=initMap"
+        async="true" defer="true"></script>
+        </ui:composition>
+    </h:body>
+</html>
+

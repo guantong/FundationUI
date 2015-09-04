@@ -8,7 +8,7 @@ and open the template in the editor.
     <head>
         <title>Place Autocomplete</title>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
+        <meta charset="utf-8"/>
         <style>
             html, body {
                 height: 100%;

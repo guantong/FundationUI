@@ -59,7 +59,7 @@
         </script>
         <div class="bg-img">
             <!-- HEADER -->
-            <div class="row bg-grayscale">
+            <div class="row bg-darkgrayscale">
                 <center>
 
                 </center>

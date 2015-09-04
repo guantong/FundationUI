@@ -17,8 +17,8 @@
 </div>
 <div class="text-page-container">
     <div class="row">
-        <p> Learn more about the terms used in this website at <a href="#">Terminology</a> </p>
-        <p> Browse our <a href="#"> Tips and advice</a> to help better your green act. </p>
+        <p> Learn more about the terms used in this website at <a href="terminology.xhtml">Terminology</a> </p>
+        <p> Browse our <a href="terminology.xhtml"> Tips and advice</a> to help better your green act. </p>
     </div>
 </div>
 

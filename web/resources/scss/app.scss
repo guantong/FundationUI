@@ -1,21 +1,62 @@
 @import "settings";
 @import "foundation";
 
+@mixin resizer($value) {
+    width:  $value px;
+    height: auto;
+}
+
+.logo {
+    margin: 5 auto;
+    .l-art {
+        @media only screen {
+            width: 45px;
+            height: auto;
+        } 
+        @media only screen and (min-width: 64.063em) {
+            width: 70px;
+            height: auto;
+        }
+    }
+    .l-title {
+        @media only screen {
+            width: 100px;
+            height: auto;
+        } 
+        @media only screen and (min-width: 64.063em) {
+            width: 200px;
+            height: auto;
+        }
+    }
+}
+
+.shadowy {
+    //Shadow effects
+    -webkit-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+    -moz-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+    -ms-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+    -o-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+}
 
 @media only screen and (min-width: 40.063em) {
     .top-bar-section {
         li {
-            background: transparent !important; 
+            background: transparent !important;
+            a {
+                text-shadow: rgba(100, 100, 100, 0.5) 0px -1px 0px,
+                    rgba(0, 0, 0, 0.2) 0px 2px 3px;
+            }
         }
     }
     nav.top-bar {
-        text-align:center;
+        //text-align:center;
     }
     section.top-bar-section {
-        display: inline-block;
+        //display: inline-block;
     }
 }
-
+//Used to ease background color change when made by javascript on file
 .top-bar {
     transition: background-color 300ms ease-out;
 }
@@ -28,9 +69,10 @@
 
 .bg-img {
     background-image: url(../images/bg_image.jpg);
-    background-size: cover;
+    background-size: cover; //Slows down scrolling. 
     background-attachment: fixed;
     z-index: -2;
+    background-position: center; 
 }
 
 .div-shadow {
@@ -39,25 +81,6 @@
     box-shadow: 0px 10px 59px -13px rgba(0,0,0,0.75);
 }
 
-@mixin resizer($value) {
-    width:  $value px;
-    height: auto;
-}
-
-@media only screen and (max-width: 40em) {
-    .title-area {
-
-    }
-    .name {
-
-    }
-
-    .name img {
-        height:rem-calc(50);
-        margin-top:5px;
-        margin-left:5px;
-    }
-}
 
 .name img {
 
@@ -70,8 +93,6 @@
     //-moz-box-shadow: 0px 0px 21px 1px rgba(128,128,128,1);
     //box-shadow: 0px 0px 21px 1px rgba(128,128,128,1);
     //background-color: #ffffff;
-
-
     margin-left: auto;
     margin-right: auto;
     @media only screen {
@@ -82,17 +103,15 @@
     }
 }
 
-
-
 .text-page-container-header {
     h1 {
         color: #ffffff;
         font-size: 30pt;
-        text-shadow: 0px 2px 2px #000000;
+        text-shadow: 0px 1px 1px #444444;
     }
     margin-left: auto;
     margin-right: auto;
-    padding: 20px;
+    padding: 5px;
     @media only screen {
         width: 100%;
     }
@@ -114,6 +133,41 @@
         width: 90%;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
+    }
+}
+
+.default-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    position: relative;
+    p {
+        color: white;
+    }
+    @media only screen {
+        width: 100%;
+    } 
+    @media only screen and (min-width: 64.063em) {
+        width: 90%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+}
+
+.info-close-button {
+    top: 5px;
+    right: 5px;
+    position: absolute;
+    a {
+        color: white;
+        font-style: normal;
+        img {
+            width: 20px;
+            height: 20px;
+            -webkit-filter: invert(100%);
+        }
     }
 }
 
@@ -149,12 +203,9 @@
 }
 
 
-.header-title h1 {
-    padding: 0.1rem;
-    font-size: rem-calc(34);
-}
-
 .map-container {
+    margin-left: auto;
+    margin-right: auto;
     @media only screen {
         width: 100%;
     } 
@@ -206,9 +257,32 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
 }
 
+.bg-darkgrayscale {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+    background: #45484d; /* Old browsers */
+    background: -moz-linear-gradient(top,  #45484d 0%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #45484d 0%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #45484d 0%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #45484d 0%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+}
+
 .bg-darkgreen {
     background: rgba(102.0, 204.0, 0.0, 0.5);
 }
+
+.bg-grayalpha {
+    background: rgba(0.0,0.0,0.0, 0.2);
+}
+
+
+.bg-whitealpha {
+    background: rgba(255,255,255, 0.1);
+}
+
 .bg-gray {
     background: #cccccc;
 }

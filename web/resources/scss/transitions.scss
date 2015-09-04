@@ -1,0 +1,15 @@
+.scene-element{
+    animation-duration: 0.5s;
+    transition-timing-function: ease-in;
+    animation-fill-mode: both;
+}
+.scene-enter {
+    animation-name: fadeInUp;
+}
+.scene-exit {
+    animation-name: fadeOut;
+}
+
+.display-none {
+    display: none;
+}

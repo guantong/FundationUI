@@ -1,0 +1,21 @@
+/* line 1, ../scss/transitions.scss */
+.scene-element {
+  animation-duration: 0.5s;
+  transition-timing-function: ease-in;
+  animation-fill-mode: both;
+}
+
+/* line 6, ../scss/transitions.scss */
+.scene-enter {
+  animation-name: fadeInUp;
+}
+
+/* line 9, ../scss/transitions.scss */
+.scene-exit {
+  animation-name: fadeOut;
+}
+
+/* line 13, ../scss/transitions.scss */
+.display-none {
+  display: none;
+}
