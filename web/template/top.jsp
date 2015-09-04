@@ -53,7 +53,7 @@
                 m.parentNode.insertBefore(a, m)
             })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-            ga('create', 'UA-39144765-3', 'auto');
+            ga('create', 'UA-67009286-1', 'auto');
             ga('send', 'pageview');
 
         </script>
@@ -80,7 +80,7 @@
                         </ul>
 
                         <section class="top-bar-section">
-                            
+
                             <!-- Right Nav Section -->
                             <ul class="right">
                                 <li id="index">
