@@ -142,7 +142,6 @@ and open the template in the editor.
                         styleId: 2,
                         templateId: 2
                     }
-                    //map: map
                 });
                 layer.setMap(map);
 
@@ -251,16 +250,7 @@ and open the template in the editor.
                 }
             }
 
-
-            // query data and visualize data
-
         </script>
-       
-        </script>
-
-
-
-
 
         <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
 
@@ -297,7 +287,7 @@ and open the template in the editor.
                       style="background-color: #38761d"></span>
                 <span class="googft-legend-range">4 to 5</span>
             </div>
-            
+
             <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
         </div>
     </body>
