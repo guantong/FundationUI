@@ -9,6 +9,12 @@ and open the template in the editor.
         <title>Place Autocomplete</title>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
+
+        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initMap"
+        async defer></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
         <style>
             html, body {
                 height: 100%;
@@ -44,15 +50,66 @@ and open the template in the editor.
                 border-color: #4d90fe;
             }
 
+            #googft-legend{
+                background-color:#fff;
+                border:1px solid #000;
+                font-family:Arial,sans-serif;
+                font-size:12px;
+                margin:5px;
+                padding:10px 10px 8px
+            }
+
+            #googft-legend p{
+                font-weight:bold;
+                margin-top:0
+            }
+
+            #googft-legend div{
+                margin-bottom:5px
+            }
+
+            .googft-legend-swatch{
+                border:1px solid;
+                float:left;
+                height:12px;
+                margin-right:8px;
+                width:20px
+            }
+
+            .googft-legend-range
+            {
+                margin-left:0
+            }
+
+            .googft-dot-icon
+            {
+                margin-right:8px
+            }
+
+            .googft-paddle-icon
+            {
+                height:24px;
+                left:-8px;
+                margin-right:-8px;
+                position:relative;
+                vertical-align:middle;
+                width:24px
+            }
+
+            .googft-legend-source
+            {
+                margin-bottom:0;
+                margin-top:8px
+            }
+
+            .googft-legend-source a
+            {
+                color:#666;
+                font-size:11px
+            }
         </style>
     </head>
     <body>
-        <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
-
-        <button onclick="pan()">Track location</button>
-
-        <div id="map"></div>
-
         <script>
             var map;
             var lat;
@@ -60,24 +117,32 @@ and open the template in the editor.
 
             function initMap() {
                 var mapOptions = {
-                    zoom: 14,
+                    zoom: 12,
                     center: new google.maps.LatLng(-37.811129, 144.9627607),
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 };
                 map = new google.maps.Map(document.getElementById('map'),
                         mapOptions);
 
+
+                map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open'));
+                map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
+
                 // fusion table query and map style
                 var layer = new google.maps.FusionTablesLayer({
+                    heatmap: {
+                        enabled: false
+                    },
                     query: {
                         select: "col5\x3e\x3e1",
                         from: "19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc",
-                        where: ""
+                        where: "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9"
                     },
                     options: {
                         styleId: 2,
                         templateId: 2
                     }
+                    //map: map
                 });
                 layer.setMap(map);
 
@@ -133,7 +198,6 @@ and open the template in the editor.
                     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
                     infowindow.open(map, marker);
                 });
-
             }
 
             google.maps.event.addDomListener(window, 'load', initMap());
@@ -187,8 +251,54 @@ and open the template in the editor.
                 }
             }
 
+
+            // query data and visualize data
+
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initMap"
-        async defer></script>
+       
+        </script>
+
+
+
+
+
+        <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+
+        <button onclick="pan()">Track location</button>
+
+        <div id="map"></div>
+
+        <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
+
+        <div id="googft-legend">
+            <p id="googft-legend-title">Overall Rating</p>
+            <div>
+                <span class="googft-legend-swatch" 
+                      style="background-color: #ffffff"></span>
+                <span class="googft-legend-range">0 to 1</span>
+            </div>
+            <div>
+                <span class="googft-legend-swatch" 
+                      style="background-color: #ff9900"></span>
+                <span class="googft-legend-range">1 to 2</span>
+            </div>
+            <div>
+                <span class="googft-legend-swatch" 
+                      style="background-color: #93c47d"></span>
+                <span class="googft-legend-range">2 to 3</span>
+            </div>
+            <div>
+                <span class="googft-legend-swatch" 
+                      style="background-color: #6aa84f"></span>
+                <span class="googft-legend-range">3 to 4</span>
+            </div>
+            <div>
+                <span class="googft-legend-swatch" 
+                      style="background-color: #38761d"></span>
+                <span class="googft-legend-range">4 to 5</span>
+            </div>
+            
+            <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
+        </div>
     </body>
 </html>
