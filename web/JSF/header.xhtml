@@ -1,5 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+Header file to be rendered on all pages using the template.
+Includes Google analytics script, navigation bar
+-->
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
@@ -28,24 +33,22 @@
 
             </script>
             <!-- HEADER -->
+            <!-- Background color for header -->
             <div class="bg-whitealpha">
-                <div class="contain-to-grid default-container remove-gutter">
+                <div class="contain-to-grid container remove-gutter">
                     <nav class="top-bar" id="topbar" data-topbar="true" role="navigation">
                         <ul class="title-area">
                             <li class="name">
                                 <div class="logo">
                                     <a href="index.xhtml">
                                         <img class="shadowy l-art" src="../resources/images/VG_logo_leaves_WEB_LOGO.png" alt=""/><img class="shadowy l-title" src="../resources/images/Green_Logo_WEB_TITLE.png" alt=""/>
-
                                     </a>
                                 </div>
                             </li>
                             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
                             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
                         </ul>
-
                         <section class="top-bar-section">
-
                             <!-- Right Nav Section -->
                             <ul class="right">
                                 <li id="index">
@@ -98,7 +101,7 @@
                             //store the href for the clicked element
                             href = t.href;
 
-                    //prevent the default behavior
+                    //prevent the default behavior (dont redirect right away)
                     e.preventDefault();
 
                     //apply the fade out transition class to the parent ul element
@@ -111,8 +114,10 @@
                 });
             </script>
 
-            <!-- Scroll script to change topbar bg color to fade to white when page is scrolled down. Because it's a sticky menu-->
+
             <script>
+                /* Scroll script to change topbar bg color to fade to white when page is scrolled down. Because it's a sticky menu*/
+                /* Only uncomment if topbar has "sticky" class */
                 /*
                  var topbar, yPos;
                  function yScroll() {
