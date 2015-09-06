@@ -1,13 +1,17 @@
 @import "settings";
 @import "foundation";
 
+
+//mixin resizes width and height of element
 @mixin resizer($value) {
     width:  $value px;
     height: auto;
 }
-
+/* HEADER CSS */
+//topbar logo.
 .logo {
     margin: 5 auto;
+    // l-art for logo design image 
     .l-art {
         @media only screen {
             width: 45px;
@@ -18,6 +22,7 @@
             height: auto;
         }
     }
+    //and l-title for the title image
     .l-title {
         @media only screen {
             width: 100px;
@@ -30,15 +35,7 @@
     }
 }
 
-.shadowy {
-    //Shadow effects
-    -webkit-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
-    -moz-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
-    -ms-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
-    -o-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
-    filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
-}
-
+//topbar adjustments
 @media only screen and (min-width: 40.063em) {
     .top-bar-section {
         li {
@@ -60,39 +57,76 @@
 .top-bar {
     transition: background-color 300ms ease-out;
 }
-.bg-pattern-img {
-    /*http://subtlepatterns.com/concrete-seamless/*/
-    background-image: url(../images/concrete_seamless.png);
-    background-repeat:repeat;
-    background-attachment: fixed;
-}
 
-.bg-img {
-    background-image: url(../images/bg_image.jpg);
-    background-size: cover; //Slows down scrolling. 
-    background-attachment: fixed;
-    z-index: -2;
-    background-position: center; 
-}
 
+/* GENERAL CSS */
+//Shadow effects to be applied on images (like the logo image, follows path of png if transperant)
+.shadowy {
+    -webkit-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+    -moz-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+    -ms-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+    -o-filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+}
+//Applies shadow to divs
 .div-shadow {
     -webkit-box-shadow: 0 8px 6px -6px black;
     -moz-box-shadow: 0 8px 6px -6px black;
     box-shadow: 0px 10px 59px -13px rgba(0,0,0,0.75);
 }
-
-
-.name img {
-
-    margin-left:20px;
-
+//background height
+.bg-height {
+    .left-bar {
+        height: inherit;
+    }
+    .right-bar {
+        @media only screen {
+            height: 200px; //used on map to retain this height on small 
+        } 
+        @media only screen and (min-width: 64.063em) {
+            height: inherit;
+        } 
+    }
 }
 
+// Used for to place the close info button image to top right, and invert color from black to white.
+.info-close-button {
+    top: 5px;
+    right: 5px;
+    position: absolute;
+    a {
+        color: white;
+        font-style: normal;
+        img {
+            width: 20px;
+            height: 20px;
+            -webkit-filter: invert(100%);
+        }
+    }
+}
+
+
+/* UTILITIES */
+.remove-gutter {
+    padding: 0;
+}
+
+
+.hide-small-show-large {
+    @media only screen {
+        display: none;
+    } 
+    @media only screen and (min-width: 40.063em) {
+        display: block;
+    }
+}
+
+/* CONTAINERS */
+// Styled containers for content of different purposes
+
+
+//General use container to horizontally align to middle, shows at 90 percent screen width large screens. andfull width on small screens.
 .container {
-    //-webkit-box-shadow: 0px 0px 21px 1px rgba(128,128,128,1);
-    //-moz-box-shadow: 0px 0px 21px 1px rgba(128,128,128,1);
-    //box-shadow: 0px 0px 21px 1px rgba(128,128,128,1);
-    //background-color: #ffffff;
     margin-left: auto;
     margin-right: auto;
     @media only screen {
@@ -103,6 +137,8 @@
     }
 }
 
+
+// DEFAULT PAGE PART A: Secondary header for page title, has top corners rounded. Place on top of a "text-page-container"
 .text-page-container-header {
     h1 {
         color: #ffffff;
@@ -121,6 +157,8 @@
         border-top-right-radius: 10px;
     }
 }
+
+// DEFAULT PAGE PART B: Content container for to be placed under "text-page-container-header" , has bottom corners rounded
 .text-page-container {
     background-color: #ffffff;
     margin-left: auto;
@@ -135,7 +173,7 @@
         border-bottom-right-radius: 10px;
     }
 }
-
+// Container with padding and rounded corners.
 .default-container {
     margin-left: auto;
     margin-right: auto;
@@ -156,21 +194,41 @@
     }
 }
 
-.info-close-button {
-    top: 5px;
-    right: 5px;
-    position: absolute;
-    a {
-        color: white;
-        font-style: normal;
-        img {
-            width: 20px;
-            height: 20px;
-            -webkit-filter: invert(100%);
-        }
+/* MAP PAGE CSS */
+//For the index page map container to include Google maps (using overflow: hidden for radius hiding)
+.map-container {
+    margin-left: auto;
+    margin-right: auto;
+    @media only screen {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    } 
+    @media only screen and (min-width: 64.063em) {
+        width: 90%;
+        height: 300px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 20px;
+        margin-bottom: 20px; 
+    }
+
+}
+
+//For google maps, reapply radius to corners but hide on small screens
+.map-style {
+    @media only screen {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    @media only screen and (min-width: 64.063em) {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 }
 
+
+/* GREEN REPORT specific CSS */
 .green-report {
     h1 {
         color: #66cc00;
@@ -185,6 +243,19 @@
         font-size: 40px;
     }
 }
+
+
+.category-box {
+    margin: auto;
+    background-color: whitesmoke;
+    height: 200px;
+    width: 100%;
+    padding: 20px;
+    font-size: 100 px;
+    border-radius: 10px;
+}
+
+/* FOOTER CSS */
 .left-border {
     border-left: 1px solid black;
 }
@@ -203,25 +274,24 @@
 }
 
 
-.map-container {
-    margin-left: auto;
-    margin-right: auto;
-    @media only screen {
-        width: 100%;
-    } 
-    @media only screen and (min-width: 64.063em) {
-        width: 90%;
-        height: 300px;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-top: 20px;
-        margin-bottom: 20px; 
-    }
 
+/* Background images CSS */
+.bg-pattern-img {
+    /*http://subtlepatterns.com/concrete-seamless/*/
+    background-image: url(../images/concrete_seamless.png);
+    background-repeat:repeat;
+    background-attachment: fixed;
 }
 
+.bg-img {
+    background-image: url(../images/bg_image.jpg);
+    background-size: cover; //Slows down scrolling. 
+    background-attachment: fixed;
+    z-index: -2;
+    background-position: center; 
+}
 
-
+/* Background colors CSS */
 .bg-greenscale {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#66cc00+0,8ab66b+44,398235+100 */
     background: #66cc00; /* Old browsers */
@@ -293,49 +363,7 @@
 .bg-darkgray {
     background: #444444;
 }
-.bg-height {
-    @media only screen {
-        height: 200px;
-    } 
-    @media only screen and (min-width: 64.063em) {
-        height: inherit;
-    }
-}
 
-.map-style {
-    @media only screen {
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
-    }
-    @media only screen and (min-width: 64.063em) {
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-}
-
-.remove-gutter {
-    padding: 0;
-}
-
-
-.category-box {
-    margin: auto;
-    background-color: whitesmoke;
-    height: 200px;
-    width: 100%;
-    padding: 20px;
-    font-size: 100 px;
-    border-radius: 10px;
-}
-
-.hide-small-show-large {
-    @media only screen {
-        display: none;
-    } 
-    @media only screen and (min-width: 40.063em) {
-        display: block;
-    }
-}
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",

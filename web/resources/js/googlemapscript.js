@@ -4,15 +4,42 @@ var lon;
 
 function initMap() {
     var mapOptions = {
-        zoom: 14,
+        zoom: 12,
         center: new google.maps.LatLng(-37.811129, 144.9627607),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        // Setting Map style to grayscale [SUMAYA]
+        styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -100}, {"gamma": 0.5}]}]
     };
     map = new google.maps.Map(document.getElementById('map'),
             mapOptions);
 
+    //Commented out to be placed using CSS in index page. [SUMAYA]
+    //map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open'));
+    //map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
+
+    // fusion table query and map style
+    var layer = new google.maps.FusionTablesLayer({
+        heatmap: {
+            enabled: false
+        },
+        query: {
+            select: "col5\x3e\x3e1",
+            from: "19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc",
+            where: "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9"
+        },
+        options: {
+            styleId: 2,
+            templateId: 2
+        }
+        //map: map
+    });
+    layer.setMap(map);
+
     var input = /** @type {!HTMLInputElement} */(
             document.getElementById('pac-input'));
+    /* Commented out because the CSS in index.xhtml deals with locatino of this element [SUMAYA]*/
+
+    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     var options = {
         //SUMAYA: Setting autocomplete options types to "regions" to get cities, suburbs and postal codes
@@ -21,9 +48,7 @@ function initMap() {
         componentRestrictions: {country: "au"}
     };
 
-    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    var autocomplete = new google.maps.places.Autocomplete(input, options); // Passing the autocomplete options here [SUMAYA]
     autocomplete.bindTo('bounds', map);
 
     var infowindow = new google.maps.InfoWindow();
@@ -31,7 +56,6 @@ function initMap() {
         map: map,
         anchorPoint: new google.maps.Point(0, -29)
     });
-
 
     autocomplete.addListener('place_changed', function () {
         infowindow.close();
@@ -41,7 +65,6 @@ function initMap() {
             window.alert("Autocomplete's returned place contains no geometry");
             return;
         }
-
 
         // If the place has a geometry, then present it on a map.
         if (place.geometry.viewport) {
@@ -72,10 +95,8 @@ function initMap() {
         infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
         infowindow.open(map, marker);
     });
-
-
-
 }
+
 google.maps.event.addDomListener(window, 'load', initMap());
 
 // shift map to current location
@@ -126,3 +147,4 @@ function showError(error) {
             break;
     }
 }
+
