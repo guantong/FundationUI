@@ -6814,8 +6814,8 @@ table tr td {
 }
 /* line 113, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
 meta.foundation-mq-topbar {
-  font-family: "/only screen and (min-width:40.0625em)/";
-  width: 40.0625em;
+  font-family: "/only screen and (min-width:800px)/";
+  width: 800px;
 }
 
 /* Wrapped around .top-bar to contain to grid width */
@@ -7342,7 +7342,7 @@ meta.foundation-mq-topbar {
   display: block;
 }
 
-@media only screen and (min-width: 40.0625em) {
+@media only screen and (min-width: 800px) {
   /* line 492, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
   .top-bar {
     background: none;
