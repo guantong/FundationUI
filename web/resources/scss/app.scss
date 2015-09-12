@@ -74,7 +74,7 @@
     -moz-box-shadow: 0 8px 6px -6px black;
     box-shadow: 0px 10px 59px -13px rgba(0,0,0,0.75);
 }
-//background height
+//background height (retains height used for the map and search bar)
 .bg-height {
     .left-bar {
         height: inherit;
@@ -206,7 +206,7 @@
     } 
     @media only screen and (min-width: 64.063em) {
         width: 90%;
-        height: 300px;
+        height: 550px;
         border-radius: 10px;
         overflow: hidden;
         margin-top: 20px;

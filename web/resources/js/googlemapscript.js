@@ -14,8 +14,8 @@ function initMap() {
             mapOptions);
 
     //Commented out to be placed using CSS in index page. [SUMAYA]
-    //map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open'));
-    //map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend-open'));
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend'));
 
     // fusion table query and map style
     var layer = new google.maps.FusionTablesLayer({

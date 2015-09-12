@@ -9674,7 +9674,7 @@ th.hide-for-touch {
   /* line 199, ../scss/app.scss */
   .map-container {
     width: 90%;
-    height: 300px;
+    height: 550px;
     border-radius: 10px;
     overflow: hidden;
     margin-top: 20px;

@@ -11,22 +11,8 @@
             <ui:param name="filename" value="index" />
             <ui:define name="content">
                 <!-- CONTENT -->
-                <div class="row">
-                    <div class="scene-element default-container bg-grayalpha" id="info">
-                        <p>
-                            The map below shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb.
-                        </p>
-                        <div class="info-close-button" id="info-btn-close">
-                            <a>
-                                <img src="resources/images/cross.png"/>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
                 <div class="scene-element row map-container div-shadow bg-height" style="z-index: 1000;">
-                    <div class="large-4 columns bg-darkgreen  left-bar">
+                    <div class="large-3 columns bg-darkgreen  left-bar">
 
                         <!-- The following components need "googlemapscript" which is currently being included from map.xhtml. -->
                         <!-- SEARCH BAR -->
@@ -34,6 +20,21 @@
                                placeholder="Enter a postcode/suburb"/>
 
                         <!-- END OF SEARCH BAR-->
+
+                        <!-- MAP CONTROLS -->
+                        <div class="row">
+                            <div class="large-12 columns category-button">
+                                <p> Select a specific category to load relevant map overlay: </p>
+                                <a class="button round small">Overall</a>
+                                <a class="button round small">Water</a>
+                                <a class="button round small">Solar</a>
+                                <a class="button round small">Land</a>
+                                <a class="button round small">Air</a>
+                                <a class="button round small">Forest</a>
+                                <a class="button round small">Parks</a>
+                            </div>
+                        </div>
+                        <!-- END OF MAP CONTROLS -->
 
                         <!-- MAP LEGEND -->
                         <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
@@ -77,10 +78,31 @@
 
 
                     </div>
-                    <div class="large-8 columns bg-height remove-gutter bg-height right-bar" >
+                    <div class="large-9 columns bg-height remove-gutter right-bar" >
                         <ui:include src="map.xhtml"/>
                     </div>
                 </div>
+
+
+
+                <!-- MAP TIPS -->
+                <div class="scene-element default-container bg-grayalpha" id="info">
+                    <p>
+                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb.
+                    </p>
+                    <div class="info-close-button" id="info-btn-close">
+                        <a>
+                            <img src="resources/images/cross.png"/>
+                        </a>
+                    </div>
+                </div>
+                <!-- END OF MAP TIPS -->
+
+
+
+
+
+                <!-- GREEN REPORT SECTION -->
                 <div class="green-report row" style="z-index: -1;">
                     <center>
                         <h1><span> South Melbourne </span></h1>
@@ -149,6 +171,8 @@
                     </div>
                 </div>
 
+                <div id="result"></div>
+
                 <script>
                     $('#info-btn-close').click((function (e) {
                         //$('#info').toggleClass('scene-exit');
@@ -156,147 +180,8 @@
                     }));
                 </script>
 
-
-
-
-
                 <!-- TEMPORARY: CHARTS FOR DEMO -->
-                <script>
-                    google.load("visualization", "1", {packages: ["corechart"]});
-                    google.setOnLoadCallback(drawChart);
-                    function drawChart() {
-                        var data = google.visualization.arrayToDataTable([
-                            ["Area", "Rating", {role: "style"}],
-                            ["South Melbourne", 2.5, "#66cc00"],
-                            ["Average", 3.5, "#338822"]
-                        ]);
-
-                        var view = new google.visualization.DataView(data);
-                        view.setColumns([0, 1,
-                            {calc: "stringify",
-                                sourceColumn: 1,
-                                type: "string",
-                                role: "annotation"},
-                            2]);
-
-                        var options = {
-                            backgroundColor: {fill: 'transparent'},
-                            bar: {groupWidth: "70%"},
-                            legend: {position: "none"},
-                        };
-                        var chart = new google.visualization.BarChart(document.getElementById("forest"));
-                        chart.draw(view, options);
-
-                        var data = google.visualization.arrayToDataTable([
-                            ["Area", "Rating", {role: "style"}],
-                            ["Suburb", 2.5, "#66cc00"],
-                            ["Average", 3.5, "#338822"]
-                        ]);
-
-                        var view = new google.visualization.DataView(data);
-                        view.setColumns([0, 1,
-                            {calc: "stringify",
-                                sourceColumn: 1,
-                                type: "string",
-                                role: "annotation"},
-                            2]);
-
-                        var options = {
-                            backgroundColor: {fill: 'transparent'},
-                            bar: {groupWidth: "70%"},
-                            legend: {position: "none"},
-                        };
-                        var chart = new google.visualization.BarChart(document.getElementById("park"));
-                        chart.draw(view, options);
-
-                        var data = google.visualization.arrayToDataTable([
-                            ["Area", "Rating", {role: "style"}],
-                            ["Suburb", 3.0, "#66cc00"],
-                            ["Average", 3.0, "#338822"]
-                        ]);
-
-                        var view = new google.visualization.DataView(data);
-                        view.setColumns([0, 1,
-                            {calc: "stringify",
-                                sourceColumn: 1,
-                                type: "string",
-                                role: "annotation"},
-                            2]);
-
-                        var options = {
-                            backgroundColor: {fill: 'transparent'},
-                            bar: {groupWidth: "70%"},
-                            legend: {position: "none"},
-                        };
-                        var chart = new google.visualization.BarChart(document.getElementById("air"));
-                        chart.draw(view, options);
-
-                        var data = google.visualization.arrayToDataTable([
-                            ["Area", "Rating", {role: "style"}],
-                            ["Suburb", 4, "#66cc00"],
-                            ["Average", 3.5, "#338822"]
-                        ]);
-                        var data = google.visualization.arrayToDataTable([
-                            ["Area", "Rating", {role: "style"}],
-                            ["Suburb", 2.5, "#66cc00"],
-                            ["Average", 2.0, "#338822"]
-                        ]);
-
-                        var view = new google.visualization.DataView(data);
-                        view.setColumns([0, 1,
-                            {calc: "stringify",
-                                sourceColumn: 1,
-                                type: "string",
-                                role: "annotation"},
-                            2]);
-
-                        var options = {
-                            backgroundColor: {fill: 'transparent'},
-                            bar: {groupWidth: "70%"},
-                            legend: {position: "none"},
-                        };
-                        var chart = new google.visualization.BarChart(document.getElementById("land"));
-                        chart.draw(view, options);
-
-                        var view = new google.visualization.DataView(data);
-                        view.setColumns([0, 1,
-                            {calc: "stringify",
-                                sourceColumn: 1,
-                                type: "string",
-                                role: "annotation"},
-                            2]);
-
-                        var options = {
-                            backgroundColor: {fill: 'transparent'},
-                            bar: {groupWidth: "70%"},
-                            legend: {position: "none"},
-                        };
-                        var chart = new google.visualization.BarChart(document.getElementById("water"));
-                        chart.draw(view, options);
-
-                        var data = google.visualization.arrayToDataTable([
-                            ["Area", "Rating", {role: "style"}],
-                            ["Suburb", 4.5, "#66cc00"],
-                            ["Average", 3.5, "#338822"]
-                        ]);
-
-                        var view = new google.visualization.DataView(data);
-                        view.setColumns([0, 1,
-                            {calc: "stringify",
-                                sourceColumn: 1,
-                                type: "string",
-                                role: "annotation"},
-                            2]);
-
-                        var options = {
-                            backgroundColor: {fill: 'transparent'},
-                            bar: {groupWidth: "70%"},
-                            legend: {position: "none"},
-                        };
-                        var chart = new google.visualization.BarChart(document.getElementById("solar"));
-                        chart.draw(view, options);
-                    }
-                </script>
+                <script src="resources/js/greenreportscript.js"></script>
             </ui:define>
         </ui:composition>
     </h:body>
