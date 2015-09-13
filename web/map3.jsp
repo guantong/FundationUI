@@ -122,6 +122,9 @@ and open the template in the editor.
             var data;
             var rows;
             var charts;
+            var categories;
+            var rating;
+            var value;
 
             setTimeout(function () {
                 google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
@@ -165,12 +168,13 @@ and open the template in the editor.
                 google.maps.event.addListener(layer, 'click', function (e) {
 
                     data = new google.visualization.DataTable();
-                    data.addColumn('string', 'Water Consumption Rating');
-                    data.addColumn('number', 'Rating');
+                    data.addColumn('string', 'Rating 0 - 5');
+                    data.addColumn('number', 'Categories');
+                    categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
                     rows = [];
-                    for (var i = 0; i <= 5; i += 1) {
-                        var rating = i.toString();
-                        var value = parseFloat(e.row['Water Consumption Rating'].value, 0);
+                    for (var i = 0; i <= 7; i += 1) {
+                        var rating = categories[i];
+                        var value = parseFloat(e.row[rating.toString()].value, 0);
                         rows.push([rating, value]);
                     }
 
@@ -180,9 +184,18 @@ and open the template in the editor.
                             document.getElementById('chart'));
 
                     var options = {
-                        title: e.row['Water Consumption Rating'].value + ' Rating',
+                        title: e.row['Suburb Name'].value + ' Green Rating Detail',
                         height: 400,
-                        width: 600
+                        width: 600,
+                        // set max vAxis to 5 as highest rating
+                        hAxis: {
+                            title: "Rating",
+                            viewWindowMode: 'explicit',
+                            viewWindow: {
+                                max: 5,
+                                min: 0
+                            }
+                        }
                     };
                     charts.draw(data, options);
                 });
