@@ -10,12 +10,8 @@ and open the template in the editor.
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
 
-        <script src="https://maps.googleapis.com/maps/api/js?signed_in=false&libraries=places&callback=initMap"
-        async defer></script>
-        <script type="text/javascript"
-        <!--src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
+        <script src="https://maps.googleapis.com/maps/api/js?signed_in=false&libraries=places&callback=initMap" async defer></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
         <style>
@@ -124,8 +120,11 @@ and open the template in the editor.
             var lat;
             var lon;
 
+//            google.load('visualization', '1', {packages: ['corechart']});
             function initMap() {
+
                 google.maps.visualRefresh = true;
+
                 var mapOptions = {
                     zoom: 12,
                     center: new google.maps.LatLng(-37.811129, 144.9627607),
@@ -139,7 +138,7 @@ and open the template in the editor.
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
 
                 // fusion table query and map style
-                var layer = new google.maps.FusionTablesLayer({
+                var layer1 = new google.maps.FusionTablesLayer({
                     heatmap: {
                         enabled: false
                     },
@@ -151,15 +150,15 @@ and open the template in the editor.
                     options: {
                         styleId: 2,
                         templateId: 2
-                    }
+                    },
+                    map: map
                 });
-                layer.setMap(map);
 
                 // Add a listener to the layer that constructs a chart from
                 // the data returned on click
-                google.maps.event.addListener(layer, 'click', function (e) {
+                google.maps.event.addListener(layer1, 'click', function(e) {
 
-                    var data = new google.visualization.DataTable();
+                    var data = new google.visualization.DataTable(e)();
                     data.addColumn('string', 'Water Consumption Rating');
                     data.addColumn('number', 'Rating');
                     var rows = [];
@@ -171,7 +170,7 @@ and open the template in the editor.
 
                     data.addRows(rows);
 
-                    var chart = new google.visualization.LineChart(
+                    var chart = new google.visualization.BarChart()(
                             document.getElementById('chart'));
 
                     var options = {
