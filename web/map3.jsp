@@ -121,11 +121,12 @@ and open the template in the editor.
             var lon;
             var data;
             var rows;
+            var charts;
 
-            function loadApi() {
-                google.load("visualization", "1", {"callback": pageLoaded});
-            }
-
+            setTimeout(function () {
+                google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
+            }, 100);
+            
             function initMap() {
 
                 google.maps.visualRefresh = true;
@@ -175,7 +176,7 @@ and open the template in the editor.
 
                     data.addRows(rows);
 
-                    var chart = new google.visualization.BarChart()(
+                    charts = new google.visualization.BarChart()(
                             document.getElementById('chart'));
 
                     var options = {
@@ -183,7 +184,7 @@ and open the template in the editor.
                         height: 400,
                         width: 600
                     };
-                    chart.draw(data, options);
+                    charts.draw(data, options);
                 });
 
                 var input = /** @type {!HTMLInputElement} */(
