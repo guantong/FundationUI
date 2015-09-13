@@ -119,7 +119,7 @@ and open the template in the editor.
             var map;
             var lat;
             var lon;
-            var data;
+            var data = null;
             var rows;
             var charts;
             var categories;
@@ -137,7 +137,9 @@ and open the template in the editor.
                 var mapOptions = {
                     zoom: 12,
                     center: new google.maps.LatLng(-37.811129, 144.9627607),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    disableDoubleClickZoom: true,
+                    scrollwheel: false
                 };
                 map = new google.maps.Map(document.getElementById('map'),
                         mapOptions);
@@ -167,6 +169,8 @@ and open the template in the editor.
                 // the data returned on click
                 google.maps.event.addListener(layer, 'click', function (e) {
 
+                if (data == null)
+                {
                     data = new google.visualization.DataTable();
                     data.addColumn('string', 'Rating 0 - 5');
                     data.addColumn('number', 'Categories');
@@ -179,6 +183,7 @@ and open the template in the editor.
                     }
 
                     data.addRows(rows);
+                
 
                     charts = new google.visualization.BarChart(
                             document.getElementById('chart'));
@@ -197,7 +202,45 @@ and open the template in the editor.
                             }
                         }
                     };
+                
                     charts.draw(data, options);
+                }
+                else {
+                    
+                    data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Rating 0 - 5');
+                    data.addColumn('number', 'Categories');
+                    categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
+                    rows = [];
+                    for (var i = 0; i <= 7; i += 1) {
+                        var rating = categories[i];
+                        var value = parseFloat(e.row[rating.toString()].value, 0);
+                        rows.push([rating, value]);
+                    }
+
+                    data.addRows(rows);
+                
+
+                    charts = new google.visualization.BarChart(
+                            document.getElementById('chart2'));
+
+                    var options = {
+                        title: e.row['Suburb Name'].value + ' Green Rating Detail',
+                        height: 400,
+                        width: 600,
+                        // set max vAxis to 5 as highest rating
+                        hAxis: {
+                            title: "Rating",
+                            viewWindowMode: 'explicit',
+                            viewWindow: {
+                                max: 5,
+                                min: 0
+                            }
+                        }
+                    };
+                
+                    charts.draw(data, options);
+                }
                 });
 
                 var input = /** @type {!HTMLInputElement} */(
@@ -350,6 +393,6 @@ and open the template in the editor.
         </div>
 
         <div id="chart">Click on a marker to<br>display a chart here</div>
-
+        <div id="chart2">Click on a marker to<br>display a chart here</div>
     </body>
 </html>
