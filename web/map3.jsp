@@ -126,7 +126,7 @@ and open the template in the editor.
             setTimeout(function () {
                 google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
             }, 100);
-            
+
             function initMap() {
 
                 google.maps.visualRefresh = true;
@@ -176,7 +176,7 @@ and open the template in the editor.
 
                     data.addRows(rows);
 
-                    charts = new google.visualization.BarChart()(
+                    charts = new google.visualization.BarChart(
                             document.getElementById('chart'));
 
                     var options = {
