@@ -119,8 +119,13 @@ and open the template in the editor.
             var map;
             var lat;
             var lon;
+            var data;
+            var rows;
 
-//            google.load('visualization', '1', {packages: ['corechart']});
+            function loadApi() {
+                google.load("visualization", "1", {"callback": pageLoaded});
+            }
+
             function initMap() {
 
                 google.maps.visualRefresh = true;
@@ -138,7 +143,7 @@ and open the template in the editor.
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
 
                 // fusion table query and map style
-                var layer1 = new google.maps.FusionTablesLayer({
+                var layer = new google.maps.FusionTablesLayer({
                     heatmap: {
                         enabled: false
                     },
@@ -156,12 +161,12 @@ and open the template in the editor.
 
                 // Add a listener to the layer that constructs a chart from
                 // the data returned on click
-                google.maps.event.addListener(layer1, 'click', function(e) {
+                google.maps.event.addListener(layer, 'click', function (e) {
 
-                    var data = new google.visualization.DataTable(e)();
+                    data = new google.visualization.DataTable();
                     data.addColumn('string', 'Water Consumption Rating');
                     data.addColumn('number', 'Rating');
-                    var rows = [];
+                    rows = [];
                     for (var i = 0; i <= 5; i += 1) {
                         var rating = i.toString();
                         var value = parseFloat(e.row['Water Consumption Rating'].value, 0);
@@ -239,7 +244,7 @@ and open the template in the editor.
                 });
             }
 
-            google.maps.event.addDomListener(window, 'load', initMap());
+//            google.maps.event.addDomListener(window, 'load', initMap());
 
             // shift map to current location
             function pan() {
