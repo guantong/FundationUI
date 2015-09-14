@@ -125,6 +125,7 @@ and open the template in the editor.
             var categories;
             var rating;
             var value;
+            var queryWhere = "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9";
 
             setTimeout(function () {
                 google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
@@ -156,7 +157,7 @@ and open the template in the editor.
                     query: {
                         select: "col5\x3e\x3e1",
                         from: "19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc",
-                        where: "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9"
+                        where: queryWhere.toString()
                     },
                     options: {
                         styleId: 2,
@@ -356,11 +357,61 @@ and open the template in the editor.
                 data = null;
             }
 
+            function water() {
+                queryWhere = "'Water Consumption Rating' >= 0.1 AND 'Water Consumption Rating' <= 4.9";
+                initMap();
+            }
+
+            function air() {
+                queryWhere = "'Air Pollutant Rating' >= 0.1 AND 'Air Pollutant Rating' <= 4.9";
+                initMap();
+            }
+
+            function land() {
+                queryWhere = "'Land Pollutant Rating' >= 0.1 AND 'Land Pollutant Rating' <= 4.9";
+                initMap();
+            }
+
+            function park() {
+                queryWhere = "'Park and Reserve Rating' >= 0.1 AND 'Park and Reserve Rating' <= 4.9";
+                initMap();
+            }
+
+            function overall() {
+                queryWhere = "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9";
+                initMap();
+            }
+
+            function solar() {
+                queryWhere = "'Solar Saving Rating' >= 0.1 AND 'Solar Saving Rating' <= 4.9";
+                initMap();
+            }
+
+            function forest() {
+                queryWhere = "'Forest Rating' >= 0.1 AND 'Forest Rating' <= 4.9";
+                initMap();
+            }
+
         </script>
 
         <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
 
-        <button onclick="pan()">Track location</button>
+        <div>
+            <!--tracking user local button-->
+            <button onclick="pan()">Track location</button>
+
+            <!--button filter for each categories-->
+            <button onclick="water()">water consumption rating</button>
+            <button onclick="air()">air pollutant rating</button>
+            <button onclick="land()">land pollutant rating</button>
+            <button onclick="park()">park and reserve rating</button>
+            <button onclick="overall()">overall rating</button>
+            <button onclick="solar()">solar installation rating</button>
+            <button onclick="forest()">forest ocverage rating</button>
+        </div>
+
+
+
 
         <div id="map"></div>
 
@@ -396,7 +447,10 @@ and open the template in the editor.
             <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
         </div>
 
-        <div><button onclick="resetComparison()">reset comparison</button></div>
+        <div>
+            <button onclick="resetComparison()">reset comparison</button>
+            <button onclick="saveAsPDF()">Save PDF Report (working in progress)</button>
+        </div>
         <div id="chart">Click on a marker to<br>display a chart here</div>
         <div id="chart2">Click on a marker to<br>display a chart here</div>
     </body>
