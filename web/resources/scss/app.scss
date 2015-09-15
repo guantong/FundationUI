@@ -35,6 +35,7 @@
     }
 }
 
+
 //topbar adjustments
 @media only screen and (min-width: 40.063em) {
     .top-bar-section {
@@ -229,31 +230,77 @@
 
 
 /* GREEN REPORT specific CSS */
+
+
 .green-report {
     h1 {
-        color: #66cc00;
-        font-family: helvetica;
-        font-weight: 200;
         font-size: 30px;
         text-shadow: 0px 2px 2px #000000;
     }
     span {
         color: #ffffff;
-        font-weight: 400;
-        font-size: 40px;
     }
 }
 
+.turn-green {
+    color: #66cc00;
+}
+.turn-blue {
+    color: #0066CC;
+}
+
+
+
+
+//Small or large report: used to hide bigger report on small screens and distribute result to boxes. Depends on js used from the googlemap script
+.large-report {
+    margin: auto;
+    background-color: whitesmoke;
+    width: 100%;
+    padding: 20px;
+    font-size: 100 px;
+    border-radius: 10px;
+    @media only screen {
+        display: none;
+    } 
+    @media only screen and (min-width: 64.063em) {
+        display: block;
+    }    
+}
+
+.small-report {
+    @media only screen {
+        display: block;
+    } 
+    @media only screen and (min-width: 64.063em) {
+        display: none;
+    }    
+}
 
 .category-box {
     margin: auto;
     background-color: whitesmoke;
     height: 200px;
     width: 100%;
-    padding: 20px;
-    font-size: 100 px;
+    padding: 10px;
     border-radius: 10px;
 }
+
+
+.score {
+    font-size: 25px;
+    color: #66cc00;
+    text-shadow: 0px 1px 1px #999999;
+}
+
+.score-blue {
+    font-size: 25px;
+    color: #0066CC;
+    text-shadow: 0px 1px 1px #999999;
+    margin: 10;
+    padding: 10;
+}
+
 
 /* FOOTER CSS */
 .left-border {

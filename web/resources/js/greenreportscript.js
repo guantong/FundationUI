@@ -1,195 +1,276 @@
-function dataHandler(resp) {
-    console.log(resp);
+var map;
+var lat;
+var lon;
+var data = null;
+var rows;
+var charts;
+var categories;
+var rating;
+var value;
+var queryWhere = "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9";
 
-    var result = document.getElementById('result');
-    var htmlTable = document.createElement('table');
-    htmlTable.border = 1;
+setTimeout(function () {
+    google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
+}, 100);
 
-    var tableRow = document.createElement('tr');
-    for (var i = 0; i & resp.columns.length; i++) {
-        var tableHeader = document.createElement('th');
-        var header = document.createTextNode(resp.columns[i]);
-        tableHeader.appendChild(header);
-        tableRow.appendChild(tableHeader);
-    }
-    htmlTable.appendChild(tableRow);
-    for (var i = 0; i & resp.rows.length; i++) {
-        var tableRow = document.createElement('tr');
-        for (var j = 0; j & resp.rows[i].length; j++) {
-            var tableData = document.createElement('td');
-            var content = document.createTextNode(resp.rows[i][j]);
-            tableData.appendChild(content);
-            tableRow.appendChild(tableData);
+function initMap() {
+
+    google.maps.visualRefresh = true;
+
+    var mapOptions = {
+        zoom: 12,
+        center: new google.maps.LatLng(-37.811129, 144.9627607),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDoubleClickZoom: true,
+        scrollwheel: false
+    };
+    map = new google.maps.Map(document.getElementById('map'),
+            mapOptions);
+
+
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open'));
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
+
+    // fusion table query and map style
+    var layer = new google.maps.FusionTablesLayer({
+        heatmap: {
+            enabled: false
+        },
+        query: {
+            select: "col5\x3e\x3e1",
+            from: "19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc",
+            where: queryWhere.toString()
+        },
+        options: {
+            styleId: 2,
+            templateId: 2
+        },
+        map: map
+    });
+
+    // Add a listener to the layer that constructs a chart from
+    // the data returned on click
+    google.maps.event.addListener(layer, 'click', function (e) {
+
+        if (data == null)
+        {
+            data = new google.visualization.DataTable();
+            data.addColumn('string', 'Rating 0 - 5');
+            data.addColumn('number', 'Categories');
+            categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
+            rows = [];
+            for (var i = 0; i <= 7; i += 1) {
+                var rating = categories[i];
+                var value = parseFloat(e.row[rating.toString()].value, 0);
+                rows.push([rating, value]);
+            }
+
+            data.addRows(rows);
+
+
+            charts = new google.visualization.BarChart(
+                    document.getElementById('chart'));
+
+            var options = {
+                title: e.row['Suburb Name'].value + ' Green Rating Detail',
+                height: 400,
+                width: 600,
+                // set max vAxis to 5 as highest rating
+                hAxis: {
+                    title: "Rating",
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: 5,
+                        min: 0
+                    }
+                }
+            };
+
+            charts.draw(data, options);
         }
-        htmlTable.appendChild(tableRow);
+        else {
+
+            data = new google.visualization.DataTable();
+            data.addColumn('string', 'Rating 0 - 5');
+            data.addColumn('number', 'Categories');
+            categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
+            rows = [];
+            for (var i = 0; i <= 7; i += 1) {
+                var rating = categories[i];
+                var value = parseFloat(e.row[rating.toString()].value, 0);
+                rows.push([rating, value]);
+            }
+
+            data.addRows(rows);
+
+
+            charts = new google.visualization.BarChart(
+                    document.getElementById('chart2'));
+
+            var options = {
+                title: e.row['Suburb Name'].value + ' Green Rating Detail',
+                height: 400,
+                width: 600,
+                // set max vAxis to 5 as highest rating
+                hAxis: {
+                    title: "Rating",
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: 5,
+                        min: 0
+                    }
+                }
+            };
+
+            charts.draw(data, options);
+        }
+    });
+
+    var input = /** @type {!HTMLInputElement} */(
+            document.getElementById('pac-input'));
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.bindTo('bounds', map);
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+    });
+
+
+
+    autocomplete.addListener('place_changed', function () {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
+
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);  // Why 17? Because it looks good.
+        }
+        marker.setIcon(/** @type {google.maps.Icon} */({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+
+        var address = '';
+        if (place.address_components) {
+            address = [
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+        }
+
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.open(map, marker);
+    });
+}
+
+//            google.maps.event.addDomListener(window, 'load', initMap());
+
+// shift map to current location
+function pan() {
+    getLocation();
+    var panPoint = new google.maps.LatLng(lat.toString(), lon.toString());
+    map.panTo(panPoint);
+
+    var marker = new google.maps.Marker({
+        position: panPoint,
+        animation: google.maps.Animation.BOUNCE,
+        title: 'My Location'
+    });
+    marker.setMap(map);
+    setTimeout(function () {
+        marker.setAnimation(null);
+    }, 750);
+}
+
+// get current location
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
     }
-    result.appendChild(htmlTable);
 }
 
-
-function getData() {
-    // Builds a Fusion Tables SQL query and hands the result to  dataHandler
-    var queryUrlHead = 'https://www.googleapis.com/fusiontables/v1/query?sql=';
-    var queryUrlTail = '&amp;key=AIzaSyAhHkhX-iS_4hbDOjvyw_N3gTxR5ibKuCU';
-    var tableId = '19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc';
-
-    // write your SQL as normal, then encode it
-    var query = "SELECT 'Suburb Name' FROM " + tableId + " WHERE 'Suburb Name' = 'South Melbourne' LIMIT 10";
-    var queryurl = encodeURI(queryUrlHead + query + queryUrlTail);
-    var jqxhr = $.get(queryurl, dataHandler, "jsonp");
-    //Testing With Something Else
-    //var temp = "https://www.googleapis.com/fusiontables/v1/tables/1KxVV0wQXhxhMScSDuqr-0Ebf0YEt4m4xzVplKd4/columns?key=AIzaSyAm9yWCV7JPCTHCJut8whOjARd7pwROFDQ";
-    //var jqxhr = $.get(temp, dataHandler, "jsonp");
+function showPosition(position) {
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
 }
 
-getData();
-
-
-
-//Variables to be set, when selecting an area on map
-var suburbName = "";
-var forestRating = "";
-var waterRating = "";
-var solarRating = "";
-var airRating = "";
-var landRating = "";
-var parkRating = "";
-
-
-
-
-//TEMPORARY PLACEHOLDERS
-google.load("visualization", "1", {packages: ["corechart"]});
-google.setOnLoadCallback(drawChart);
-function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ["Area", "Rating", {role: "style"}],
-        ["South Melbourne", 2.5, "#66cc00"],
-        ["Average", 3.5, "#338822"]
-    ]);
-
-    var view = new google.visualization.DataView(data);
-    view.setColumns([0, 1,
-        {calc: "stringify",
-            sourceColumn: 1,
-            type: "string",
-            role: "annotation"},
-        2]);
-
-    var options = {
-        backgroundColor: {fill: 'transparent'},
-        bar: {groupWidth: "70%"},
-        legend: {position: "none"},
-    };
-    var chart = new google.visualization.BarChart(document.getElementById("forest"));
-    chart.draw(view, options);
-
-    var data = google.visualization.arrayToDataTable([
-        ["Area", "Rating", {role: "style"}],
-        ["Suburb", 2.5, "#66cc00"],
-        ["Average", 3.5, "#338822"]
-    ]);
-
-    var view = new google.visualization.DataView(data);
-    view.setColumns([0, 1,
-        {calc: "stringify",
-            sourceColumn: 1,
-            type: "string",
-            role: "annotation"},
-        2]);
-
-    var options = {
-        backgroundColor: {fill: 'transparent'},
-        bar: {groupWidth: "70%"},
-        legend: {position: "none"},
-    };
-    var chart = new google.visualization.BarChart(document.getElementById("park"));
-    chart.draw(view, options);
-
-    var data = google.visualization.arrayToDataTable([
-        ["Area", "Rating", {role: "style"}],
-        ["Suburb", 3.0, "#66cc00"],
-        ["Average", 3.0, "#338822"]
-    ]);
-
-    var view = new google.visualization.DataView(data);
-    view.setColumns([0, 1,
-        {calc: "stringify",
-            sourceColumn: 1,
-            type: "string",
-            role: "annotation"},
-        2]);
-
-    var options = {
-        backgroundColor: {fill: 'transparent'},
-        bar: {groupWidth: "70%"},
-        legend: {position: "none"},
-    };
-    var chart = new google.visualization.BarChart(document.getElementById("air"));
-    chart.draw(view, options);
-
-    var data = google.visualization.arrayToDataTable([
-        ["Area", "Rating", {role: "style"}],
-        ["Suburb", 4, "#66cc00"],
-        ["Average", 3.5, "#338822"]
-    ]);
-    var data = google.visualization.arrayToDataTable([
-        ["Area", "Rating", {role: "style"}],
-        ["Suburb", 2.5, "#66cc00"],
-        ["Average", 2.0, "#338822"]
-    ]);
-
-    var view = new google.visualization.DataView(data);
-    view.setColumns([0, 1,
-        {calc: "stringify",
-            sourceColumn: 1,
-            type: "string",
-            role: "annotation"},
-        2]);
-
-    var options = {
-        backgroundColor: {fill: 'transparent'},
-        bar: {groupWidth: "70%"},
-        legend: {position: "none"},
-    };
-    var chart = new google.visualization.BarChart(document.getElementById("land"));
-    chart.draw(view, options);
-
-    var view = new google.visualization.DataView(data);
-    view.setColumns([0, 1,
-        {calc: "stringify",
-            sourceColumn: 1,
-            type: "string",
-            role: "annotation"},
-        2]);
-
-    var options = {
-        backgroundColor: {fill: 'transparent'},
-        bar: {groupWidth: "70%"},
-        legend: {position: "none"},
-    };
-    var chart = new google.visualization.BarChart(document.getElementById("water"));
-    chart.draw(view, options);
-
-    var data = google.visualization.arrayToDataTable([
-        ["Area", "Rating", {role: "style"}],
-        ["Suburb", 4.5, "#66cc00"],
-        ["Average", 3.5, "#338822"]
-    ]);
-
-    var view = new google.visualization.DataView(data);
-    view.setColumns([0, 1,
-        {calc: "stringify",
-            sourceColumn: 1,
-            type: "string",
-            role: "annotation"},
-        2]);
-
-    var options = {
-        backgroundColor: {fill: 'transparent'},
-        bar: {groupWidth: "70%"},
-        legend: {position: "none"},
-    };
-    var chart = new google.visualization.BarChart(document.getElementById("solar"));
-    chart.draw(view, options);
+// error handling if user deny location tracking 
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
 }
+
+function resetComparison() {
+    data = null;
+}
+
+function water() {
+    queryWhere = "'Water Consumption Rating' >= 0.1 AND 'Water Consumption Rating' <= 4.9";
+    initMap();
+}
+
+function air() {
+    queryWhere = "'Air Pollutant Rating' >= 0.1 AND 'Air Pollutant Rating' <= 4.9";
+    initMap();
+}
+
+function land() {
+    queryWhere = "'Land Pollutant Rating' >= 0.1 AND 'Land Pollutant Rating' <= 4.9";
+    initMap();
+}
+
+function park() {
+    queryWhere = "'Park and Reserve Rating' >= 0.1 AND 'Park and Reserve Rating' <= 4.9";
+    initMap();
+}
+
+function overall() {
+    queryWhere = "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9";
+    initMap();
+}
+
+function solar() {
+    queryWhere = "'Solar Saving Rating' >= 0.1 AND 'Solar Saving Rating' <= 4.9";
+    initMap();
+}
+
+function forest() {
+    queryWhere = "'Forest Rating' >= 0.1 AND 'Forest Rating' <= 4.9";
+    initMap();
+}
+Ï

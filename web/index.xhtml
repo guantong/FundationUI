@@ -11,9 +11,21 @@
             <ui:param name="filename" value="index" />
             <ui:define name="content">
                 <!-- CONTENT -->
+                <!-- MAP TIPS -->
+                <div class="scene-element default-container bg-grayalpha" id="info">
+                    <p>
+                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb.
+                    </p>
+                    <div class="info-close-button" id="info-btn-close">
+                        <a>
+                            <img src="resources/images/cross.png"/>
+                        </a>
+                    </div>
+                </div>
+                <!-- END OF MAP TIPS -->
+
                 <div class="scene-element row map-container div-shadow bg-height" style="z-index: 1000;">
                     <div class="large-3 columns bg-darkgreen  left-bar">
-
                         <!-- The following components need "googlemapscript" which is currently being included from map.xhtml. -->
                         <!-- SEARCH BAR -->
                         <input id="pac-input" class="controls" type="text"
@@ -83,91 +95,35 @@
                     </div>
                 </div>
 
-
-
-                <!-- MAP TIPS -->
-                <div class="scene-element default-container bg-grayalpha" id="info">
-                    <p>
-                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb.
-                    </p>
-                    <div class="info-close-button" id="info-btn-close">
-                        <a>
-                            <img src="resources/images/cross.png"/>
-                        </a>
-                    </div>
-                </div>
-                <!-- END OF MAP TIPS -->
-
-
-
-
-
                 <!-- GREEN REPORT SECTION -->
-                <div class="green-report row" style="z-index: -1;">
-                    <center>
-                        <h1><span> South Melbourne </span></h1>
-                        <h1> Green Rating </h1>
-                        <h1> <i class="fi-star"></i><i class="fi-star"></i><i class="fi-star"></i></h1>
-                    </center>
-                </div>
 
-                <!--
-                Forest Rating: 0.0
-                Park and Reserve Rating: 0.0
-                Air Pollutant Rating: 0.0
-                Land Pollutant Rating: 0.0
-                Water Pollutant Rating: 2.0
-                Solar Saving Rating: 0.0
-                Water Consumption Rating: 4.5
-                Overall Rating: 3.1
-                -->
 
                 <div class="row">
                     <div class="container">
-                        <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
-                            <li>
-                                <div class="div-shadow category-box">
-                                    Forest
-                                    <div id="forest" style="width: 100%; height: 100%;"></div>
+                        <div class="green-report">
+                                <div id="headerContent" style="display: inline-block; margin: 10px;">
+                                    <!--
+                                    <h1><span> South Melbourne </span></h1>
+                                    <h1> Green Rating </h1>
+                                    <h1> <i class="fi-star"></i><i class="fi-star"></i><i class="fi-star"></i></h1>
+                                    -->
+                                </div>
+                                <!--<div id="comparedTo" style="display: inline-block; padding: 50px; color: #fff"></div>-->
+                                <div id="headerContent2" style="display: inline-block; margin: 10px;"></div>
+                        </div>
+                        <!--Large Report: Shows on large screens-->
+                        <div class="large-report div-shadow" id="largeReport">
+                            <div style="width: 100%;" id="largeReportContent">
+                                <div id="chart"></div>
+                                <div id="chart2"></div>
+                            </div>
+                        </div>
 
-                                </div><!-- Your content goes here -->
-                            </li>
-                            <li>
-                                <div class="div-shadow category-box">
-                                    Park and Reserve
-                                    <div id="park" style="width: 100%; height: 100%;"></div>
-
-                                </div><!-- Your content goes here -->
-                            </li>
-                            <li>
-                                <div class="div-shadow category-box">
-                                    Air Pollutant
-                                    <div id="air" style="width: 100%; height: 100%;"></div>
-
-                                </div><!-- Your content goes here -->
-                            </li>
-                            <li>
-                                <div class="div-shadow category-box">
-                                    Land Pollutant
-                                    <div id="land" style="width: 100%; height: 100%;"></div>
-
-                                </div><!-- Your content goes here -->
-                            </li>
-                            <li>
-                                <div class="div-shadow category-box">
-                                    Water Pollutant
-                                    <div id="water" style="width: 100%; height: 100%;"></div>
-
-                                </div><!-- Your content goes here -->
-                            </li>
-                            <li>
-                                <div class="div-shadow category-box">
-                                    Solar Saving
-                                    <div id="solar" style="width: 100%; height: 100%;"></div>
-
-                                </div><!-- Your content goes here -->
-                            </li>
-                        </ul>
+                        <!--Small Report: Shows on small screens-->
+                        <div class="small-report" id="smallReport">
+                            <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4" id="smallReportContent">
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -181,7 +137,7 @@
                 </script>
 
                 <!-- TEMPORARY: CHARTS FOR DEMO -->
-                <script src="resources/js/greenreportscript.js"></script>
+                <!--<script src="resources/js/greenreportscript.js"></script>-->
             </ui:define>
         </ui:composition>
     </h:body>
