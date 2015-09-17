@@ -7,6 +7,7 @@ function initMap() {
         zoom: 12,
         center: new google.maps.LatLng(-37.811129, 144.9627607),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
+        streetViewControl: false,
         // Setting Map style to grayscale [SUMAYA]
         styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -100}, {"gamma": 0.5}]}]
     };
