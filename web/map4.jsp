@@ -9,10 +9,13 @@ and open the template in the editor.
         <title>Place Autocomplete</title>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
-
+        <!--map api-->
         <script src="https://maps.googleapis.com/maps/api/js?signed_in=false&libraries=places&callback=initMap" async defer></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <!--jquery api-->
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <!--new js for pdf--> 
+        <script type="text/javascript" src="resources/js/jspdf.min.js"></script>
 
         <style>
             html, body {
@@ -412,7 +415,11 @@ and open the template in the editor.
                 var commentWaterConsumption = ['The selected area shows high water usage levels per household.', 'The selected area shows relatively high water usage levels per household.', 'The selected area shows relatively high water usage levels per household.', 'The selected area shows relatively high water usage levels per household.', 'The selected area shows low water usage levels per household.'];
 
                 var doc = new jsPDF();
-
+                doc.text(20, 20, suburbName.toString());
+                doc.text(20, 20, 'Hello world');
+                doc.text(20, 30, 'd;kadladfadsf');
+                doc.addPage();
+                doc.text(20, 20, '2nd Hello world');
                 doc.save('2page.pdf');
             }
 
