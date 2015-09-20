@@ -9,6 +9,11 @@ var rating;
 var value;
 var queryWhere = "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9";
 
+
+
+var suburbContent; //value to keeps track of first suburb selection content, so that multiple selections can be made for the second suburb without losing track of the first's content.
+
+
 setTimeout(function () {
     google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
 }, 100);
@@ -60,9 +65,9 @@ function initMap() {
 
         //if a second suburb has already been selected for comparison, remove its info first then add this selection
         if (comparison) {
-            
-            
-            
+
+
+
             //When a second suburb is selected (again), remove the initial second selection by id
             var elements = document.getElementsByClassName("score-blue");
             for (var i = 0; i < elements.length; i++) {
@@ -84,9 +89,14 @@ function initMap() {
             categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
             rows = [];
 
+
+            var input = parseFloat(e.row[categories[0].toString()].value);
+            var stars = getStars(input);
+
+
             //set header for suburb name and overall rating.
             var headerContent = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\">Overall Rating</h1><h1 class=\"turn-green\">"
-                    + parseFloat(e.row[categories[0].toString()].value) +
+                    + stars +
                     "</h1>";
             document.getElementById('headerContent').innerHTML = headerContent;
 
@@ -96,10 +106,13 @@ function initMap() {
                 var value = parseFloat(e.row[rating.toString()].value, 0);
                 rows.push([rating, value]);
 
+
+                var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
                 //div category content append boxes for small ratings boxes
-                var categoryContent = "<li><div class=\"div-shadow category-box\">" + categories[i] + "<div id=\"" + categories[i] + "\"><div class=\"score\">" + e.row['Suburb Name'].value + ": &nbsp;" + value + "&nbsp;</div></div></div></li>";
+                var categoryContent = "<li><div class=\"div-shadow category-box\">" + categories[i] + "<div id=\"" + categories[i] + "\"><div class=\"score\">" + e.row['Suburb Name'].value + ": <br />" + stars + "&nbsp;</div></div></div></li>";
                 document.getElementById('smallReportContent').innerHTML += categoryContent;
             }
+            suburbContent = document.getElementById('smallReportContent').innerHTML; //Keep this as a backup for later use
 
             data.addRows(rows);
             //Everything CHARTS [SUMAYA]
@@ -130,6 +143,9 @@ function initMap() {
             document.getElementById('largeReport').style.height = height;
             document.getElementById('largeReportContent').style.height = height;
             charts.draw(data, options);
+            //Inform user that a second suburb selection can be made.
+            document.getElementById('chart2').innerHTML = "Select a second suburb to compare";
+
         }
         else {
             data = new google.visualization.DataTable();
@@ -140,20 +156,34 @@ function initMap() {
 
             //set header for suburb name and overall rating.
             //document.getElementById('comparedTo').innerHTML = "Compared to";
+            //was  class=\"turn-blue\"
 
-            var headerContent2 = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-blue\">Overall Rating</h1><h1 class=\"turn-blue\">"
-                    + parseFloat(e.row[categories[0].toString()].value) +
+
+            var input = parseFloat(e.row[categories[0].toString()].value); //get the raw rating 
+            var stars = getStars(input); //function uses starrating.js rounds number 1-5 and returns stars
+
+
+            //Header of suburb on green report section
+            var headerContent2 = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\">Overall Rating</h1><h1 class=\"turn-green\">"
+                    + stars +
                     "</h1>";
+            //Set the header of this suburb with the above content
             document.getElementById('headerContent2').innerHTML = headerContent2;
 
 
+            //First, reset the first suburb information from the backup
+            document.getElementById('smallReportContent').innerHTML = suburbContent;
+            //Then fillout new content using each section's id
             for (var i = 0; i <= 7; i += 1) {
                 var rating = categories[i];
                 var value = parseFloat(e.row[rating.toString()].value, 0);
                 rows.push([rating, value]);
 
                 //div append
-                var categoryContent = "<div class=\"score-blue\">" + e.row['Suburb Name'].value + ": &nbsp;" + value + "&nbsp;</div>";
+                // class=\"score-blue\"
+                var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
+
+                var categoryContent = "<div class=\"score\">" + e.row['Suburb Name'].value + ": <br />" + stars + "&nbsp;</div>";
                 document.getElementById(categories[i]).innerHTML += categoryContent;
             }
 
@@ -306,6 +336,13 @@ function showError(error) {
 
 function resetComparison() {
     data = null;
+    //Reset all the needed content divs 
+    document.getElementById('headerContent').innerHTML = "";
+    document.getElementById('headerContent2').innerHTML = "";
+    document.getElementById('chart').innerHTML = "";
+    document.getElementById('chart2').innerHTML = "";
+    document.getElementById('smallReportContent').innerHTML = "";
+
 }
 
 function water() {
@@ -342,3 +379,37 @@ function forest() {
     queryWhere = "'Forest Rating' >= 0.1 AND 'Forest Rating' <= 4.9";
     initMap();
 }
+
+
+//On change handler for the options selection form. for the category filter [SUMAYA]
+function changeFunc() {
+    var dropdown = document.getElementById("categoryFilter");
+    var selection = dropdown.options[dropdown.selectedIndex].value;
+    //alert(selection);
+    switch (selection) {
+        case "0":
+            overall();
+            break;
+        case "1":
+            water();
+            break;
+        case "2":
+            solar();
+            break;
+        case "3":
+            land();
+            break;
+        case "4":
+            air();
+            break;
+        case "5":
+            forest();
+            break;
+        case "6":
+            park();
+            break;
+    }
+}
+
+
+

@@ -14,9 +14,10 @@
                 <!-- MAP TIPS -->
                 <div class="scene-element default-container bg-grayalpha" id="info">
                     <p>
-                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb.
+                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>, or you can select a specific rating from the filter beside the map. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb.
                     </p>
                     <div class="info-close-button" id="info-btn-close">
+                        <!-- close button image as a cross-->
                         <a>
                             <img src="resources/images/cross.png"/>
                         </a>
@@ -36,21 +37,28 @@
                         <!-- MAP CONTROLS -->
                         <div class="row">
                             <div class="large-12 columns category-button">
-                                <p> Select a specific category to load relevant map overlay: </p>
-                                <a class="button round small">Overall</a>
-                                <a class="button round small">Water</a>
-                                <a class="button round small">Solar</a>
-                                <a class="button round small">Land</a>
-                                <a class="button round small">Air</a>
-                                <a class="button round small">Forest</a>
-                                <a class="button round small">Parks</a>
+                                <form class="custom">
+                                    <select id="categoryFilter" onchange="changeFunc();">
+                                        <option selected="true" disabled="true">Select category:</option>
+                                        <option value="0">Overall</option>
+                                        <option value="1">Water Consumption</option>
+                                        <option value="2">Solar Savings</option>
+                                        <option value="3">Land Pollutants</option>
+                                        <option value="4">Air Pollutants</option>
+                                        <option value="5">Forest</option>
+                                        <option value="6">Parks and Reserve</option>
+                                    </select>
+                                </form>
+                                
+                                <!-- POLL -->
+                                <ui:include src="poll.xhtml"/>
+
                             </div>
                         </div>
                         <!-- END OF MAP CONTROLS -->
 
                         <!-- MAP LEGEND -->
                         <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
-
                         <div id="googft-legend">
                             <p id="googft-legend-title">Overall Rating</p>
                             <div>
@@ -97,30 +105,42 @@
 
                 <!-- GREEN REPORT SECTION -->
 
-
                 <div class="row">
                     <div class="container">
                         <div class="green-report">
-                                <div id="headerContent" style="display: inline-block; margin: 10px;">
-                                    <!--
-                                    <h1><span> South Melbourne </span></h1>
-                                    <h1> Green Rating </h1>
-                                    <h1> <i class="fi-star"></i><i class="fi-star"></i><i class="fi-star"></i></h1>
-                                    -->
-                                </div>
-                                <!--<div id="comparedTo" style="display: inline-block; padding: 50px; color: #fff"></div>-->
-                                <div id="headerContent2" style="display: inline-block; margin: 10px;"></div>
+                            <!-- The two sections identified as headerContent2 and headerContent2 
+                            are generated using the googlemapscript -->
+                            <!-- The content of this resets when the reset button is clicked -->
+                            <div id="headerContent" style="display: inline-block; margin: 10px;">
+                            </div>
+                            <!-- The content of this resets when the reset button is clicked -->
+                            <div id="headerContent2" style="display: inline-block; margin: 10px;"></div>
+                            
+                            <!-- These two buttons allow users to reset suburbs selections and print a pdf report is there's a report -->
+                            <div>
+                                <button onclick="resetComparison()">Click here to reset comparison</button>
+                                <button onclick="saveAsPDF()">Export to PDF Report</button>
+                            </div>
+                            
                         </div>
-                        <!--Large Report: Shows on large screens-->
-                        <div class="large-report div-shadow" id="largeReport">
+                        <!--Large Report: Shows on large screens but disappears on small screens-->
+                        <div class="large-report" id="largeReport">
                             <div style="width: 100%;" id="largeReportContent">
-                                <div id="chart"></div>
+                                <!-- Charts are to be generated inside the googlemapscript.js -->
+                                <!-- The content of this resets when the reset button is clicked -->
+                                <div id="chart">Select a suburb on the map.</div>
+                                <!-- The content of this resets when the reset button is clicked -->
                                 <div id="chart2"></div>
                             </div>
                         </div>
 
                         <!--Small Report: Shows on small screens-->
                         <div class="small-report" id="smallReport">
+                            <!-- The content of smallReportContent is to be generated inside the googlemapscript.js
+                            it follows a format of <li> to include boxes for each category rating. 
+                            The script deals for when a second suburb is selected.
+                            -->
+                            <!-- The content of this resets when the reset button is clicked -->
                             <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4" id="smallReportContent">
                             </ul>
                         </div>
@@ -128,7 +148,7 @@
                 </div>
 
                 <div id="result"></div>
-
+                <!-- Script allows closing of the information bar showing on top of the index page. -->
                 <script>
                     $('#info-btn-close').click((function (e) {
                         //$('#info').toggleClass('scene-exit');
