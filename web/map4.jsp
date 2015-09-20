@@ -360,6 +360,7 @@ and open the template in the editor.
                 initMap();
             }
             
+//            new
             function waterP() {
                 queryWhere = "'Water Pollutant Rating' >= 0.1 AND 'Water Consumption Rating' <= 4.9";
                 initMap();
@@ -464,6 +465,7 @@ and open the template in the editor.
 
             <!--filter button for each categories-->
             <button onclick="waterC()">water consumption rating</button>
+            <!--new-->
             <button onclick="waterP()">water pollutant rating</button>
             <button onclick="air()">air pollutant rating</button>
             <button onclick="land()">land pollutant rating</button>
