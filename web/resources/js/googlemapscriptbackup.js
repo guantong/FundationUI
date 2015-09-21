@@ -1,3 +1,5 @@
+//DATE: Sep22
+
 var map;
 var lat;
 var lon;
@@ -8,6 +10,11 @@ var categories;
 var rating;
 var value;
 var queryWhere = "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9";
+
+
+
+var suburbContent; //value to keeps track of first suburb selection content, so that multiple selections can be made for the second suburb without losing track of the first's content.
+
 
 setTimeout(function () {
     google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
@@ -22,14 +29,16 @@ function initMap() {
         center: new google.maps.LatLng(-37.811129, 144.9627607),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDoubleClickZoom: true,
-        scrollwheel: false
+        scrollwheel: false,
+        // Setting Map style to grayscale [SUMAYA]
+        styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -100}, {"gamma": 0.5}]}]
     };
     map = new google.maps.Map(document.getElementById('map'),
             mapOptions);
 
-
-    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open'));
-    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
+    //Stick to the left
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend-open'));
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend'));
 
     // fusion table query and map style
     var layer = new google.maps.FusionTablesLayer({
@@ -48,33 +57,75 @@ function initMap() {
         map: map
     });
 
+
+    //boolean to know when a second suburb is select (after the initial time there's been one select to compare)
+    var comparison = false;
+
     // Add a listener to the layer that constructs a chart from
     // the data returned on click
     google.maps.event.addListener(layer, 'click', function (e) {
 
+        //if a second suburb has already been selected for comparison, remove its info first then add this selection
+        if (comparison) {
+
+
+
+            //When a second suburb is selected (again), remove the initial second selection by id
+            var elements = document.getElementsByClassName("score-blue");
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].innerHTML = "";
+            }
+        }
+
         if (data == null)
         {
+            var node = document.getElementById('smallReportContent');
+            //reset divs to empty
+            while (node.hasChildNodes()) {
+                node.removeChild(node.firstChild);
+            }
+
             data = new google.visualization.DataTable();
             data.addColumn('string', 'Rating 0 - 5');
             data.addColumn('number', 'Categories');
             categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
             rows = [];
+
+
+            var input = parseFloat(e.row[categories[0].toString()].value);
+            var stars = getStars(input);
+
+
+            //set header for suburb name and overall rating.
+            var headerContent = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\">Overall Rating</h1><h1 class=\"turn-green\">"
+                    + stars +
+                    "</h1>";
+            document.getElementById('headerContent').innerHTML = headerContent;
+
+
             for (var i = 0; i <= 7; i += 1) {
                 var rating = categories[i];
                 var value = parseFloat(e.row[rating.toString()].value, 0);
                 rows.push([rating, value]);
+
+
+                var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
+                //div category content append boxes for small ratings boxes
+                var categoryContent = "<li><div class=\"div-shadow category-box\">" + categories[i] + "<div id=\"" + categories[i] + "\"><div class=\"score\">" + e.row['Suburb Name'].value + ": <br />" + stars + "&nbsp;</div></div></div></li>";
+                document.getElementById('smallReportContent').innerHTML += categoryContent;
             }
+            suburbContent = document.getElementById('smallReportContent').innerHTML; //Keep this as a backup for later use
 
             data.addRows(rows);
-
-
+            //Everything CHARTS [SUMAYA]
             charts = new google.visualization.BarChart(
                     document.getElementById('chart'));
 
             var options = {
                 title: e.row['Suburb Name'].value + ' Green Rating Detail',
                 height: 400,
-                width: 600,
+                width: 800,
+                backgroundColor: {fill: 'transparent'},
                 // set max vAxis to 5 as highest rating
                 hAxis: {
                     title: "Rating",
@@ -86,19 +137,56 @@ function initMap() {
                 }
             };
 
+            //Change the large report's div height when the chart loads [SUMAYA]
+
+
+
+            var height = data.getNumberOfRows() * 41 + 30;
+            document.getElementById('largeReport').style.height = height;
+            document.getElementById('largeReportContent').style.height = height;
             charts.draw(data, options);
+            //Inform user that a second suburb selection can be made.
+            document.getElementById('chart2').innerHTML = "Select a second suburb to compare";
+
         }
         else {
-
             data = new google.visualization.DataTable();
             data.addColumn('string', 'Rating 0 - 5');
             data.addColumn('number', 'Categories');
             categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
             rows = [];
+
+            //set header for suburb name and overall rating.
+            //document.getElementById('comparedTo').innerHTML = "Compared to";
+            //was  class=\"turn-blue\"
+
+
+            var input = parseFloat(e.row[categories[0].toString()].value); //get the raw rating 
+            var stars = getStars(input); //function uses starrating.js rounds number 1-5 and returns stars
+
+
+            //Header of suburb on green report section
+            var headerContent2 = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\">Overall Rating</h1><h1 class=\"turn-green\">"
+                    + stars +
+                    "</h1>";
+            //Set the header of this suburb with the above content
+            document.getElementById('headerContent2').innerHTML = headerContent2;
+
+
+            //First, reset the first suburb information from the backup
+            document.getElementById('smallReportContent').innerHTML = suburbContent;
+            //Then fillout new content using each section's id
             for (var i = 0; i <= 7; i += 1) {
                 var rating = categories[i];
                 var value = parseFloat(e.row[rating.toString()].value, 0);
                 rows.push([rating, value]);
+
+                //div append
+                // class=\"score-blue\"
+                var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
+
+                var categoryContent = "<div class=\"score\">" + e.row['Suburb Name'].value + ": <br />" + stars + "&nbsp;</div>";
+                document.getElementById(categories[i]).innerHTML += categoryContent;
             }
 
             data.addRows(rows);
@@ -110,7 +198,8 @@ function initMap() {
             var options = {
                 title: e.row['Suburb Name'].value + ' Green Rating Detail',
                 height: 400,
-                width: 600,
+                width: 800,
+                backgroundColor: {fill: 'transparent'},
                 // set max vAxis to 5 as highest rating
                 hAxis: {
                     title: "Rating",
@@ -121,28 +210,40 @@ function initMap() {
                     }
                 }
             };
-
             charts.draw(data, options);
+
+            //Change the large report's div height when the chart loads [SUMAYA]
+            var height = data.getNumberOfRows() * 41 + 30;
+            document.getElementById('largeReport').style.height = height;
+            document.getElementById('largeReportContent').style.height = height;
+
+
+            //set this to keep track if comparison mode is on, so next time user selects a suburb the initial suburb for comparison is removed by id of "temprorary"
+            comparison = true;
         }
     });
 
     var input = /** @type {!HTMLInputElement} */(
             document.getElementById('pac-input'));
+    /* Commented out because the CSS in index.xhtml deals with location of this element [SUMAYA]*/
 
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-    var autocomplete = new google.maps.places.Autocomplete(input);
+    var options = {
+        //SUMAYA: Setting autocomplete options types to "regions" to get cities, suburbs and postal codes
+        types: ['(regions)'],
+        //Restrict search to australia. TODO: Victoria only?
+        componentRestrictions: {country: "au"}
+    };
 
+    var autocomplete = new google.maps.places.Autocomplete(input, options); // Passing the autocomplete options here [SUMAYA]
     autocomplete.bindTo('bounds', map);
 
     var infowindow = new google.maps.InfoWindow();
-
     var marker = new google.maps.Marker({
         map: map,
         anchorPoint: new google.maps.Point(0, -29)
     });
-
-
 
     autocomplete.addListener('place_changed', function () {
         infowindow.close();
@@ -237,6 +338,13 @@ function showError(error) {
 
 function resetComparison() {
     data = null;
+    //Reset all the needed content divs 
+    document.getElementById('headerContent').innerHTML = "";
+    document.getElementById('headerContent2').innerHTML = "";
+    document.getElementById('chart').innerHTML = "";
+    document.getElementById('chart2').innerHTML = "";
+    document.getElementById('smallReportContent').innerHTML = "";
+
 }
 
 function water() {
@@ -273,3 +381,37 @@ function forest() {
     queryWhere = "'Forest Rating' >= 0.1 AND 'Forest Rating' <= 4.9";
     initMap();
 }
+
+
+//On change handler for the options selection form. for the category filter [SUMAYA]
+function changeFunc() {
+    var dropdown = document.getElementById("categoryFilter");
+    var selection = dropdown.options[dropdown.selectedIndex].value;
+    //alert(selection);
+    switch (selection) {
+        case "0":
+            overall();
+            break;
+        case "1":
+            water();
+            break;
+        case "2":
+            solar();
+            break;
+        case "3":
+            land();
+            break;
+        case "4":
+            air();
+            break;
+        case "5":
+            forest();
+            break;
+        case "6":
+            park();
+            break;
+    }
+}
+
+
+

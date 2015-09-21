@@ -8,6 +8,19 @@ var categories;
 var rating;
 var value;
 var queryWhere = "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9";
+var suburbName = null; // new
+var ratingsForSuburb = []; // new
+var allComments = [[]]; // new
+
+//To be put as tooltips to each category header
+var categoryDescription = [
+    'An overall performance of an area on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest)',
+    'The total number of trees in each suburb/area', 'The total area square meters of the park and reserve of the suburb.',
+    'Air pollutant emissions in kilos for each suburb. For example, the Carbon disulfide, monoxide, Acetonitrile.',
+    'The total land chemical pollutant in kilos of the suburb, for example, pollutant can be the Wasted Benzene, Xylenes (individual or mixed isomers), Formaldehyde (methyl aldehyde).',
+    'The total water chemical pollutant in kilos of the suburb, such as ammonia.',
+    'CO2e saved kilotons per home for each suburb or area, by using solar energy, such as solar cell, solar heater.', 'Water usage (Liter/ L) for each household, per day, based on suburb and postcode'
+];
 
 
 
@@ -95,7 +108,9 @@ function initMap() {
 
 
             //set header for suburb name and overall rating.
-            var headerContent = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\">Overall Rating</h1><h1 class=\"turn-green\">"
+            //span the tooltip for each category and overall by pulling the comment from the
+            //categorDescription array of strings. use <span data-tooltip...etc> and add it there
+            var headerContent = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\"><span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
                     + stars +
                     "</h1>";
             document.getElementById('headerContent').innerHTML = headerContent;
@@ -104,12 +119,13 @@ function initMap() {
             for (var i = 0; i <= 7; i += 1) {
                 var rating = categories[i];
                 var value = parseFloat(e.row[rating.toString()].value, 0);
+                ratingsForSuburb[i] = parseFloat(e.row[rating.toString()].value, 0); // new // add rating of each categories (followed by var categories order)
                 rows.push([rating, value]);
 
 
                 var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
                 //div category content append boxes for small ratings boxes
-                var categoryContent = "<li><div class=\"div-shadow category-box\">" + categories[i] + "<div id=\"" + categories[i] + "\"><div class=\"score\">" + e.row['Suburb Name'].value + ": <br />" + stars + "&nbsp;</div></div></div></li>";
+                var categoryContent = "<li><div class=\"div-shadow category-box\">" + "<span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[i].toString() + "\">" + categories[i] + "</span><div id=\"" + categories[i] + "\"><div class=\"score\">" + e.row['Suburb Name'].value + ": <br />" + stars + "&nbsp;</div></div></div></li>";
                 document.getElementById('smallReportContent').innerHTML += categoryContent;
             }
             suburbContent = document.getElementById('smallReportContent').innerHTML; //Keep this as a backup for later use
@@ -118,6 +134,7 @@ function initMap() {
             //Everything CHARTS [SUMAYA]
             charts = new google.visualization.BarChart(
                     document.getElementById('chart'));
+            suburbName = e.row['Suburb Name'].value; // new // get suburb name
 
             var options = {
                 title: e.row['Suburb Name'].value + ' Green Rating Detail',
@@ -147,6 +164,8 @@ function initMap() {
             document.getElementById('chart2').innerHTML = "Select a second suburb to compare";
 
         }
+        //If the first suburb selected, data is now no longer, thus coming here, 
+        //for the second suburb selection
         else {
             data = new google.visualization.DataTable();
             data.addColumn('string', 'Rating 0 - 5');
@@ -164,7 +183,7 @@ function initMap() {
 
 
             //Header of suburb on green report section
-            var headerContent2 = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\">Overall Rating</h1><h1 class=\"turn-green\">"
+            var headerContent2 = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\"><span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
                     + stars +
                     "</h1>";
             //Set the header of this suburb with the above content
@@ -236,6 +255,7 @@ function initMap() {
 
     var autocomplete = new google.maps.places.Autocomplete(input, options); // Passing the autocomplete options here [SUMAYA]
     autocomplete.bindTo('bounds', map);
+    var infowindow = new google.maps.InfoWindow();
 
     var infowindow = new google.maps.InfoWindow();
     var marker = new google.maps.Marker({
@@ -311,6 +331,7 @@ function getLocation() {
     }
 }
 
+// set current lon,lat to variables
 function showPosition(position) {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
@@ -334,6 +355,7 @@ function showError(error) {
     }
 }
 
+// reset comparison, allow use to compare two new suburbs
 function resetComparison() {
     data = null;
     //Reset all the needed content divs 
@@ -345,8 +367,15 @@ function resetComparison() {
 
 }
 
-function water() {
+// filter functions
+function waterC() {
     queryWhere = "'Water Consumption Rating' >= 0.1 AND 'Water Consumption Rating' <= 4.9";
+    initMap();
+}
+
+//            new
+function waterP() {
+    queryWhere = "'Water Pollutant Rating' >= 0.1 AND 'Water Consumption Rating' <= 4.9";
     initMap();
 }
 
@@ -380,7 +409,6 @@ function forest() {
     initMap();
 }
 
-
 //On change handler for the options selection form. for the category filter [SUMAYA]
 function changeFunc() {
     var dropdown = document.getElementById("categoryFilter");
@@ -408,8 +436,73 @@ function changeFunc() {
         case "6":
             park();
             break;
+        case "7":
+            waterP();
+            break;
     }
 }
 
 
+function print() {
+    // comments for ratings in each categories
+    // rating 0 means no data
+    var zero = "Sorry, data/rating isn't available at the moment.";
+    // normally each categories has 5 comment as shown below plus raing 0
+    // 0-4 in array
+    var commentOverall = ['The selected area shows a low overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).', 'The selected area shows a relatively low overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).', 'The selected area shows an average overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).', 'The selected area shows a good overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).', 'The selected area shows a great overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).'];
+    var commentForest = ['The selected area shows a lower than most others in the number of trees.', 'The selected area shows a relatively lower number of trees compared to others.', 'The selected area shows an average number of trees compared to others.', 'The selected area shows a relatively high number of trees compared to others.', 'The selected area shows a relatively high number of trees compared to others.'];
+    var commentParkReserve = ['The selected area shows a small area of parks and reserves compared to others.', 'The selected area shows a relatively small area of parks and reserves.', 'The selected area shows a relatively small area of parks and reserves.', 'The selected area shows a relatively small area of parks and reserves.', 'The selected area shows a relatively small area of parks and reserves.'];
+    var commentAirPollutant = ['The selected area shows high level of air pollutant emissions.', 'The selected area shows high level of air pollutant emissions.', 'The selected area shows average level of air pollutant emissions.', 'The selected area shows relatively low level of air pollutant emissions.', 'The selected area shows low level of air pollutant emissions.'];
+    var commentLandPollutant = ['The selected area shows high level of land pollutant.', 'The selected area shows relatively high level of land pollutant.', 'The selected area shows average level of land pollutant.', 'The selected area shows relatively low level of land pollutant.', 'The selected area shows low level of land pollutant.'];
+    var commentWaterPollutant = ['The selected area shows high level of water chemical pollutants.', 'The selected area shows relatively  high level of water chemical pollutants.', 'The selected area shows average level of water chemical pollutants.', 'The selected area shows relatively low level of water chemical pollutants.', 'The selected area shows low level of water chemical pollutants.'];
+    var commentSolarSaving = ['The selected area shows low level of using solar energy. ', 'The selected area shows relatively lower level of using solar energy.', 'The selected area shows average level of using solar energy.', 'The selected area shows relatively high level of using solar energy.', 'The selected area shows high level of using solar energy.'];
+    var commentWaterConsumption = ['The selected area shows high water usage levels per household.', 'The selected area shows relatively high water usage levels per household.', 'The selected area shows relatively high water usage levels per household.', 'The selected area shows relatively high water usage levels per household.', 'The selected area shows low water usage levels per household.'];
+    allComments = [['The selected area shows a low overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).', 'The selected area shows a relatively low overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).', 'The selected area shows an average overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).', 'The selected area shows a good overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).', 'The selected area shows a great overall performance on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest).'], ['The selected area shows a lower than most others in the number of trees.', 'The selected area shows a relatively lower number of trees compared to others.', 'The selected area shows an average number of trees compared to others.', 'The selected area shows a relatively high number of trees compared to others.', 'The selected area shows a relatively high number of trees compared to others.'], ['The selected area shows a small area of parks and reserves compared to others.', 'The selected area shows a relatively small area of parks and reserves.', 'The selected area shows a relatively small area of parks and reserves.', 'The selected area shows a relatively small area of parks and reserves.', 'The selected area shows a relatively small area of parks and reserves.'], ['The selected area shows high level of air pollutant emissions.', 'The selected area shows high level of air pollutant emissions.', 'The selected area shows average level of air pollutant emissions.', 'The selected area shows relatively low level of air pollutant emissions.', 'The selected area shows low level of air pollutant emissions.'], ['The selected area shows high level of land pollutant.', 'The selected area shows relatively high level of land pollutant.', 'The selected area shows average level of land pollutant.', 'The selected area shows relatively low level of land pollutant.', 'The selected area shows low level of land pollutant.'], ['The selected area shows high level of water chemical pollutants.', 'The selected area shows relatively  high level of water chemical pollutants.', 'The selected area shows average level of water chemical pollutants.', 'The selected area shows relatively low level of water chemical pollutants.', 'The selected area shows low level of water chemical pollutants.'], ['The selected area shows low level of using solar energy. ', 'The selected area shows relatively lower level of using solar energy.', 'The selected area shows average level of using solar energy.', 'The selected area shows relatively high level of using solar energy.', 'The selected area shows high level of using solar energy.'], ['The selected area shows high water usage levels per household.', 'The selected area shows relatively high water usage levels per household.', 'The selected area shows relatively high water usage levels per household.', 'The selected area shows relatively high water usage levels per household.', 'The selected area shows low water usage levels per household.']];
 
+    var doc = new jsPDF();
+    // para1 - left margin
+    // para2 - top margin
+    // para3 - string for output
+    // print suburb name           
+    doc.text(20, 20, 'Thank you for using VictoGreen');
+    doc.text(20, 30, 'This is a report for you selected suburb');
+    // for loop to compare and select comments for a given rating in each category
+    doc.text(20, 50, 'Suburb name: ' + suburbName.toString());
+
+    var i;
+
+    for (i = 0; i < ratingsForSuburb.length; i++) {
+        doc.text(20, 60 + (i * 3 * 10), categories[i].toString() + '-> ' + ratingsForSuburb[i].toString());
+        var number = ratingsForSuburb[i];
+        if (number == 0) {
+            doc.text(20, 70 + (i * 3 * 10), zero.toString());
+            continue;
+        }
+        if (number > 0 && number < 1) {
+            doc.text(20, 70 + (i * 3 * 10), allComments[i][0].toString());
+            continue;
+        }
+        if (number >= 1 && number < 2) {
+            doc.text(20, 70 + (i * 3 * 10), allComments[i][1].toString());
+            continue;
+        }
+        if (number >= 2 && number < 3) {
+            doc.text(20, 70 + (i * 3 * 10), allComments[i][2].toString());
+            continue;
+        }
+        if (number >= 3 && number < 4) {
+            doc.text(20, 70 + (i * 3 * 10), allComments[i][3].toString());
+            continue;
+        }
+        if (number >= 4 && number < 5) {
+            doc.text(20, 70 + (i * 3 * 10), allComments[i][4].toString());
+            continue;
+        }
+    }
+    doc.save('VictoGreen.pdf');
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////
