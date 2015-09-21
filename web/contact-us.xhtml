@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
     <h:head>
         <title></title>
     </h:head>
@@ -17,34 +19,32 @@
                 </div>
 
                 <div class="text-page-container">
-                    <form class="custom" action="MAILTO:someone@example.com" method="post" enctype="text/plain">
-                        <div class="row">
-                            <div class="large-6 columns">
-                                <p> If you have any queries, please don't hesitate filling in this form and hitting the Send button. </p>
-                            </div>
-                            <div class="large-6 columns">
-                                <div class="row collapse">
-                                    <div class="large-3 small-3 columns">
-                                        <select>
-                                            <option>Mr.</option>
-                                            <option>Mrs.</option>
-                                            <option>Miss.</option>
-                                            <option>Ms.</option>
-                                            <option>Dr.</option>
-                                        </select>
-                                    </div>
-                                    <div class="large-9 small-9 columns">
-                                        <input type="text" placeholder="Name" />
-                                    </div>
-                                </div>
-
-                                <input type="email" placeholder="Email" />
-                                <textarea placeholder="Message"></textarea>
-                                <input class="button small large-12" type="submit" value="Send Message" />
-                            </div>
+                    <div class="row">
+                        <div class="large-6 columns">
+                            <p> If you have any queries, please don't hesitate filling in this form and hitting the Send button. </p>
                         </div>
-                    </form>
+                        <div class="large-6 columns">
+                            <h:form class="custom">
+                                <p>Name:</p>
+                                <h:inputText id="personName" label="Name" value="#{emailBean.name}" required="true" requiredMessage="You must enter your name."
+                                             />
+                                <h:message class="error" for="personName"/>
+                                <p>Email:</p>
+                                <h:inputText id="personEmail" label="Email" value="#{emailBean.from}" required="true"
+                                             requiredMessage="What's your email?" validatorMessage="Your email doesn't look right!">
+                                    <f:validateRegex
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                </h:inputText>
+                                <h:message class="error" for="personEmail"/>
+                                <p>Message:</p>
 
+                                <h:inputTextarea id="personMessage" label="Message" value="#{emailBean.message}" required="true"
+                                                 requiredMessage="What do you want to tell or ask us?"></h:inputTextarea>
+                                <h:message class="error" for="personMessage"/>
+                                <h:commandButton  class="button small large-12" value="Send Message" action="#{emailBean.sendEmail()}" />
+                            </h:form>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- END CONTENT -->
