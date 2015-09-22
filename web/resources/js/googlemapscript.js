@@ -83,7 +83,7 @@ function initMap() {
     // Add a listener to the layer that constructs a chart from
     // the data returned on click
     google.maps.event.addListener(layer, 'click', function (e) {
-        var buttonsContent = "<ul class=\"button-group radius even-2\"><li><a class=\"button\" onclick=\"resetComparison()\"><i class=\"fi-page-\"></i>&nbsp;Reset</a></li><li><a class=\"button\" onclick=\"print()\"><i class=\"fi-save\"></i>&nbsp;Save</a></li></ul>";
+        var buttonsContent = "<ul class=\"button-group radius even-2\"><li><a class=\"button\" onclick=\"resetComparison()\"><i class=\"fi-page-remove\"></i>&nbsp;Reset</a></li><li><a class=\"button\" onclick=\"print()\"><i class=\"fi-save\"></i>&nbsp;Save</a></li></ul>";
         document.getElementById('reportButtons').innerHTML = buttonsContent;
 
         //scroll down a little bit to show there's a report generated
