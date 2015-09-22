@@ -6,13 +6,14 @@ var two = "<i class=\"fi-star\"></i><i class=\"fi-star\"></i>";
 var three = "<i class=\"fi-star\"></i><i class=\"fi-star\"></i><i class=\"fi-star\"></i>";
 var four = "<i class=\"fi-star\"></i><i class=\"fi-star\"></i><i class=\"fi-star\"></i><i class=\"fi-star\"></i>";
 var five = "<i class=\"fi-star\"></i><i class=\"fi-star\"></i><i class=\"fi-star\"></i><i class=\"fi-star\"></i><i class=\"fi-star\"></i>";
-var na = "<p>Unavailable<p/>";
+var na = "Unavailable";
 
 
 //function returns variable of html that needs to be embedded to output the rightful number of stars.
 //The function rounds nubmers from 1-5.
 function getStars(input) {
     rating = Math.round(input);
+    //alert(rating);
     if (rating) {
         switch (rating) {
             case 0:
@@ -35,7 +36,6 @@ function getStars(input) {
                 break;
             default:
                 return na;
-                break;
         }
     }
 }

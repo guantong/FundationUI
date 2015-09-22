@@ -12,9 +12,9 @@
             <ui:define name="content">
                 <!-- CONTENT -->
                 <!-- MAP TIPS -->
-                <div class="scene-element default-container bg-grayalpha" id="info">
+                <div class="default-container bg-smoke" id="info">
                     <p>
-                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>, or you can select a specific rating from the filter beside the map. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb.
+                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>, or you can select a specific rating from the filter beside the map. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb. You can select a second suburb to compare.
                     </p>
                     <div class="info-close-button" id="info-btn-close">
                         <!-- close button image as a cross-->
@@ -25,8 +25,8 @@
                 </div>
                 <!-- END OF MAP TIPS -->
 
-                <div class="scene-element row map-container div-shadow bg-height" style="z-index: 1000;">
-                    <div class="large-3 columns bg-darkgreen  left-bar">
+                <div class="scene-element row map-container bg-height" style="z-index: 1000;">
+                    <div class="large-3 columns bg-subtle  left-bar">
                         <!-- The following components need "googlemapscript" which is currently being included from map.xhtml. -->
                         <!-- SEARCH BAR -->
                         <input id="pac-input" class="controls" type="text"
@@ -50,7 +50,7 @@
                                         <option value="7">Water Pollutants</option>
                                     </select>
                                 </form>
-                                
+
                                 <!-- POLL -->
                                 <ui:include src="poll.xhtml"/>
 
@@ -108,6 +108,14 @@
 
                 <div class="row">
                     <div class="container">
+                        <ul class="button-group radius right">
+                            <li>
+                                <a class="button" onclick="resetComparison()"><i class="fi-page-remove"></i>&nbsp; Reset</a>
+                            </li>
+                            <li>
+                                <a class="button" onclick="print()"><i class="fi-save"></i>&nbsp; Save</a>
+                            </li>
+                        </ul>
                         <div class="green-report">
                             <!-- The two sections identified as headerContent2 and headerContent2 
                             are generated using the googlemapscript -->
@@ -116,25 +124,8 @@
                             </div>
                             <!-- The content of this resets when the reset button is clicked -->
                             <div id="headerContent2" style="display: inline-block; margin: 10px;"></div>
-                            
-                            <!-- These two buttons allow users to reset suburbs selections and print a pdf report is there's a report -->
-                            <div>
-                                <button onclick="resetComparison()">Click here to reset comparison</button>
-                                <button onclick="print()">Export to PDF Report</button>
-                            </div>
-                            
                         </div>
-                        <!--Large Report: Shows on large screens but disappears on small screens-->
-                        <div class="large-report" id="largeReport">
-                            <div style="width: 100%;" id="largeReportContent">
-                                <!-- Charts are to be generated inside the googlemapscript.js -->
-                                <!-- The content of this resets when the reset button is clicked -->
-                                <div id="chart">Select a suburb on the map.</div>
-                                <!-- The content of this resets when the reset button is clicked -->
-                                <div id="chart2"></div>
-                            </div>
-                        </div>
-
+                        
                         <!--Small Report: Shows on small screens-->
                         <div class="small-report" id="smallReport">
                             <!-- The content of smallReportContent is to be generated inside the googlemapscript.js
@@ -144,6 +135,17 @@
                             <!-- The content of this resets when the reset button is clicked -->
                             <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4" id="smallReportContent">
                             </ul>
+                        </div>
+
+                        <!--Large Report: Shows on large screens but disappears on small screens-->
+                        <div class="large-report" id="largeReport">
+                            <div style="width: 100%;" id="largeReportContent">
+                                <!-- Charts are to be generated inside the googlemapscript.js -->
+                                <!-- The content of this resets when the reset button is clicked -->
+                                <div id="chart">Select a suburb on the map.</div>
+                                <!-- The content of this resets when the reset button is clicked -->
+                                <div id="chart2"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

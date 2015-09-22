@@ -42,8 +42,15 @@ function initMap() {
         disableDoubleClickZoom: true,
         scrollwheel: false,
         // Setting Map style to grayscale [SUMAYA]
-        styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -100}, {"gamma": 0.5}]}]
+        styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -50}, {"gamma": 0.6}]}]
     };
+
+    /*
+     * 
+     * ,
+     // Setting Map style to grayscale [SUMAYA]
+     styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -100}, {"gamma": 0.5}]}]
+     */
     map = new google.maps.Map(document.getElementById('map'),
             mapOptions);
 
@@ -76,6 +83,10 @@ function initMap() {
     // the data returned on click
     google.maps.event.addListener(layer, 'click', function (e) {
 
+
+        //scroll down a little bit to show there's a report generated
+        window.scrollBy(0,300);
+        
         //if a second suburb has already been selected for comparison, remove its info first then add this selection
         if (comparison) {
 
@@ -110,7 +121,7 @@ function initMap() {
             //set header for suburb name and overall rating.
             //span the tooltip for each category and overall by pulling the comment from the
             //categorDescription array of strings. use <span data-tooltip...etc> and add it there
-            var headerContent = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\"><span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
+            var headerContent = "<h1 class=\"turn-blue\" style=\"font-size: 40px;\">" + e.row['Suburb Name'].value + "</h1><h1 ><span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
                     + stars +
                     "</h1>";
             document.getElementById('headerContent').innerHTML = headerContent;
@@ -125,7 +136,7 @@ function initMap() {
 
                 var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
                 //div category content append boxes for small ratings boxes
-                var categoryContent = "<li><div class=\"div-shadow category-box\">" + "<span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[i].toString() + "\">" + categories[i] + "</span><div id=\"" + categories[i] + "\"><div class=\"score\">" + e.row['Suburb Name'].value + ": <br />" + stars + "&nbsp;</div></div></div></li>";
+                var categoryContent = "<li><div class=\"category-box\">" + "<span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[i].toString() + "\">" + categories[i] + "</span><div id=\"" + categories[i] + "\"><div class=\"score\"><h4>" + e.row['Suburb Name'].value + "</h4>&nbsp;" + stars + "</div></div></div></li>";
                 document.getElementById('smallReportContent').innerHTML += categoryContent;
             }
             suburbContent = document.getElementById('smallReportContent').innerHTML; //Keep this as a backup for later use
@@ -183,17 +194,20 @@ function initMap() {
 
 
             //Header of suburb on green report section
-            var headerContent2 = "<h1><span>" + e.row['Suburb Name'].value + "</span></h1><h1 class=\"turn-green\"><span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
+            var headerContent2 = "<h1 class=\"turn-blue\" style=\"font-size: 40px;\">" + e.row['Suburb Name'].value + "</h1><h1><span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
                     + stars +
                     "</h1>";
             //Set the header of this suburb with the above content
             document.getElementById('headerContent2').innerHTML = headerContent2;
-
+            
+            
 
             //First, reset the first suburb information from the backup
             document.getElementById('smallReportContent').innerHTML = suburbContent;
             //Then fillout new content using each section's id
             for (var i = 0; i <= 7; i += 1) {
+                
+
                 var rating = categories[i];
                 var value = parseFloat(e.row[rating.toString()].value, 0);
                 rows.push([rating, value]);
@@ -201,8 +215,8 @@ function initMap() {
                 //div append
                 // class=\"score-blue\"
                 var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
+                var categoryContent = "<div class=\"score\"><h4>" + e.row['Suburb Name'].value + "</h4>&nbsp;" + stars + "&nbsp;</div>";
 
-                var categoryContent = "<div class=\"score\">" + e.row['Suburb Name'].value + ": <br />" + stars + "&nbsp;</div>";
                 document.getElementById(categories[i]).innerHTML += categoryContent;
             }
 
@@ -237,6 +251,13 @@ function initMap() {
 
             //set this to keep track if comparison mode is on, so next time user selects a suburb the initial suburb for comparison is removed by id of "temprorary"
             comparison = true;
+            
+            //Change height of boxes to fit the second suburb's text
+                var x = document.getElementsByClassName("category-box");
+                var j;
+                for (j = 0; j < x.length; j++) {
+                    x[j].style.height = 200;
+                }
         }
     });
 
@@ -361,7 +382,7 @@ function resetComparison() {
     //Reset all the needed content divs 
     document.getElementById('headerContent').innerHTML = "";
     document.getElementById('headerContent2').innerHTML = "";
-    document.getElementById('chart').innerHTML = "";
+    document.getElementById('chart').innerHTML = "Select a suburb on the map";
     document.getElementById('chart2').innerHTML = "";
     document.getElementById('smallReportContent').innerHTML = "";
 
@@ -419,7 +440,7 @@ function changeFunc() {
             overall();
             break;
         case "1":
-            water();
+            waterC();
             break;
         case "2":
             solar();
