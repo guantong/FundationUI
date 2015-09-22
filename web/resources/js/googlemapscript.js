@@ -43,7 +43,7 @@ function initMap() {
         scrollwheel: false,
         streetViewControl: false,
         // Setting Map style to grayscale [SUMAYA]
-        styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -100}, {"gamma": 0.5}]}]
+        //styles: [{"featureType": "all", "elementType": "all", "stylers": [{"saturation": -100}, {"gamma": 0.5}]}]
     };
     map = new google.maps.Map(document.getElementById('map'),
             mapOptions);
