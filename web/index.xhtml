@@ -29,7 +29,7 @@
                     <div class="large-3 columns bg-subtle  left-bar">
                         <!-- The following components need "googlemapscript" which is currently being included from map.xhtml. -->
                         <!-- SEARCH BAR -->
-                        <input id="pac-input" class="controls" type="text"
+                        <input id="pac-input" class="controls" type="text" style="height:40px;"
                                placeholder="Enter a postcode/suburb"/>
 
                         <!-- END OF SEARCH BAR-->
@@ -52,6 +52,7 @@
                                 </form>
 
                                 <!-- POLL -->
+                                <center><h4> Weekly Poll </h4></center>
                                 <ui:include src="poll.xhtml"/>
 
                             </div>
@@ -108,15 +109,27 @@
 
                 <div class="row">
                     <div class="container">
-                        <ul class="button-group radius right">
-                            <li>
-                                <a class="button" onclick="resetComparison()"><i class="fi-page-remove"></i>&nbsp; Reset</a>
-                            </li>
-                            <li>
-                                <a class="button" onclick="print()"><i class="fi-save"></i>&nbsp; Save</a>
-                            </li>
-                        </ul>
+
                         <div class="green-report">
+                            <!-- The content of this resets when the reset button is clicked -->
+                            <div id="reportButtons">
+                                <!--
+                                <ul class="button-group radius even-2">
+                                <li>
+                                    <a class="button" onclick="resetComparison()">
+                                        <i class="fi-page-remove"></i>&nbsp; Reset
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="button" onclick="print()">
+                                        <i class="fi-save"></i>&nbsp; Save
+                                    </a>
+                                </li>
+                            </ul>
+                                
+                                -->
+                            </div>
+                            
                             <!-- The two sections identified as headerContent2 and headerContent2 
                             are generated using the googlemapscript -->
                             <!-- The content of this resets when the reset button is clicked -->
@@ -125,14 +138,14 @@
                             <!-- The content of this resets when the reset button is clicked -->
                             <div id="headerContent2" style="display: inline-block; margin: 10px;"></div>
                         </div>
-                        
+
                         <!--Small Report: Shows on small screens-->
                         <div class="small-report" id="smallReport">
                             <!-- The content of smallReportContent is to be generated inside the googlemapscript.js
                             it follows a format of <li> to include boxes for each category rating. 
                             The script deals for when a second suburb is selected.
                             -->
-                            <!-- The content of this resets when the reset button is clicked -->
+                            
                             <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4" id="smallReportContent">
                             </ul>
                         </div>

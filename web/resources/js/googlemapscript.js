@@ -82,7 +82,8 @@ function initMap() {
     // Add a listener to the layer that constructs a chart from
     // the data returned on click
     google.maps.event.addListener(layer, 'click', function (e) {
-
+        var buttonsContent = "<ul class=\"button-group radius even-2\"><li><a class=\"button\" onclick=\"resetComparison()\"><i class=\"fi-page-\"></i>&nbsp;Reset</a></li><li><a class=\"button\" onclick=\"print()\"><i class=\"fi-save\"></i>&nbsp;Save</a></li></ul>";
+        document.getElementById('reportButtons').innerHTML = buttonsContent;
 
         //scroll down a little bit to show there's a report generated
         window.scrollBy(0,300);
@@ -136,7 +137,7 @@ function initMap() {
 
                 var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
                 //div category content append boxes for small ratings boxes
-                var categoryContent = "<li><div class=\"category-box\">" + "<span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[i].toString() + "\">" + categories[i] + "</span><div id=\"" + categories[i] + "\"><div class=\"score\"><h4>" + e.row['Suburb Name'].value + "</h4>&nbsp;" + stars + "</div></div></div></li>";
+                var categoryContent = "<li><div class=\"category-box\">" + "<span data-tooltip aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[i].toString() + "\">" + categories[i] + "</span><div id=\"" + categories[i] + "\"><div class=\"score\"><h4>" + e.row['Suburb Name'].value + "</h4>" + stars + "</div></div></div></li>";
                 document.getElementById('smallReportContent').innerHTML += categoryContent;
             }
             suburbContent = document.getElementById('smallReportContent').innerHTML; //Keep this as a backup for later use
@@ -215,7 +216,7 @@ function initMap() {
                 //div append
                 // class=\"score-blue\"
                 var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
-                var categoryContent = "<div class=\"score\"><h4>" + e.row['Suburb Name'].value + "</h4>&nbsp;" + stars + "&nbsp;</div>";
+                var categoryContent = "<div class=\"score\"><h4>" + e.row['Suburb Name'].value + "</h4>" + stars + "&nbsp;</div>";
 
                 document.getElementById(categories[i]).innerHTML += categoryContent;
             }
@@ -259,6 +260,8 @@ function initMap() {
                     x[j].style.height = 200;
                 }
         }
+        
+         $(document).foundation('tooltip', 'reflow');
     });
 
     var input = /** @type {!HTMLInputElement} */(
@@ -385,6 +388,7 @@ function resetComparison() {
     document.getElementById('chart').innerHTML = "Select a suburb on the map";
     document.getElementById('chart2').innerHTML = "";
     document.getElementById('smallReportContent').innerHTML = "";
+    document.getElementById('reportButtons').innerHTML = "";
 
 }
 
