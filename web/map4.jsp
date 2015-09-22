@@ -10,7 +10,7 @@ and open the template in the editor.
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
         <!--map api-->
-        <script src="https://maps.googleapis.com/maps/api/js?signed_in=false&libraries=places&callback=initMap" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?signed_in=false&callback=initMap&sensor=false&libraries=places" async defer></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <!--jquery api-->
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -132,47 +132,94 @@ and open the template in the editor.
             var suburbName = null; // new
             var ratingsForSuburb = []; // new
             var allComments = [[]]; // new
+            var data2d = [[]]; // new var for 2 axis chart
 
+            // load visualization package and and load google map
             setTimeout(function () {
-            google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
-            }, 100);
+                google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
+            }, 
+            100);
+            
+            
             function initMap() {
-
-            google.maps.visualRefresh = true;
+                google.maps.visualRefresh = true;
+                
                 var mapOptions = {
-                zoom: 12,
-                        center: new google.maps.LatLng( - 37.811129, 144.9627607),
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
-                        disableDoubleClickZoom: true,
-                        scrollwheel: false
+                    zoom: 12,
+                    center: new google.maps.LatLng( - 37.811129, 144.9627607),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    disableDoubleClickZoom: true,
+                    scrollwheel: false
                 };
                 
-                map = new google.maps.Map(document.getElementById('map'),
-                        mapOptions);
+                map = new google.maps.Map(document.getElementById('map'), mapOptions);
                         
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend-open'));
                 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(document.getElementById('googft-legend'));
                 
+                // with info window
+//                var layerWithInfoWindow = new google.maps.FusionTablesLayer({
+//                    heatmap: {
+//                        enabled: false
+//                    },
+//                    query: {
+//                        select: "col5\x3e\x3e1",
+//                        from: "19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc",
+//                        where: queryWhere.toString()
+//                    },
+//                    options: {
+//                        styleId: 2,
+//                        templateId: 2
+//                    },
+//                    map: map
+//                });
+                
                 // fusion table query and map style
                 var layer = new google.maps.FusionTablesLayer({
+                    map: map,
                     heatmap: {
-                    enabled: false
+                        enabled: false
                     },
-                        query: {
+                    query: {
                         select: "col5\x3e\x3e1",
-                                from: "19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc",
-                                where: queryWhere.toString()
-                        },
-                        options: {
+                        from: "19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc",
+                        where: queryWhere.toString()
+                    },
+                    options: {
                         styleId: 2,
-                                templateId: 2
-                        },
-                        map: map
-                });
-                
-                // Add a listener to the layer that constructs a chart from
-                // the data returned on click
+                        templateId: 2
+                    }
+                }),
+
+                //selected will be populated on layer-cllick with the postcod and
+                //a boolean (true when the area is highlighted, otherwise false)
+                selected = {};
+
                 google.maps.event.addListener(layer, 'click', function (e) {
+                    document.getElementById("infoWindowDiv").innerHTML = e.infoWindowHtml;
+                    var val = e.row['Postcode'].value,
+                            vals = [];
+
+                    //update the selected-object
+                    selected[val] = (!selected[val]) ? true : false;
+
+                    //populate the vals-array with the selected postcodes 
+                    for (var k in selected) {
+                        if (selected[k]) {
+                            vals.push(k);
+                        }
+                    }
+
+                    layer.set("styles", [{
+                        where: "'Postcode' IN('" + vals.join("','") + "')",
+                        polygonOptions: {
+                            fillColor: "#000000"
+                        }
+                    }]);
+             
+                    
+                    // Add a listener to the layer that constructs a chart from
+                    // the data returned on click
                     if (data == null) {
                         data = new google.visualization.DataTable();
                         data.addColumn('string', 'Rating 0 - 5');
@@ -185,68 +232,65 @@ and open the template in the editor.
                             var value = parseFloat(e.row[rating.toString()].value, 0);
                             ratingsForSuburb[i] = parseFloat(e.row[rating.toString()].value, 0); // new // add rating of each categories (followed by var categories order)
                             rows.push([rating, value]);
+                        }
+
+                        data.addRows(rows);
+
+                        charts = new google.visualization.BarChart(document.getElementById('chart'));
+                        suburbName = e.row['Suburb Name'].value; // new // get suburb name
+
+                        var options = {
+                            title: e.row['Suburb Name'].value + ' Green Rating Detail',
+                            height: 400,
+                            width: 1000,
+                                // set max vAxis to 5 as highest rating
+                            hAxis: {
+                            title: "Rating",
+                                viewWindowMode: 'explicit',
+                                viewWindow: {
+                                    max: 5,
+                                    min: 0
+                                }
+                            }
+                        };
+                        charts.draw(data, options);
                     }
+                    else {
 
-                    data.addRows(rows);
-                    
-                    charts = new google.visualization.BarChart(
-                            document.getElementById('chart'));
-                    suburbName = e.row['Suburb Name'].value; // new // get suburb name
+                        data = new google.visualization.DataTable();
 
-                    var options = {
-                        title: e.row['Suburb Name'].value + ' Green Rating Detail',
-                        height: 400,
-                        width: 600,
+                        data.addColumn('string', 'Rating 0 - 5');
+                        data.addColumn('number', 'Categories');
+                        categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
+                        rows = [];
+
+                        for (var i = 0; i <= 7; i += 1) {
+                            var rating = categories[i];
+                            var value = parseFloat(e.row[rating.toString()].value, 0);
+                            rows.push([rating, value]);
+                        }
+                        
+                        data.addRows(rows);
+                        charts = new google.visualization.BarChart(document.getElementById('chart1'));
+                        var options = {
+                            title: e.row['Suburb Name'].value + ' Green Rating Detail',
+                            height: 400,
+                            width: 600,
                             // set max vAxis to 5 as highest rating
-                        hAxis: {
-                        title: "Rating",
-                            viewWindowMode: 'explicit',
-                            viewWindow: {
-                                max: 5,
-                                min: 0
+                            hAxis: {
+                            title: "Rating",
+                                viewWindowMode: 'explicit',
+                                viewWindow: {
+                                    max: 5,
+                                    min: 0
+                                }
                             }
-                        }
-                    };
-                    charts.draw(data, options);
-                }
-                else {
-
-                    data = new google.visualization.DataTable();
-                
-                    data.addColumn('string', 'Rating 0 - 5');
-                    data.addColumn('number', 'Categories');
-                    categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
-                    rows = [];
-                    
-                    for (var i = 0; i <= 7; i += 1) {
-                        var rating = categories[i];
-                        var value = parseFloat(e.row[rating.toString()].value, 0);
-                        rows.push([rating, value]);
+                        };
+                        charts.draw(data, options);
                     }
-
-                    data.addRows(rows);
-                    charts = new google.visualization.BarChart(
-                            document.getElementById('chart2'));
-                    var options = {
-                        title: e.row['Suburb Name'].value + ' Green Rating Detail',
-                        height: 400,
-                        width: 600,
-                        // set max vAxis to 5 as highest rating
-                        hAxis: {
-                        title: "Rating",
-                            viewWindowMode: 'explicit',
-                            viewWindow: {
-                                max: 5,
-                                min: 0
-                            }
-                        }
-                    };
-                    charts.draw(data, options);
-                }
                 });
-                
-                var input = /** @type {!HTMLInputElement} */(
-                        document.getElementById('pac-input'));
+
+                var input = /** @type {!HTMLInputElement} */(document.getElementById('pac-input'));
                 map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
                 var autocomplete = new google.maps.places.Autocomplete(input);
                 autocomplete.bindTo('bounds', map);
@@ -264,44 +308,46 @@ and open the template in the editor.
                     
                     if (!place.geometry) {
                         window.alert("Autocomplete's returned place contains no geometry");
-                    return;
+                        return;
                     }
 
                     // If the place has a geometry, then present it on a map.
                     if (place.geometry.viewport) {
-                    map.fitBounds(place.geometry.viewport);
-                    } else {
-                    map.setCenter(place.geometry.location);
-                            map.setZoom(17); // Why 17? Because it looks good.
+                        map.fitBounds(place.geometry.viewport);
+                    } 
+                    else {
+                        map.setCenter(place.geometry.location);
+                        map.setZoom(17); // Why 17? Because it looks good.
                     }
                     marker.setIcon(/** @type {google.maps.Icon} */({
-                    url: place.icon,
-                            size: new google.maps.Size(71, 71),
-                            origin: new google.maps.Point(0, 0),
-                            anchor: new google.maps.Point(17, 34),
-                            scaledSize: new google.maps.Size(35, 35)
+                        url: place.icon,
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(35, 35)
                     }));
-                            marker.setPosition(place.geometry.location);
-                            marker.setVisible(true);
-                            var address = '';
-                            if (place.address_components) {
+                    
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+                var address = '';
+                if (place.address_components) {
                     address = [
-                            (place.address_components[0] && place.address_components[0].short_name || ''),
-                            (place.address_components[1] && place.address_components[1].short_name || ''),
-                            (place.address_components[2] && place.address_components[2].short_name || '')
+                        (place.address_components[0] && place.address_components[0].short_name || ''),
+                        (place.address_components[1] && place.address_components[1].short_name || ''),
+                        (place.address_components[2] && place.address_components[2].short_name || '')
                     ].join(' ');
-                    }
-
-                    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-                            infowindow.open(map, marker);
-                    });
                 }
 
-//            google.maps.event.addDomListener(window, 'load', initMap());
+                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+                infowindow.open(map, marker);
+                });
+            }
+
+            google.maps.event.addDomListener(window, 'load', initMap());
 
             // shift map to current location
             function pan() {
-            getLocation();
+                getLocation();
                 var panPoint = new google.maps.LatLng(lat.toString(), lon.toString());
                 map.panTo(panPoint);
                 var marker = new google.maps.Marker({
@@ -479,9 +525,6 @@ and open the template in the editor.
             <button onclick="print()">save</button>
         </div>
 
-
-
-
         <div id="map"></div>
 
         <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
@@ -521,6 +564,7 @@ and open the template in the editor.
             <button onclick="saveAsPDF()">Save PDF Report (working in progress)</button>
         </div>
         <div id="chart">Click on a marker to<br>display a chart here</div>
-        <div id="chart2">Click on a marker to<br>display a chart here</div>
+        <div id="infoWindowDiv">Info Window</div>
+        
     </body>
 </html>
