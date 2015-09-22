@@ -5,6 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>VictoGreen:Homepage</title>
+        <meta name="Description" CONTENT="VictoGreen provides you wiht information about local envirionment in 8 categories, and you can search, track, compare and export an PDF report all in one place."/>
     </h:head>
     <h:body>
         <ui:composition template="/template/template.xhtml">
@@ -50,7 +51,7 @@
                                         <option value="7">Water Pollutants</option>
                                     </select>
                                 </form>
-                                
+
                                 <!-- POLL -->
                                 <ui:include src="poll.xhtml"/>
 
@@ -64,35 +65,24 @@
                             <p id="googft-legend-title">Overall Rating</p>
                             <div>
                                 <span class="googft-legend-swatch" 
-                                      style="background-color: #aaaaaa"></span>
-                                <span class="googft-legend-range">Not Available</span>
-                            </div>
-                            <div>
-                                <span class="googft-legend-swatch" 
                                       style="background-color: #ffffff"></span>
-                                <span class="googft-legend-range">0 to 1</span>
+                                <span class="googft-legend-range">0 to 2</span>
                             </div>
                             <div>
                                 <span class="googft-legend-swatch" 
-                                      style="background-color: #ff9900"></span>
-                                <span class="googft-legend-range">1 to 2</span>
-                            </div>
-                            <div>
-                                <span class="googft-legend-swatch" 
-                                      style="background-color: #93c47d"></span>
+                                      style="background-color: #afe171"></span>
                                 <span class="googft-legend-range">2 to 3</span>
                             </div>
                             <div>
                                 <span class="googft-legend-swatch" 
-                                      style="background-color: #6aa84f"></span>
+                                      style="background-color: #99ff99"></span>
                                 <span class="googft-legend-range">3 to 4</span>
                             </div>
                             <div>
                                 <span class="googft-legend-swatch" 
-                                      style="background-color: #38761d"></span>
+                                      style="background-color: #00ff00"></span>
                                 <span class="googft-legend-range">4 to 5</span>
                             </div>
-
                             <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
                         </div>
                         <!-- END OF MAP LEGEND -->
@@ -116,13 +106,13 @@
                             </div>
                             <!-- The content of this resets when the reset button is clicked -->
                             <div id="headerContent2" style="display: inline-block; margin: 10px;"></div>
-                            
+
                             <!-- These two buttons allow users to reset suburbs selections and print a pdf report is there's a report -->
                             <div>
                                 <button onclick="resetComparison()">Click here to reset comparison</button>
                                 <button onclick="print()">Export to PDF Report</button>
                             </div>
-                            
+
                         </div>
                         <!--Large Report: Shows on large screens but disappears on small screens-->
                         <div class="large-report" id="largeReport">
