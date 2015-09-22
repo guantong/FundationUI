@@ -103,6 +103,22 @@ public class EmailBean {
         t.sendMessage(msg, msg.getAllRecipients());
         System.out.println("Response: " + t.getLastServerResponse());
         t.close();
+        
+        // send another copy to user        
+        Session sessionToUser = Session.getInstance(props, null);
+        Message msgToUser = new MimeMessage(sessionToUser);
+        msgToUser.setFrom(new InternetAddress("postmaster@victogreen.tk"));
+        msgToUser.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(from, false));
+        msgToUser.setSubject("VictoGreen");             //Subject line
+        msgToUser.setText("Thank you for your feedback, we will get back to you very soon" + "\n\nP.S Please do not respond to this email, This is auto-generated email.");    // Message followed by sender's email
+        msgToUser.setSentDate(new Date());
+        SMTPTransport toUser = (SMTPTransport) sessionToUser.getTransport("smtps");
+        toUser.connect("smtp.mailgun.com", "postmaster@victogreen.tk", "b7b62c9179650ca5ae74a195592631a8"); //this is the mailgun credentials
+        toUser.sendMessage(msgToUser, msgToUser.getAllRecipients());
+        System.out.println("Response: " + toUser.getLastServerResponse());
+        toUser.close();
+        
         showSuccessMessage();
     }
 
