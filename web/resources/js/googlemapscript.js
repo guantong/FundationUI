@@ -12,6 +12,8 @@ var suburbName = null; // new
 var ratingsForSuburb = []; // new
 var allComments = [[]]; // new
 
+var headerContentBackup; //new [SUMAYA]
+
 //To be put as tooltips to each category header
 var categoryDescription = [
     'An overall performance of an area on water consumption, pollutant levels, areas of parks and reserves and number of trees (forest)',
@@ -25,7 +27,6 @@ var categoryDescription = [
 
 
 var suburbContent; //value to keeps track of first suburb selection content, so that multiple selections can be made for the second suburb without losing track of the first's content.
-
 
 setTimeout(function () {
     google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
@@ -79,10 +80,14 @@ function initMap() {
 
     //boolean to know when a second suburb is select (after the initial time there's been one select to compare)
     var comparison = false;
+    headerContentBackup = document.getElementById('headerContentAll').innerHTML;
 
     // Add a listener to the layer that constructs a chart from
     // the data returned on click
     google.maps.event.addListener(layer, 'click', function (e) {
+
+        
+        
         var buttonsContent = "<ul class=\"button-group radius even-2\"><li><a class=\"button\" onclick=\"resetComparison()\"><i class=\"fi-page-remove\"></i>&nbsp;Reset Comparison</a></li><li><a class=\"button\" onclick=\"print()\"><i class=\"fi-save\"></i>&nbsp;Save PDF</a></li></ul>";
         document.getElementById('reportButtons').innerHTML = buttonsContent;
 
@@ -384,12 +389,14 @@ function showError(error) {
 function resetComparison() {
     data = null;
     //Reset all the needed content divs 
-    document.getElementById('headerContent').innerHTML = "";
-    document.getElementById('headerContent2').innerHTML = "";
-    document.getElementById('chart').innerHTML = "Select a suburb on the map";
+    //document.getElementById('headerContentAll').innerHTML = "";
+    document.getElementById('headerContentAll').innerHTML = headerContentBackup;
+    document.getElementById('chart').innerHTML = "Green report will be produced upon suburb selection on map.";
     document.getElementById('chart2').innerHTML = "";
     document.getElementById('smallReportContent').innerHTML = "";
     document.getElementById('reportButtons').innerHTML = "";
+
+
 
 }
 

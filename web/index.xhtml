@@ -98,45 +98,59 @@
                 <!-- GREEN REPORT SECTION -->
 
                 <div class="row">
+                    <div class="large-12 small-12 columns align-center">
+                        <h1 style="color: #116600;font-size: 30pt;">Green Report</h1>
+                    </div>
+
                     <div class="container">
-
-                        <div class="green-report">
-                            <!-- The content of this resets when the reset button is clicked -->
-                            <div id="reportButtons">
-                                <!--
-                                <ul class="button-group radius even-2">
-                                <li>
-                                    <a class="button" onclick="resetComparison()">
-                                        <i class="fi-page-remove"></i>&nbsp; Reset
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="button" onclick="print()">
-                                        <i class="fi-save"></i>&nbsp; Save
-                                    </a>
-                                </li>
-                            </ul>
-                                
-                                -->
-                            </div>
-                            
-                            <!-- The two sections identified as headerContent2 and headerContent2 
-                            are generated using the googlemapscript -->
-                            <!-- The content of this resets when the reset button is clicked -->
-                            <div id="headerContent" style="display: inline-block; margin: 10px;">
-                            </div>
-                            <!-- The content of this resets when the reset button is clicked -->
-                            <div id="headerContent2" style="display: inline-block; margin: 10px;"></div>
-
+                        <div id="reportButtons">
+                            <!--
+                            <ul class="button-group radius even-2">
+                            <li>
+                                <a class="button" onclick="resetComparison()">
+                                    <i class="fi-page-remove"></i>&nbsp; Reset
+                                </a>
+                            </li>
+                            <li>
+                                <a class="button" onclick="print()">
+                                    <i class="fi-save"></i>&nbsp; Save
+                                </a>
+                            </li>
+                        </ul>
+                            -->
                         </div>
+                    </div>
+                </div>
 
+
+                <div class="row"> <!-- or add bg-lightgreen-->
+                    <div class="container">
+                        <div id="headerContentAll" class="green-report">
+                            <!-- The content of this resets when the reset button is clicked -->
+                            <!-- The two sections identified as headerContent2 and headerContent2 
+                        are generated using the googlemapscript -->
+                            <!-- The content of this resets when the reset button is clicked -->
+                            <div id="headerContent" class="large-6 small-12 columns align-center">
+                                <h1 style="color: #999; font-size: 60px;"><i class="fi-arrow-up"></i></h1>
+                                <h1 style="color: #999;">Select 1st suburb</h1>
+                            </div>
+                            <!-- The content of this resets when the reset button is clicked -->
+                            <div id="headerContent2" class="large-6 small-12 columns align-center">
+                                <h1 style="color: #999; font-size: 60px;"><i class="fi-arrow-up"></i></h1>
+                                <h1 style="color: #999;">Select 2nd suburb</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
                         <!--Small Report: Shows on small screens-->
                         <div class="small-report" id="smallReport">
                             <!-- The content of smallReportContent is to be generated inside the googlemapscript.js
                             it follows a format of <li> to include boxes for each category rating. 
                             The script deals for when a second suburb is selected.
                             -->
-                            
+
                             <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4" id="smallReportContent">
                             </ul>
 
@@ -147,7 +161,7 @@
                             <div style="width: 100%;" id="largeReportContent">
                                 <!-- Charts are to be generated inside the googlemapscript.js -->
                                 <!-- The content of this resets when the reset button is clicked -->
-                                <div id="chart">Select a suburb on the map.</div>
+                                <div id="chart">Green report will be produced upon suburb selection on map.</div>
                                 <!-- The content of this resets when the reset button is clicked -->
                                 <div id="chart2"></div>
                             </div>

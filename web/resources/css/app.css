@@ -9753,7 +9753,12 @@ th.hide-for-touch {
   color: #008CBA;
 }
 
-/* line 279, ../scss/app.scss */
+/* line 275, ../scss/app.scss */
+.align-center {
+  text-align: center;
+}
+
+/* line 281, ../scss/app.scss */
 .large-report {
   margin: auto;
   background-color: whitesmoke;
@@ -9763,24 +9768,24 @@ th.hide-for-touch {
   border-radius: 10px;
 }
 @media only screen {
-  /* line 279, ../scss/app.scss */
+  /* line 281, ../scss/app.scss */
   .large-report {
     display: none;
   }
 }
 @media only screen and (min-width: 64.063em) {
-  /* line 279, ../scss/app.scss */
+  /* line 281, ../scss/app.scss */
   .large-report {
     display: block;
   }
 }
 
-/* line 294, ../scss/app.scss */
+/* line 296, ../scss/app.scss */
 .small-report {
   margin-top: 30px;
 }
 
-/* line 304, ../scss/app.scss */
+/* line 306, ../scss/app.scss */
 .category-box {
   margin: auto;
   background-color: whitesmoke;
@@ -9789,23 +9794,23 @@ th.hide-for-touch {
   border-radius: 10px;
 }
 
-/* line 313, ../scss/app.scss */
+/* line 315, ../scss/app.scss */
 .upscale {
   height: 200px;
 }
 
-/* line 318, ../scss/app.scss */
+/* line 320, ../scss/app.scss */
 .score {
   font-size: 20px;
   color: #66cc00;
 }
-/* line 319, ../scss/app.scss */
+/* line 321, ../scss/app.scss */
 .score h4 {
   color: #008CBA;
   margin-bottom: -20;
 }
 
-/* line 328, ../scss/app.scss */
+/* line 330, ../scss/app.scss */
 .score-blue {
   font-size: 20px;
   color: #0066CC;
@@ -9814,24 +9819,24 @@ th.hide-for-touch {
 }
 
 /* FOOTER CSS */
-/* line 338, ../scss/app.scss */
+/* line 340, ../scss/app.scss */
 .left-border {
   border-left: 1px solid black;
 }
 
-/* line 341, ../scss/app.scss */
+/* line 343, ../scss/app.scss */
 .footer .footer-links a::after {
   content: "•";
   padding: 0 0.2rem 0 0.4rem;
 }
 
-/* line 345, ../scss/app.scss */
+/* line 347, ../scss/app.scss */
 .footer .footer-links a:last-child::after {
   content: "";
   padding: 0 0.4rem 0 0.8rem;
 }
 
-/* line 349, ../scss/app.scss */
+/* line 351, ../scss/app.scss */
 .footer .copyright {
   color: #8f9296;
   font-size: 0.875rem;
@@ -9839,7 +9844,7 @@ th.hide-for-touch {
 }
 
 /* Background images CSS */
-/* line 358, ../scss/app.scss */
+/* line 360, ../scss/app.scss */
 .bg-pattern-img {
   /*http://subtlepatterns.com/concrete-seamless/*/
   background-image: url(../images/concrete_seamless.png);
@@ -9847,7 +9852,7 @@ th.hide-for-touch {
   background-attachment: fixed;
 }
 
-/* line 365, ../scss/app.scss */
+/* line 367, ../scss/app.scss */
 .bg-img {
   background-image: url(../images/bg_image.jpg);
   background-size: cover;
@@ -9857,7 +9862,7 @@ th.hide-for-touch {
 }
 
 /* Background colors CSS */
-/* line 374, ../scss/app.scss */
+/* line 376, ../scss/app.scss */
 .bg-greenscale {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#66cc00+0,8ab66b+44,398235+100 */
   background: #66cc00;
@@ -9878,7 +9883,7 @@ th.hide-for-touch {
   /* IE6-9 */
 }
 
-/* line 385, ../scss/app.scss */
+/* line 387, ../scss/app.scss */
 .bg-bluescale {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b7deed+0,71ceef+50,21b4e2+51,b7deed+100;Shape+1+Style */
   background: #b7deed;
@@ -9899,7 +9904,7 @@ th.hide-for-touch {
   /* IE6-9 */
 }
 
-/* line 397, ../scss/app.scss */
+/* line 399, ../scss/app.scss */
 .bg-grayscale {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
   background: #ffffff;
@@ -9920,7 +9925,7 @@ th.hide-for-touch {
   /* IE6-9 */
 }
 
-/* line 409, ../scss/app.scss */
+/* line 411, ../scss/app.scss */
 .bg-darkgrayscale {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
   background: #45484d;
@@ -9941,42 +9946,63 @@ th.hide-for-touch {
   /* IE6-9 */
 }
 
-/* line 422, ../scss/app.scss */
+/* line 424, ../scss/app.scss */
 .bg-darkgreen {
   background: #66cc00;
 }
 
-/* line 426, ../scss/app.scss */
+/* line 428, ../scss/app.scss */
 .bg-grayalpha {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* line 431, ../scss/app.scss */
+/* line 433, ../scss/app.scss */
 .bg-whitealpha {
   background: white;
 }
 
-/* line 435, ../scss/app.scss */
+/* line 437, ../scss/app.scss */
 .bg-gray {
   background: #cccccc;
 }
 
-/* line 438, ../scss/app.scss */
+/* line 440, ../scss/app.scss */
 .bg-green {
   background: #66cc00;
 }
 
-/* line 442, ../scss/app.scss */
+/* line 444, ../scss/app.scss */
 .bg-darkgray {
   background: #444444;
 }
 
-/* line 446, ../scss/app.scss */
+/* line 448, ../scss/app.scss */
 .bg-subtle {
   background: #D6D1C7;
 }
 
-/* line 450, ../scss/app.scss */
+/* line 452, ../scss/app.scss */
 .bg-smoke {
   background: whitesmoke;
+}
+
+/* line 456, ../scss/app.scss */
+.bg-lightgreen {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e3f4e4+0,edffea+100 */
+  background: #e3f4e4;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #e3f4e4 0%, #edffea 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e3f4e4), color-stop(100%, #edffea));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #e3f4e4 0%, #edffea 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #e3f4e4 0%, #edffea 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #e3f4e4 0%, #edffea 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #e3f4e4 0%, #edffea 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3f4e4', endColorstr='#edffea',GradientType=0 );
+  /* IE6-9 */
 }
