@@ -23,32 +23,24 @@
     </h:head>
     <h:body>
         <!--background fixed image-->
-        <div class="bg-pattern-img">
-
+        <div class="bg-img">
             <!-- default header  -->
             <ui:insert name="header">
                 <ui:include src="header.xhtml">
                     <ui:param name="filename" value="#{filename}" />
                 </ui:include>
             </ui:insert>
-            <div class="bg-white-container div-shadow">
-                <!-- this adds some padding between the header and content -->
-                
+            <h:panelGroup id="main" class="scene-element scene-enter" layout="block">
+                <!-- content  -->
+                <ui:insert name="content">
+                    <!--<ui:include src="content.xhtml"/>-->
+                </ui:insert>
 
-                <h:panelGroup id="main" class="scene-element scene-enter" layout="block">
-                    <!-- content  -->
-                    <div class="hide-small-show-large" style="padding-top:20px;"></div>
-
-                    <ui:insert name="content">
-                        <!--<ui:include src="content.xhtml"/>-->
-                    </ui:insert>
-
-                    <!-- default footer  -->
-                    <ui:insert name="footer">
-                        <ui:include src="footer.xhtml"/>
-                    </ui:insert>
-                </h:panelGroup>
-            </div>
+                <!-- default footer  -->
+                <ui:insert name="footer">
+                    <ui:include src="footer.xhtml"/>
+                </ui:insert>
+            </h:panelGroup>
         </div>
 
 
