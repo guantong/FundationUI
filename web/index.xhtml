@@ -5,6 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>VictoGreen:Homepage</title>
+        <meta name="Description" CONTENT="VictoGreen provides you wiht information about local envirionment in 8 categories, and you can search, track, compare and export an PDF report all in one place."></meta>
     </h:head>
     <h:body>
         <ui:composition template="/template/template.xhtml">
@@ -12,9 +13,9 @@
             <ui:define name="content">
                 <!-- CONTENT -->
                 <!-- MAP TIPS -->
-                <div class="scene-element default-container bg-grayalpha" id="info">
+                <div class="default-container bg-smoke" id="info">
                     <p>
-                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>, or you can select a specific rating from the filter beside the map. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb.
+                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>, or you can select a specific rating from the filter beside the map. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb. You can select a second suburb to compare.
                     </p>
                     <div class="info-close-button" id="info-btn-close">
                         <!-- close button image as a cross-->
@@ -25,11 +26,11 @@
                 </div>
                 <!-- END OF MAP TIPS -->
 
-                <div class="scene-element row map-container div-shadow bg-height" style="z-index: 1000;">
-                    <div class="large-3 columns bg-darkgreen  left-bar">
+                <div class="scene-element row map-container bg-height" style="z-index: 1000;">
+                    <div class="large-3 columns bg-subtle  left-bar">
                         <!-- The following components need "googlemapscript" which is currently being included from map.xhtml. -->
                         <!-- SEARCH BAR -->
-                        <input id="pac-input" class="controls" type="text"
+                        <input id="pac-input" class="controls" type="text" style="height:40px;"
                                placeholder="Enter a postcode/suburb"/>
 
                         <!-- END OF SEARCH BAR-->
@@ -47,10 +48,12 @@
                                         <option value="4">Air Pollutants</option>
                                         <option value="5">Forest</option>
                                         <option value="6">Parks and Reserve</option>
+                                        <option value="7">Water Pollutants</option>
                                     </select>
                                 </form>
-                                
+
                                 <!-- POLL -->
+                                <center><h4> Weekly Poll </h4></center>
                                 <ui:include src="poll.xhtml"/>
 
                             </div>
@@ -63,35 +66,24 @@
                             <p id="googft-legend-title">Overall Rating</p>
                             <div>
                                 <span class="googft-legend-swatch" 
-                                      style="background-color: #aaaaaa"></span>
-                                <span class="googft-legend-range">Not Available</span>
-                            </div>
-                            <div>
-                                <span class="googft-legend-swatch" 
                                       style="background-color: #ffffff"></span>
-                                <span class="googft-legend-range">0 to 1</span>
+                                <span class="googft-legend-range">0 to 2</span>
                             </div>
                             <div>
                                 <span class="googft-legend-swatch" 
-                                      style="background-color: #ff9900"></span>
-                                <span class="googft-legend-range">1 to 2</span>
-                            </div>
-                            <div>
-                                <span class="googft-legend-swatch" 
-                                      style="background-color: #93c47d"></span>
+                                      style="background-color: #afe171"></span>
                                 <span class="googft-legend-range">2 to 3</span>
                             </div>
                             <div>
                                 <span class="googft-legend-swatch" 
-                                      style="background-color: #6aa84f"></span>
+                                      style="background-color: #99ff99"></span>
                                 <span class="googft-legend-range">3 to 4</span>
                             </div>
                             <div>
                                 <span class="googft-legend-swatch" 
-                                      style="background-color: #38761d"></span>
+                                      style="background-color: #00ff00"></span>
                                 <span class="googft-legend-range">4 to 5</span>
                             </div>
-
                             <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
                         </div>
                         <!-- END OF MAP LEGEND -->
@@ -106,43 +98,73 @@
                 <!-- GREEN REPORT SECTION -->
 
                 <div class="row">
-                    <div class="container">
-                        <div class="green-report">
-                            <!-- The two sections identified as headerContent2 and headerContent2 
-                            are generated using the googlemapscript -->
-                            <!-- The content of this resets when the reset button is clicked -->
-                            <div id="headerContent" style="display: inline-block; margin: 10px;">
-                            </div>
-                            <!-- The content of this resets when the reset button is clicked -->
-                            <div id="headerContent2" style="display: inline-block; margin: 10px;"></div>
-                            
-                            <!-- These two buttons allow users to reset suburbs selections and print a pdf report is there's a report -->
-                            <div>
-                                <button onclick="resetComparison()">Click here to reset comparison</button>
-                                <button onclick="saveAsPDF()">Export to PDF Report</button>
-                            </div>
-                            
-                        </div>
-                        <!--Large Report: Shows on large screens but disappears on small screens-->
-                        <div class="large-report" id="largeReport">
-                            <div style="width: 100%;" id="largeReportContent">
-                                <!-- Charts are to be generated inside the googlemapscript.js -->
-                                <!-- The content of this resets when the reset button is clicked -->
-                                <div id="chart">Select a suburb on the map.</div>
-                                <!-- The content of this resets when the reset button is clicked -->
-                                <div id="chart2"></div>
-                            </div>
-                        </div>
+                    <div class="large-12 small-12 columns align-center">
+                        <h1 style="color: #116600;font-size: 30pt;">Green Report</h1>
+                    </div>
 
+                    <div class="container">
+                        <div id="reportButtons">
+                            <!--
+                            <ul class="button-group radius even-2">
+                            <li>
+                                <a class="button" onclick="resetComparison()">
+                                    <i class="fi-page-remove"></i>&nbsp; Reset
+                                </a>
+                            </li>
+                            <li>
+                                <a class="button" onclick="print()">
+                                    <i class="fi-save"></i>&nbsp; Save
+                                </a>
+                            </li>
+                        </ul>
+                            -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row"> <!-- or add bg-lightgreen-->
+                    <div class="container">
+                        <div id="headerContentAll" class="green-report">
+                            <!-- The content of this resets when the reset button is clicked -->
+                            <!-- The two sections identified as headerContent2 and headerContent2 
+                        are generated using the googlemapscript -->
+                            <!-- The content of this resets when the reset button is clicked -->
+                            <div id="headerContent" class="large-6 small-12 columns align-center">
+                                <h1 style="color: #999; font-size: 60px;"><i class="fi-arrow-up"></i></h1>
+                                <h1 style="color: #999;">Select 1st suburb</h1>
+                            </div>
+                            <!-- The content of this resets when the reset button is clicked -->
+                            <div id="headerContent2" class="large-6 small-12 columns align-center">
+                                <h1 style="color: #999; font-size: 60px;"><i class="fi-arrow-up"></i></h1>
+                                <h1 style="color: #999;">Select 2nd suburb</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
                         <!--Small Report: Shows on small screens-->
                         <div class="small-report" id="smallReport">
                             <!-- The content of smallReportContent is to be generated inside the googlemapscript.js
                             it follows a format of <li> to include boxes for each category rating. 
                             The script deals for when a second suburb is selected.
                             -->
-                            <!-- The content of this resets when the reset button is clicked -->
+
                             <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4" id="smallReportContent">
                             </ul>
+
+                        </div>
+
+                        <!--Large Report: Shows on large screens but disappears on small screens-->
+                        <div class="large-report" id="largeReport">
+                            <div style="width: 100%;" id="largeReportContent">
+                                <!-- Charts are to be generated inside the googlemapscript.js -->
+                                <!-- The content of this resets when the reset button is clicked -->
+                                <div id="chart">Green report will be produced upon suburb selection on map.</div>
+                                <!-- The content of this resets when the reset button is clicked -->
+                                <div id="chart2"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

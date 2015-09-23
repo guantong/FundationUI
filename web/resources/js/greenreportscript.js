@@ -273,4 +273,3 @@ function forest() {
     queryWhere = "'Forest Rating' >= 0.1 AND 'Forest Rating' <= 4.9";
     initMap();
 }
-Ï

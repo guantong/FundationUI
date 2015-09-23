@@ -113,7 +113,7 @@ $include-html-global-classes: $include-html-classes;
 // $steel       : #666666;
 // $charcoal    : #555555;
  $tuatara     : #444444;
-// $oil         : #333333;
+ $oil         : #333333;
 // $jet         : #222222;
 // $black       : #000000;
    
@@ -130,7 +130,7 @@ $include-html-global-classes: $include-html-classes;
 // We use these to control various global styles
 // $body-bg: $white;
 // $body-font-color: $jet;
-// $body-font-family: $font-family-sans-serif;
+$body-font-family: 'Ubuntu', sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 
@@ -454,7 +454,7 @@ $include-html-global-classes: $include-html-classes;
 
 // We use these to control button text styles.
 // $button-font-family: $body-font-family;
-// $button-font-color: $white;
+ $button-font-color: #ffffff;
 // $button-font-color-alt: $oil;
 // $button-font-tny: rem-calc(11);
 // $button-font-sml: rem-calc(13);
@@ -470,7 +470,7 @@ $include-html-global-classes: $include-html-classes;
 $button-border-width: 0;
 // $button-border-style: solid;
 $button-bg-color: $lightgreeny;
-$button-bg-hover: scale-color($lightgreeny, $lightness: 50%);
+$button-bg-hover: scale-color($lightgreeny, $lightness: -50%);
 // $button-border-color: $button-bg-hover;
 // $secondary-button-bg-hover: scale-color($secondary-color, $lightness: $button-function-factor);
 // $secondary-button-border-color: $secondary-button-bg-hover;
@@ -1379,14 +1379,14 @@ $button-bg-hover: scale-color($lightgreeny, $lightness: 50%);
 
 // $has-tip-border-bottom: dotted 1px $iron;
 // $has-tip-font-weight: $font-weight-bold;
-// $has-tip-font-color: $oil;
+ //$has-tip-font-color: $oil;
 // $has-tip-border-bottom-hover: dotted 1px scale-color($primary-color, $lightness: -55%);
-// $has-tip-font-color-hover: $primary-color;
+ $has-tip-font-color-hover: $oil;
 // $has-tip-cursor-type: help;
 
 // $tooltip-padding: rem-calc(12);
-// $tooltip-bg: $oil;
-// $tooltip-font-size: rem-calc(14);
+ $tooltip-bg: $oil;
+ $tooltip-font-size: rem-calc(15);
 // $tooltip-font-weight: $font-weight-normal;
 // $tooltip-font-color: $white;
 // $tooltip-line-height: 1.3;

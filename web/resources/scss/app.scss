@@ -1,7 +1,7 @@
 @import "settings";
 @import "foundation";
 
-
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
 //mixin resizes width and height of element
 @mixin resizer($value) {
     width:  $value px;
@@ -101,7 +101,7 @@
         img {
             width: 20px;
             height: 20px;
-            -webkit-filter: invert(100%);
+            //-webkit-filter: invert(100%);
         }
     }
 }
@@ -138,13 +138,36 @@
     }
 }
 
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    @media only screen {
+        width: 100%;
+    } 
+    @media only screen and (min-width: 64.063em) {
+        width: 90%;
+    }
+}
+
+.bg-white-container {
+    background: white;
+    margin-left: auto;
+    margin-right: auto;
+    @media only screen {
+        width: 100%;
+    } 
+    @media only screen and (min-width: 64.063em) {
+        width: 90%;
+    }
+}
+
 
 // DEFAULT PAGE PART A: Secondary header for page title, has top corners rounded. Place on top of a "text-page-container"
 .text-page-container-header {
     h1 {
-        color: #ffffff;
+        color: #116600;
         font-size: 30pt;
-        text-shadow: 0px 1px 1px #444444;
+        //text-shadow: 0px 0px 1px #444444;
     }
     margin-left: auto;
     margin-right: auto;
@@ -161,7 +184,7 @@
 
 // DEFAULT PAGE PART B: Content container for to be placed under "text-page-container-header" , has bottom corners rounded
 .text-page-container {
-    background-color: #ffffff;
+    background-color: whitesmoke;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
@@ -178,10 +201,10 @@
 .default-container {
     margin-left: auto;
     margin-right: auto;
-    padding: 20px;
+    padding: 10px;
     position: relative;
     p {
-        color: white;
+        color: black;
     }
     @media only screen {
         width: 100%;
@@ -235,10 +258,10 @@
 .green-report {
     h1 {
         font-size: 30px;
-        text-shadow: 0px 2px 2px #000000;
+        //text-shadow: 0px 2px 2px #000000;
     }
     span {
-        color: #ffffff;
+        color: #000000;
     }
 }
 
@@ -246,10 +269,12 @@
     color: #66cc00;
 }
 .turn-blue {
-    color: #0066CC;
+    color: #008CBA;
 }
 
-
+.align-center {
+    text-align: center;
+}
 
 
 //Small or large report: used to hide bigger report on small screens and distribute result to boxes. Depends on js used from the googlemap script
@@ -281,14 +306,22 @@
 .category-box {
     margin: auto;
     background-color: whitesmoke;
-    height: 200px;
+    //background-image: url(../images/sepia.jpg);
+    //height: 100px; //Dynamic, that's why commented
     width: 100%;
     padding: 10px;
     border-radius: 10px;
 }
+.upscale {
+    height: 200px;
+}
 
 
 .score {
+    h4 {
+        color: #008CBA;
+        margin-bottom: -20;
+    }
     font-size: 20px;
     color: #66cc00;
     //text-shadow: 0px 1px 1px #999999;
@@ -389,7 +422,7 @@
 }
 
 .bg-darkgreen {
-    background: rgba(102.0, 204.0, 0.0, 0.5);
+    background: rgba(102.0, 204.0, 0.0, 1.0);
 }
 
 .bg-grayalpha {
@@ -398,7 +431,7 @@
 
 
 .bg-whitealpha {
-    background: rgba(255,255,255, 0.1);
+    background: rgba(255,255,255, 1.0);
 }
 
 .bg-gray {
@@ -412,6 +445,26 @@
     background: #444444;
 }
 
+.bg-subtle {
+    background: #D6D1C7;
+}
+
+.bg-smoke {
+    background: whitesmoke;
+}
+
+.bg-lightgreen {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e3f4e4+0,edffea+100 */
+    background: rgb(227,244,228); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(227,244,228,1) 0%, rgba(237,255,234,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(227,244,228,1)), color-stop(100%,rgba(237,255,234,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(227,244,228,1) 0%,rgba(237,255,234,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(227,244,228,1) 0%,rgba(237,255,234,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(227,244,228,1) 0%,rgba(237,255,234,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(227,244,228,1) 0%,rgba(237,255,234,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3f4e4', endColorstr='#edffea',GradientType=0 ); /* IE6-9 */
+
+}
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",
