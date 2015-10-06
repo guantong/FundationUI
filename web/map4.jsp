@@ -223,7 +223,7 @@ and open the template in the editor.
                     if (data == null) {
                         data = new google.visualization.DataTable();
                         data.addColumn('string', 'Rating 0 - 5');
-                        data.addColumn('number', 'Categories');
+                        data.addColumn('number', 'Rating');
                         categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
                         rows = [];
                         
