@@ -132,11 +132,16 @@ and open the template in the editor.
             var suburbName = null; // new
             var ratingsForSuburb = []; // new
             var allComments = [[]]; // new
-            var data2d = [[]]; // new var for 2 axis chart
+            var data2d = []; // new var for 2 axis chart
+            //new code for initialsing arrays
+            var selection1Data = [];
+            var selection2Data = [];
+            var headerArray = ['Categories','',''];
+            var dual;
 
             // load visualization package and and load google map
             setTimeout(function () {
-                google.load('visualization', '1', {'callback': '', 'packages': ['corechart']})
+                google.load('visualization', '1.1', {'callback': '', 'packages': ['bar']})
             }, 
             100);
             
@@ -216,8 +221,7 @@ and open the template in the editor.
                             fillColor: "#000000"
                         }
                     }]);
-             
-                    
+ 
                     // Add a listener to the layer that constructs a chart from
                     // the data returned on click
                     if (data == null) {
@@ -230,20 +234,26 @@ and open the template in the editor.
                         for (var i = 0; i <= 7; i += 1) {
                             var rating = categories[i];
                             var value = parseFloat(e.row[rating.toString()].value, 0);
-                            ratingsForSuburb[i] = parseFloat(e.row[rating.toString()].value, 0); // new // add rating of each categories (followed by var categories order)
+                            // new
+                            selection1Data.push(value);
+                            // new // add rating of each categories (followed by var categories order)
+                            ratingsForSuburb[i] = parseFloat(e.row[rating.toString()].value, 0); 
                             rows.push([rating, value]);
                         }
 
                         data.addRows(rows);
 
-                        charts = new google.visualization.BarChart(document.getElementById('chart'));
+                        charts = new google.charts.Bar(document.getElementById('chart'));
                         suburbName = e.row['Suburb Name'].value; // new // get suburb name
-
+                        //new code
+                        headerArray[1] = suburbName.toString();
+                        
                         var options = {
                             title: e.row['Suburb Name'].value + ' Green Rating Detail',
                             height: 400,
                             width: 1000,
                                 // set max vAxis to 5 as highest rating
+                            bars: 'horizontal', // Required for Material Bar Charts.
                             hAxis: {
                             title: "Rating",
                                 viewWindowMode: 'explicit',
@@ -256,37 +266,39 @@ and open the template in the editor.
                         charts.draw(data, options);
                     }
                     else {
-
-                        data = new google.visualization.DataTable();
-
-                        data.addColumn('string', 'Rating 0 - 5');
-                        data.addColumn('number', 'Categories');
-                        categories = ['Overall Rating', 'Forest Rating', 'Park and Reserve Rating', 'Air Pollutant Rating', 'Land Pollutant Rating', 'Water Pollutant Rating', 'Solar Saving Rating', 'Water Consumption Rating'];
-                        rows = [];
-
+                        data2d = [];
+                        
+                        
                         for (var i = 0; i <= 7; i += 1) {
                             var rating = categories[i];
                             var value = parseFloat(e.row[rating.toString()].value, 0);
-                            rows.push([rating, value]);
+                            selection2Data.push(value);
                         }
                         
-                        data.addRows(rows);
-                        charts = new google.visualization.BarChart(document.getElementById('chart1'));
+                        // new // get suburb name 2
+                        var suburbName2 = e.row['Suburb Name'].value; 
+                        headerArray[2] = suburbName2.toString();
+                        data2d.push(headerArray);
+                        
+                        for (var x = 0; x < 8; x++){
+                            var names = categories[x].toString();
+                            var suburb1 = selection1Data[x].toString();
+                            var suburb2 = selection2Data[x].toString();
+                            data2d.push([names,suburb1,suburb2]);
+                        }
+                        dual = new google.visualization.arrayToDataTable(data2d);
+                        
                         var options = {
-                            title: e.row['Suburb Name'].value + ' Green Rating Detail',
-                            height: 400,
-                            width: 600,
-                            // set max vAxis to 5 as highest rating
-                            hAxis: {
-                            title: "Rating",
-                                viewWindowMode: 'explicit',
-                                viewWindow: {
-                                    max: 5,
-                                    min: 0
-                                }
-                            }
-                        };
-                        charts.draw(data, options);
+                        chart: {
+                          title: 'Suburb Performance',
+                        },
+                        bars: 'horizontal', // Required for Material Bar Charts.
+                        hAxis: {format: 'none'},
+                        height: 400,
+                        colors: ['#1b9e77', '#d95f02',]
+                      };
+                    var chart1 = new google.charts.Bar(document.getElementById('chart1'));
+                    chart1.draw(dual, options);
                     }
                 });
 
@@ -514,7 +526,6 @@ and open the template in the editor.
 
             <!--new-->
             <!--print button allow use to print a pdf document-->
-            <button onclick="print()">save</button>
         </div>
 
         <div id="map"></div>
@@ -553,10 +564,11 @@ and open the template in the editor.
 
         <div>
             <button onclick="resetComparison()">reset comparison</button>
-            <button onclick="saveAsPDF()">Save PDF Report (working in progress)</button>
+            <button onclick="saveAsPDF()">Save PDF Report</button>
         </div>
-        <div id="chart">Click on a marker to<br>display a chart here</div>
         <div id="chart1">Click on a marker to<br>display a chart here</div>
+        <div id="chart">Click on a marker to<br>display a chart here</div>
+        
         <div id="infoWindowDiv">Info Window</div>
         
     </body>
