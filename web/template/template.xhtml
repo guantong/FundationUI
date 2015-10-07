@@ -23,8 +23,8 @@
     </h:head>
     <h:body>
         <!--background fixed image-->
-        <div class="bg-pattern-img">
 
+        <div class="bg-pattern-img">
             <!-- default header  -->
             <ui:insert name="header">
                 <ui:include src="header.xhtml">
@@ -33,7 +33,7 @@
             </ui:insert>
             <div class="bg-white-container div-shadow">
                 <!-- this adds some padding between the header and content -->
-                
+
 
                 <h:panelGroup id="main" class="scene-element scene-enter" layout="block">
                     <!-- content  -->
@@ -43,6 +43,8 @@
                         <!--<ui:include src="content.xhtml"/>-->
                     </ui:insert>
 
+
+
                     <!-- default footer  -->
                     <ui:insert name="footer">
                         <ui:include src="footer.xhtml"/>
@@ -50,7 +52,6 @@
                 </h:panelGroup>
             </div>
         </div>
-
 
         <!-- JAVASCRIPT -->
         <script src="resources/bower_components/foundation/js/foundation.min.js"></script>
@@ -75,6 +76,13 @@
                 }, 200); //the length of time should vary depending on the length of the animation.
             });
         </script>
+        <div class="social-div div-shadow">
+            <p> Like us! </p>
+            <!--<a href="https://www.linkedin.com/pub/sumaya-baitalmal/67/709/9b9"><i class="fi-social-google-plus"></i></a>-->
+            <a href="https://twitter.com/A1Foundation"><i class="fi-social-twitter"></i></a>
+            <a href="https://www.facebook.com/victogreenA1"><i class="fi-social-facebook"></i></a>
+        </div>
+
     </h:body>
 </html>
 

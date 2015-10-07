@@ -465,6 +465,51 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3f4e4', endColorstr='#edffea',GradientType=0 ); /* IE6-9 */
 
 }
+
+
+
+/* Social Icons*/
+
+.social-div {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-shadow: 0px 1px 0px #666, 0px 2px 1px #484, 0px 3px 0px #333;
+    @media only screen {
+        //position fixed on left side
+        position: relative;
+        background-color: #66cc00;
+        font-size: 40px;
+        a {
+            margin: 6px;
+            width: 14px;
+            color: #fff;
+        }
+        p {
+            color: #fff;
+            size: 20px;
+            display: inline-block;
+        }
+    } 
+    @media only screen and (min-width: 64.063em) {
+        //position horizontal relative to div
+        position: fixed;
+        top: 0;
+        margin-top: 150px;
+        z-index: 999;
+        left: 0;
+        width: 50px;
+        background-color: #66cc00;
+        a {
+            margin: 6px;
+            float: clear;
+            color: #fff;
+        }
+        p {
+            display: none;
+        }
+    }
+
+}
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",
