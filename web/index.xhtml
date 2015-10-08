@@ -14,9 +14,7 @@
                 <!-- CONTENT -->
                 <!-- MAP TIPS -->
                 <div class="default-container bg-smoke" id="info">
-                    <p>
-                        The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>, or you can select a specific rating from the filter beside the map. Select a suburb on the map, or search for suburbs by postcode or suburb name to get a full report for each suburb. You can select a second suburb to compare.
-                    </p>
+                    <p>The map shows color coded suburbs (Victoria, Australia) based on each suburb's <a href="terminology.xhtml">Green Rating</a>. You can search, filter categories and select suburbs on the map to get a <a href="terminology.xhtml">full report</a> for each suburb, then select a second suburb to compare.</p>
                     <div class="info-close-button" id="info-btn-close">
                         <!-- close button image as a cross-->
                         <a>
@@ -26,79 +24,46 @@
                 </div>
                 <!-- END OF MAP TIPS -->
 
-                <div class="scene-element row map-container bg-height" style="z-index: 1000;">
-                    <div class="large-3 columns bg-subtle  left-bar">
+                <div class="scene-element row" style="z-index: 1000;">
+                    <div class="container bg-subtle">
                         <!-- The following components need "googlemapscript" which is currently being included from map.xhtml. -->
-                        <!-- SEARCH BAR -->
-                        <input id="pac-input" class="controls" type="text" style="height:40px;"
-                               placeholder="Enter a postcode/suburb"/>
-
+                        <div class="large-6 medium-6 columns">
+                            <!-- SEARCH BAR -->
+                            <h3> Search </h3>
+                            <p>
+                                <a onclick="pan()"><i class="fi-target-two"></i>Track your location</a>
+                            </p>
+                            <input id="pac-input" class="controls" type="text"
+                                   placeholder="Enter (then select) a postcode/suburb"/> 
+                        </div>
                         <!-- END OF SEARCH BAR-->
 
-                        <!-- MAP CONTROLS -->
-                        <div class="row">
-                            <div class="large-12 columns category-button">
-                                <form class="custom">
-                                    <select id="categoryFilter" onchange="changeFunc();">
-                                        <option selected="true" disabled="true">Select category:</option>
-                                        <option value="0">Overall</option>
-                                        <option value="1">Water Consumption</option>
-                                        <option value="2">Solar Savings</option>
-                                        <option value="3">Land Pollutants</option>
-                                        <option value="4">Air Pollutants</option>
-                                        <option value="5">Forest</option>
-                                        <option value="6">Parks and Reserve</option>
-                                        <option value="7">Water Pollutants</option>
-                                    </select>
-                                </form>
+                        <div class="large-6  medium-6 columns">
+                            <!-- MAP CONTROLS -->
+                            <h3> Filter </h3><p> Select a category to filter: </p>
 
-                                <!-- POLL -->
-                                <center><h4> Weekly Poll </h4></center>
-                                <ui:include src="poll.xhtml"/>
-
-                            </div>
+                            <form id="filters">
+                                <select id="categoryFilter" class="large" onchange="changeFunc();">
+                                    <option disabled="true">Select category:</option>
+                                    <option value="0">Overall</option>
+                                    <option value="1">Water Consumption</option>
+                                    <!--<option value="2">Solar Savings</option>-->
+                                    <option value="3">Land Pollutants</option>
+                                    <option value="4">Air Pollutants</option>
+                                    <option value="5">Forest</option>
+                                    <option value="6">Parks and Reserve</option>
+                                    <option value="7">Water Pollutants</option>
+                                </select>
+                            </form>
                         </div>
-                        <!-- END OF MAP CONTROLS -->
-
-                        <!-- MAP LEGEND -->
-                        <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
-                        <div id="googft-legend">
-                            <p id="googft-legend-title">Overall Rating</p>
-                            <div>
-                                <span class="googft-legend-swatch" 
-                                      style="background-color: #ffffff"></span>
-                                <span class="googft-legend-range">0 to 2</span>
-                            </div>
-                            <div>
-                                <span class="googft-legend-swatch" 
-                                      style="background-color: #afe171"></span>
-                                <span class="googft-legend-range">2 to 3</span>
-                            </div>
-                            <div>
-                                <span class="googft-legend-swatch" 
-                                      style="background-color: #99ff99"></span>
-                                <span class="googft-legend-range">3 to 4</span>
-                            </div>
-                            <div>
-                                <span class="googft-legend-swatch" 
-                                      style="background-color: #00ff00"></span>
-                                <span class="googft-legend-range">4 to 5</span>
-                            </div>
-                            <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
-                        </div>
-                        <!-- END OF MAP LEGEND -->
-
-
                     </div>
-                    <div class="large-9 columns bg-height remove-gutter right-bar" >
-                        <ui:include src="map.xhtml"/>
-                    </div>
+                    <!-- END OF MAP CONTROLS -->
                 </div>
-
+                <div class="map-container remove-gutter" >
+                    <ui:include src="map.xhtml"/>
+                </div>
                 <!-- GREEN REPORT SECTION -->
-
                 <div class="row">
-                    
                     <div class="container">
                         <div id="reportButtons">
                             <!--
@@ -113,14 +78,10 @@
                             -->
                         </div>
                     </div>
-                    
                     <div class="large-12 small-12 columns align-center">
                         <h1 style="color: #116600;font-size: 30pt;">Green Report</h1>
                     </div>
-
                 </div>
-
-
                 <div class="row"> <!-- or add bg-lightgreen-->
                     <div class="container">
                         <div id="headerContentAll" class="green-report">
@@ -148,18 +109,15 @@
                             it follows a format of <li> to include boxes for each category rating. 
                             The script deals for when a second suburb is selected.
                             -->
-
                             <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4" id="smallReportContent">
                             </ul>
-
                         </div>
-
                         <!--Large Report: Shows on large screens but disappears on small screens-->
                         <div class="large-report" id="largeReport">
                             <div style="width: 100%;" id="largeReportContent">
                                 <!-- Charts are to be generated inside the googlemapscript.js -->
                                 <!-- The content of this resets when the reset button is clicked -->
-                                <div id="chart">Green report will be produced upon suburb selection on map.</div>
+                                <div id="chart">Green report will be produced when you click a suburb on the map.</div>
                                 <!-- The content of this resets when the reset button is clicked -->
                                 <div id="chart2"></div>
                             </div>
@@ -176,6 +134,12 @@
                     }));
                 </script>
 
+                <!-- POLL -->
+                <div class="container">
+                    <center><h4> Weekly Poll </h4></center>
+                    <ui:include src="poll.xhtml"/> 
+                </div>
+                <!-- END OF POLL -->
                 <!-- TEMPORARY: CHARTS FOR DEMO -->
                 <!--<script src="resources/js/greenreportscript.js"></script>-->
             </ui:define>

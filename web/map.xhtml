@@ -10,21 +10,50 @@
     </h:head>
     <h:body>
         <ui:composition>
-        <div id="map" class="bg-height map-style">
-        </div>
-        <div style="margin-top: -60px; margin-right: 50px;">
-            <a onclick="pan()" class="button round tiny right">
-                <div style=" font-size: 14px; color: #FFFFFF;">
-                    <i class="fi-target-two"></i>
-                    Your location
+            <div id="map" class="default-container">
+            </div>
+            <!-- MAP LEGEND -->
+            <input id="googft-legend-open" style="display:none" type="button" value="Legend"></input>
+            <div id="googft-legend">
+                <p id="googft-legend-title">Overall Rating</p>
+                <div>
+                    <span class="googft-legend-swatch" 
+                          style="background-color: #ffffff"></span>
+                    <span class="googft-legend-range">0 to 2</span>
                 </div>
-            </a>    
-        </div>
-        <h:outputScript library="resources" name="js/starrating.js" target="body" />
-        <h:outputScript library="resources" name="js/googlemapscript.js" target="body" />
-        <script type="text/javascript" src="resources/js/jspdf.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?signed_in=false&amp;libraries=places&amp;callback=initMap"
-        async="true" defer="true"></script>
+                <div>
+                    <span class="googft-legend-swatch" 
+                          style="background-color: #afe171"></span>
+                    <span class="googft-legend-range">2 to 3</span>
+                </div>
+                <div>
+                    <span class="googft-legend-swatch" 
+                          style="background-color: #99ff99"></span>
+                    <span class="googft-legend-range">3 to 4</span>
+                </div>
+                <div>
+                    <span class="googft-legend-swatch" 
+                          style="background-color: #00ff00"></span>
+                    <span class="googft-legend-range">4 to 5</span>
+                </div>
+                <input id="googft-legend-close" style="display:none" type="button" value="Hide"></input>
+            </div>
+            <!-- END OF MAP LEGEND -->
+            <!--
+            <div style="margin-top: -60px; margin-right: 50px;">
+                <a onclick="pan()" class="button round tiny right">
+                    <div style=" font-size: 14px; color: #FFFFFF;">
+                        <i class="fi-target-two"></i>
+                        Your location
+                    </div>
+                </a>    
+            </div>
+            -->
+            <h:outputScript library="resources" name="js/starrating.js" target="body" />
+            <h:outputScript library="resources" name="js/googlemapscript.js" target="body" />
+            <script type="text/javascript" src="resources/js/jspdf.min.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?signed_in=false&amp;libraries=places&amp;callback=initMap"
+            async="true" defer="true"></script>
         </ui:composition>
     </h:body>
 </html>

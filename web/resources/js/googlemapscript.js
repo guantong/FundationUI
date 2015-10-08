@@ -67,7 +67,8 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'),
             mapOptions);
 
-    //Stick to the left
+    //Stick to the 
+    //map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend-open'));
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend-open'));
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend'));
 
@@ -165,7 +166,7 @@ function initMap() {
 
                 var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
                 //div category content append boxes for small ratings boxes
-                var categoryContent = "<li><div class=\"category-box\">" + "<span data-tooltip aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[i].toString() + "\">" + categories[i] + "</span><div id=\"" + categories[i] + "\"><div class=\"score\"><h4>" + e.row['Suburb Name'].value + "</h4>" + stars + "</div></div></div></li>";
+                var categoryContent = "<li><div class=\"category-box\">" + "<span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[i].toString() + "\">" + categories[i] + "</span><div id=\"" + categories[i] + "\"><div class=\"score\"><h4>" + e.row['Suburb Name'].value + "</h4>" + stars + "</div></div></div></li>";
                 document.getElementById('smallReportContent').innerHTML += categoryContent;
             }
             suburbContent = document.getElementById('smallReportContent').innerHTML; //Keep this as a backup for later use
