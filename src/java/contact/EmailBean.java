@@ -38,7 +38,7 @@ public class EmailBean {
 
     public EmailBean() {
         //Default declaration
-        this.recepient = "sumaya@baitalmal.com"; //Change this email to the appropriate recepient's email of victogreen.
+        this.recepient = "victogreen.a1@gmail.com"; //Change this email to the appropriate recepient's email of victogreen. password 204204204
         this.subject = "Contact Form";  // + name done in the sendEmail method
     }
 

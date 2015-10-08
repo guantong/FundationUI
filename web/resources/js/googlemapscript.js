@@ -11,8 +11,19 @@ var queryWhere = "'Overall Rating' >= 0.1 AND 'Overall Rating' <= 4.9";
 var suburbName = null; // new
 var ratingsForSuburb = []; // new
 var allComments = [[]]; // new
-
+var data2d = []; // new var for 2 axis chart
+//new code for initialsing arrays
+var selection1Data = [];
+var selection2Data = [];
+var headerArray = ['Categories', '', ''];
+var dual;
 var headerContentBackup; //new [SUMAYA]
+
+// load visualization package and and load google map
+setTimeout(function () {
+    google.load('visualization', '1.1', {'callback': '', 'packages': ['bar']})
+},
+        100);
 
 //To be put as tooltips to each category header
 var categoryDescription = [
@@ -76,7 +87,9 @@ function initMap() {
         },
         map: map
     });
-
+//selected will be populated on layer-cllick with the postcod and
+            //a boolean (true when the area is highlighted, otherwise false)
+            selected = {};
 
     //boolean to know when a second suburb is select (after the initial time there's been one select to compare)
     var comparison = false;
@@ -88,7 +101,7 @@ function initMap() {
 
         
         
-        var buttonsContent = "<ul class=\"button-group radius even-2\"><li><a class=\"button\" onclick=\"resetComparison()\"><i class=\"fi-page-remove\"></i>&nbsp;Reset Comparison</a></li><li><a class=\"button\" onclick=\"print()\"><i class=\"fi-save\"></i>&nbsp;Save PDF</a></li></ul>";
+        var buttonsContent = "<ul class=\"button-group even-2\"><li><a class=\"button\" onclick=\"resetComparison()\"><i class=\"fi-page-remove\"></i>&nbsp;Reset Comparison</a></li><li><a class=\"button\" onclick=\"print()\"><i class=\"fi-save\"></i>&nbsp;Save PDF</a></li></ul>";
         document.getElementById('reportButtons').innerHTML = buttonsContent;
 
         //scroll down a little bit to show there's a report generated

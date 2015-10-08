@@ -7524,8 +7524,8 @@ meta.foundation-mq-topbar {
   /* line 646, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
   .top-bar-section .dropdown li:not(.has-form):not(.active):hover > a:not(.button) {
     background-color: rgba(120, 220, 0, 0.2);
-    color: #66cc00;
-    background: #222222;
+    color: #333333;
+    background: #66cc00;
   }
   /* line 655, ../bower_components/foundation/scss/foundation/components/_top-bar.scss */
   .top-bar-section .dropdown li label {
@@ -10005,4 +10005,54 @@ th.hide-for-touch {
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e3f4e4', endColorstr='#edffea',GradientType=0 );
   /* IE6-9 */
+}
+
+/* Social Icons*/
+/* line 473, ../scss/app.scss */
+.social-div {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  text-shadow: 0px 1px 0px #666, 0px 2px 1px #484, 0px 3px 0px #333;
+}
+@media only screen {
+  /* line 473, ../scss/app.scss */
+  .social-div {
+    position: relative;
+    background-color: #66cc00;
+    font-size: 40px;
+  }
+  /* line 482, ../scss/app.scss */
+  .social-div a {
+    margin: 6px;
+    width: 14px;
+    color: #fff;
+  }
+  /* line 487, ../scss/app.scss */
+  .social-div p {
+    color: #fff;
+    size: 20px;
+    display: inline-block;
+  }
+}
+@media only screen and (min-width: 64.063em) {
+  /* line 473, ../scss/app.scss */
+  .social-div {
+    position: fixed;
+    top: 0;
+    margin-top: 150px;
+    z-index: 999;
+    left: 0;
+    width: 50px;
+    background-color: #66cc00;
+  }
+  /* line 502, ../scss/app.scss */
+  .social-div a {
+    margin: 6px;
+    float: clear;
+    color: #fff;
+  }
+  /* line 507, ../scss/app.scss */
+  .social-div p {
+    display: none;
+  }
 }

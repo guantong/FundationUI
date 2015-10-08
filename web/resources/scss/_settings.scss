@@ -498,7 +498,7 @@ $button-bg-hover: scale-color($lightgreeny, $lightness: -50%);
 
 // Sets the margin for the right side by default, and the left margin if right-to-left direction is used
 // $button-bar-margin-opposite: rem-calc(10);
-// $button-group-border-width: 1px;
+// $button-group-border-width: 10px;
 
 // 07. Clearing
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1427,7 +1427,7 @@ $topbar-link-font-size: rem-calc(16);
  $topbar-link-bg:  rgba(0,0,0,0.0);
  $topbar-link-bg-hover: rgba(120.0, 220.0 ,0,0.1);
  $topbar-link-bg-color-hover: rgba(120.0, 220.0 ,0,0.2);
- $topbar-link-bg-active: rgba(120.0, 220.0 ,0,0.2);
+ $topbar-link-bg-active: rgba(120.0, 220.0 ,0, 0.2);
  $topbar-link-bg-active-hover: rgba(0,0,0,0.0);
 // $topbar-link-font-family: $body-font-family;
 // $topbar-link-text-transform: none;
@@ -1438,11 +1438,11 @@ $topbar-link-font-size: rem-calc(16);
 // $topbar-button-top: 7px;
 
 // Style the top bar dropdown elements
-// $topbar-dropdown-bg: $oil;
+ $topbar-dropdown-bg: $oil;
 // $topbar-dropdown-link-color: $white;
-// $topbar-dropdown-link-color-hover: $topbar-link-color-hover;
-// $topbar-dropdown-link-bg: $oil;
-// $topbar-dropdown-link-bg-hover: $jet;
+$topbar-dropdown-link-color-hover: $oil;
+ $topbar-dropdown-link-bg: $oil;
+ $topbar-dropdown-link-bg-hover: $lightgreeny;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
 // $topbar-dropdown-toggle-color: $white;
