@@ -14,10 +14,12 @@
     // l-art for logo design image 
     .l-art {
         @media only screen {
+            margin-top: 10px;
             width: 45px;
             height: auto;
         } 
         @media only screen and (min-width: 64.063em) {
+            margin-top: 0px;
             width: 70px;
             height: auto;
         }
@@ -25,10 +27,12 @@
     //and l-title for the title image
     .l-title {
         @media only screen {
+            margin-top: 10px;
             width: 100px;
             height: auto;
         } 
         @media only screen and (min-width: 64.063em) {
+            margin-top: 0px;
             width: 200px;
             height: auto;
         }
@@ -127,17 +131,6 @@
 
 
 //General use container to horizontally align to middle, shows at 90 percent screen width large screens. andfull width on small screens.
-.container {
-    margin-left: auto;
-    margin-right: auto;
-    @media only screen {
-        width: 100%;
-    } 
-    @media only screen and (min-width: 64.063em) {
-        width: 90%;
-    }
-}
-
 .container {
     margin-left: auto;
     margin-right: auto;

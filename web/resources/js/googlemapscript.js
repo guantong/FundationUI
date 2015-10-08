@@ -88,8 +88,8 @@ function initMap() {
         map: map
     });
 //selected will be populated on layer-cllick with the postcod and
-            //a boolean (true when the area is highlighted, otherwise false)
-            selected = {};
+    //a boolean (true when the area is highlighted, otherwise false)
+    selected = {};
 
     //boolean to know when a second suburb is select (after the initial time there's been one select to compare)
     var comparison = false;
@@ -99,14 +99,23 @@ function initMap() {
     // the data returned on click
     google.maps.event.addListener(layer, 'click', function (e) {
 
-        
-        
-        var buttonsContent = "<ul class=\"button-group even-2\"><li><a class=\"button\" onclick=\"resetComparison()\"><i class=\"fi-page-remove\"></i>&nbsp;Reset Comparison</a></li><li><a class=\"button\" onclick=\"print()\"><i class=\"fi-save\"></i>&nbsp;Save PDF</a></li></ul>";
+
+
+        var buttonsContent = "";
+        buttonsContent += "<div class=\"large-3 columns\">";
+        buttonsContent += "                                <a onclick=\"resetComparison()\">";
+        buttonsContent += "                                    <i class=\"fi-page-remove\"><\/i>&nbsp; Reset Comparison";
+        buttonsContent += "                                <\/a> <br>";
+        buttonsContent += "                                <a onclick=\"print()\">";
+        buttonsContent += "                                    <i class=\"fi-save\"><\/i>&nbsp; Save PDF report";
+        buttonsContent += "                                <\/a>";
+        buttonsContent += "                            <\/div>";
+
         document.getElementById('reportButtons').innerHTML = buttonsContent;
 
         //scroll down a little bit to show there's a report generated
-        window.scrollBy(0,300);
-        
+        window.scrollBy(0, 300);
+
         //if a second suburb has already been selected for comparison, remove its info first then add this selection
         if (comparison) {
 
@@ -219,14 +228,14 @@ function initMap() {
                     "</h1>";
             //Set the header of this suburb with the above content
             document.getElementById('headerContent2').innerHTML = headerContent2;
-            
-            
+
+
 
             //First, reset the first suburb information from the backup
             document.getElementById('smallReportContent').innerHTML = suburbContent;
             //Then fillout new content using each section's id
             for (var i = 0; i <= 7; i += 1) {
-                
+
 
                 var rating = categories[i];
                 var value = parseFloat(e.row[rating.toString()].value, 0);
@@ -271,16 +280,16 @@ function initMap() {
 
             //set this to keep track if comparison mode is on, so next time user selects a suburb the initial suburb for comparison is removed by id of "temprorary"
             comparison = true;
-            
+
             //Change height of boxes to fit the second suburb's text
-                var x = document.getElementsByClassName("category-box");
-                var j;
-                for (j = 0; j < x.length; j++) {
-                    x[j].style.height = 200;
-                }
+            var x = document.getElementsByClassName("category-box");
+            var j;
+            for (j = 0; j < x.length; j++) {
+                x[j].style.height = 200;
+            }
         }
-        
-         $(document).foundation('tooltip', 'reflow');
+
+        $(document).foundation('tooltip', 'reflow');
     });
 
     var input = /** @type {!HTMLInputElement} */(
