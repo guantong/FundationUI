@@ -282,8 +282,8 @@ and open the template in the editor.
                         
                         for (var x = 0; x < 8; x++){
                             var names = categories[x].toString();
-                            var suburb1 = selection1Data[x].toString();
-                            var suburb2 = selection2Data[x].toString();
+                            var suburb1 = selection1Data[x];
+                            var suburb2 = selection2Data[x];
                             data2d.push([names,suburb1,suburb2]);
                         }
                         dual = new google.visualization.arrayToDataTable(data2d);
@@ -295,7 +295,7 @@ and open the template in the editor.
                         bars: 'horizontal', // Required for Material Bar Charts.
                         hAxis: {format: 'none'},
                         height: 400,
-                        colors: ['#1b9e77', '#d95f02',]
+                        colors: ['#1b9e77', '#d95f02']
                       };
                     var chart1 = new google.charts.Bar(document.getElementById('chart1'));
                     chart1.draw(dual, options);
