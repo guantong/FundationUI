@@ -1,3 +1,5 @@
+//OCTOBER 8: SUMAYA
+
 var map;
 var lat;
 var lon;
@@ -67,7 +69,8 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'),
             mapOptions);
 
-    //Stick to the left
+    //Stick to the 
+    //map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend-open'));
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend-open'));
     map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('googft-legend'));
 
@@ -88,8 +91,8 @@ function initMap() {
         map: map
     });
 //selected will be populated on layer-cllick with the postcod and
-            //a boolean (true when the area is highlighted, otherwise false)
-            selected = {};
+    //a boolean (true when the area is highlighted, otherwise false)
+    selected = {};
 
     //boolean to know when a second suburb is select (after the initial time there's been one select to compare)
     var comparison = false;
@@ -99,19 +102,25 @@ function initMap() {
     // the data returned on click
     google.maps.event.addListener(layer, 'click', function (e) {
 
-        
-        
-        var buttonsContent = "<ul class=\"button-group radius even-2\"><li><a class=\"button\" onclick=\"resetComparison()\"><i class=\"fi-page-remove\"></i>&nbsp;Reset Comparison</a></li><li><a class=\"button\" onclick=\"print()\"><i class=\"fi-save\"></i>&nbsp;Save PDF</a></li></ul>";
+
+
+        var buttonsContent = "";
+        buttonsContent += "<div class=\"large-3 columns\">";
+        buttonsContent += "                                <a onclick=\"resetComparison()\">";
+        buttonsContent += "                                    <i class=\"fi-page-remove\"><\/i>&nbsp; Reset Comparison";
+        buttonsContent += "                                <\/a> <br>";
+        buttonsContent += "                                <a onclick=\"print()\">";
+        buttonsContent += "                                    <i class=\"fi-save\"><\/i>&nbsp; Save PDF report";
+        buttonsContent += "                                <\/a>";
+        buttonsContent += "                            <\/div>";
+
         document.getElementById('reportButtons').innerHTML = buttonsContent;
 
         //scroll down a little bit to show there's a report generated
-        window.scrollBy(0,300);
-        
+        window.scrollBy(0, 300);
+
         //if a second suburb has already been selected for comparison, remove its info first then add this selection
         if (comparison) {
-
-
-
             //When a second suburb is selected (again), remove the initial second selection by id
             var elements = document.getElementsByClassName("score-blue");
             for (var i = 0; i < elements.length; i++) {
@@ -141,7 +150,7 @@ function initMap() {
             //set header for suburb name and overall rating.
             //span the tooltip for each category and overall by pulling the comment from the
             //categorDescription array of strings. use <span data-tooltip...etc> and add it there
-            var headerContent = "<h1 class=\"turn-blue\" style=\"font-size: 40px;\">" + e.row['Suburb Name'].value + "</h1><h1 ><span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
+            var headerContent = "<h1 class=\"turn-blue\" style=\"font-size: 40px;\">" + e.row['Suburb Name'].value + "</h1><h1 ><span data-tooltip aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
                     + stars +
                     "</h1>";
             document.getElementById('headerContent').innerHTML = headerContent;
@@ -153,12 +162,14 @@ function initMap() {
                 ratingsForSuburb[i] = parseFloat(e.row[rating.toString()].value, 0); // new // add rating of each categories (followed by var categories order)
                 rows.push([rating, value]);
 
-
                 var stars = getStars(value); //function uses starrating.js rounds number 1-5 and returns stars
                 //div category content append boxes for small ratings boxes
                 var categoryContent = "<li><div class=\"category-box\">" + "<span data-tooltip aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[i].toString() + "\">" + categories[i] + "</span><div id=\"" + categories[i] + "\"><div class=\"score\"><h4>" + e.row['Suburb Name'].value + "</h4>" + stars + "</div></div></div></li>";
                 document.getElementById('smallReportContent').innerHTML += categoryContent;
             }
+            //TOOLTIPS reflow IMPORTANT [SUMAYA]
+            $(document).foundation('tooltip', 'reflow');
+
             suburbContent = document.getElementById('smallReportContent').innerHTML; //Keep this as a backup for later use
 
             data.addRows(rows);
@@ -184,16 +195,12 @@ function initMap() {
             };
 
             //Change the large report's div height when the chart loads [SUMAYA]
-
-
-
             var height = data.getNumberOfRows() * 41 + 30;
             document.getElementById('largeReport').style.height = height;
             document.getElementById('largeReportContent').style.height = height;
             charts.draw(data, options);
             //Inform user that a second suburb selection can be made.
             document.getElementById('chart2').innerHTML = "Select a second suburb to compare";
-
         }
         //If the first suburb selected, data is now no longer, thus coming here, 
         //for the second suburb selection
@@ -214,19 +221,22 @@ function initMap() {
 
 
             //Header of suburb on green report section
-            var headerContent2 = "<h1 class=\"turn-blue\" style=\"font-size: 40px;\">" + e.row['Suburb Name'].value + "</h1><h1><span data-tooltip=\"true\" aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
+            var headerContent2 = "<h1 class=\"turn-blue\" style=\"font-size: 40px;\">" + e.row['Suburb Name'].value + "</h1><h1><span data-tooltip aria-haspopup=\"true\" class=\"has-tip\" title=\"" + categoryDescription[0].toString() + "\">Overall Rating</h1></span><h1 class=\"turn-green\">"
                     + stars +
                     "</h1>";
             //Set the header of this suburb with the above content
             document.getElementById('headerContent2').innerHTML = headerContent2;
-            
-            
+            //RESET TOOLTIPS reflow IMPORTANT [SUMAYA]
+            $(document).foundation('tooltip', 'reflow');
+
+
 
             //First, reset the first suburb information from the backup
             document.getElementById('smallReportContent').innerHTML = suburbContent;
+
             //Then fillout new content using each section's id
             for (var i = 0; i <= 7; i += 1) {
-                
+
 
                 var rating = categories[i];
                 var value = parseFloat(e.row[rating.toString()].value, 0);
@@ -239,6 +249,8 @@ function initMap() {
 
                 document.getElementById(categories[i]).innerHTML += categoryContent;
             }
+
+
 
             data.addRows(rows);
 
@@ -271,16 +283,16 @@ function initMap() {
 
             //set this to keep track if comparison mode is on, so next time user selects a suburb the initial suburb for comparison is removed by id of "temprorary"
             comparison = true;
-            
+
             //Change height of boxes to fit the second suburb's text
-                var x = document.getElementsByClassName("category-box");
-                var j;
-                for (j = 0; j < x.length; j++) {
-                    x[j].style.height = 200;
-                }
+            var x = document.getElementsByClassName("category-box");
+            var j;
+            for (j = 0; j < x.length; j++) {
+                x[j].style.height = 200;
+            }
         }
-        
-         $(document).foundation('tooltip', 'reflow');
+
+
     });
 
     var input = /** @type {!HTMLInputElement} */(

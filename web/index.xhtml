@@ -22,8 +22,7 @@
                         </a>
                     </div>
                 </div>
-                <!-- END OF MAP TIPS -->
-
+                <!-- MAP CONTROLS -->
                 <div class="scene-element row" style="z-index: 1000;">
                     <div class="container bg-subtle">
                         <!-- The following components need "googlemapscript" which is currently being included from map.xhtml. -->
@@ -57,11 +56,15 @@
                             </form>
                         </div>
                     </div>
-                    <!-- END OF MAP CONTROLS -->
                 </div>
+                <!-- END OF MAP CONTROLS -->
+                
+               <!-- THE MAP -->
                 <div class="map-container remove-gutter" >
                     <ui:include src="map.xhtml"/>
                 </div>
+                <!-- END OF MAP TIPS -->
+
                 <!-- GREEN REPORT SECTION -->
                 <div class="row">
                     <div class="container">
@@ -112,17 +115,29 @@
                             <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4" id="smallReportContent">
                             </ul>
                         </div>
+
                         <!--Large Report: Shows on large screens but disappears on small screens-->
                         <div class="large-report" id="largeReport">
                             <div style="width: 100%;" id="largeReportContent">
                                 <!-- Charts are to be generated inside the googlemapscript.js -->
                                 <!-- The content of this resets when the reset button is clicked -->
-                                <div id="chart">Green report will be produced when you click a suburb on the map.</div>
+                                <div id="chart"></div>
                                 <!-- The content of this resets when the reset button is clicked -->
                                 <div id="chart2"></div>
                             </div>
                         </div>
                     </div>
+                    <!-- GREEN REPORT TIPS -->
+                    <div class="default-container bg-smoke" id="info2">
+                        <div class="info-close-button" id="info-btn-close2">
+                            <!-- close button image as a cross-->
+                            <a>
+                                <img src="resources/images/cross.png"/>
+                            </a>
+                        </div>
+                        <p>Click on a suburb on the map to view the report, or select two suburbs to produce a dual chart for comparison.</p>
+                    </div>
+                    <!-- GREEN REPORT TIPS -->
                 </div>
 
                 <div id="result"></div>
@@ -132,15 +147,20 @@
                         //$('#info').toggleClass('scene-exit');
                         $('#info').slideUp();
                     }));
-
-                    
+                    $('#info-btn-close2').click((function (e) {
+                        //$('#info').toggleClass('scene-exit');
+                        $('#info2').slideUp();
+                    }));
                 </script>
 
                 <!-- POLL -->
                 <div class="container">
-                    <center><h4> Weekly Poll </h4></center>
+                    <h4> Weekly Poll </h4>
                     <ui:include src="poll.xhtml"/> 
                 </div>
+
+
+                <div id="visualization"></div>
                 <!-- END OF POLL -->
                 <!-- TEMPORARY: CHARTS FOR DEMO -->
                 <!--<script src="resources/js/greenreportscript.js"></script>-->
