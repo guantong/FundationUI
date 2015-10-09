@@ -267,7 +267,8 @@ and open the template in the editor.
                     }
                     else {
                         data2d = [];
-                        
+                        // initialise array for updating more selection
+                        selection2Data = [];
                         
                         for (var i = 0; i <= 7; i += 1) {
                             var rating = categories[i];
@@ -410,6 +411,8 @@ and open the template in the editor.
             // reset comparison, allow use to compare two new suburbs
             function resetComparison() {
                 data = null;
+                //reset highlight on map
+                initMap();
             }
 
             // filter functions
