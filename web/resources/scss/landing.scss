@@ -1,0 +1,62 @@
+body { 
+    background: url(../images/bg_image.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.landing {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    
+    h1, h2, h3, h4, p {
+        color: #ffffff;
+    }  
+}
+
+// Lnading page container with padding and rounded corners.
+.landing-container {
+    position: absolute;
+    top: 15%;
+    left: 0;
+    right: 0;
+    margin:auto;
+    @media only screen {
+        width: 90%;
+    } 
+    @media only screen and (min-width: 40.0em) {
+        width: 50%;
+    }
+}
+
+.logo2 {
+    margin-bottom: 50px;
+    // l-art for logo design image 
+    a {
+        clear:both;
+    }
+    .l-art {
+            margin-top: 0px;
+            width: 70px;
+            height: auto;
+    }
+    //and l-title for the title image
+    .l-title {
+            margin-top: 0px;
+            width: 200px;
+            height: auto;
+    }
+}
+
+.stick-to-bottom {
+    bottom: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    p {
+        color:#ccc;
+        font-size: 10px;
+    }
+}

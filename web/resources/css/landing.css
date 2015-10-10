@@ -1,0 +1,74 @@
+/* line 1, ../scss/landing.scss */
+body {
+  background: url(../images/bg_image.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* line 9, ../scss/landing.scss */
+.landing {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+/* line 14, ../scss/landing.scss */
+.landing h1, .landing h2, .landing h3, .landing h4, .landing p {
+  color: #ffffff;
+}
+
+/* line 20, ../scss/landing.scss */
+.landing-container {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+@media only screen {
+  /* line 20, ../scss/landing.scss */
+  .landing-container {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 40em) {
+  /* line 20, ../scss/landing.scss */
+  .landing-container {
+    width: 50%;
+  }
+}
+
+/* line 34, ../scss/landing.scss */
+.logo2 {
+  margin-bottom: 50px;
+}
+/* line 37, ../scss/landing.scss */
+.logo2 a {
+  clear: both;
+}
+/* line 40, ../scss/landing.scss */
+.logo2 .l-art {
+  margin-top: 0px;
+  width: 70px;
+  height: auto;
+}
+/* line 46, ../scss/landing.scss */
+.logo2 .l-title {
+  margin-top: 0px;
+  width: 200px;
+  height: auto;
+}
+
+/* line 53, ../scss/landing.scss */
+.stick-to-bottom {
+  bottom: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+/* line 58, ../scss/landing.scss */
+.stick-to-bottom p {
+  color: #ccc;
+  font-size: 10px;
+}

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>VictoGreen</title>
+        <meta charset="UTF-8"/>
+        <!-- Prevent horizontal scrolling on small screen devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"/>
+        <!--CSS Links -->
+        <link href="resources/css/app.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/landing.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/animate.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/bower_components/foundation-icon-fonts/foundation-icons.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/transitions.css" rel="stylesheet" type="text/css"/>
+        <h:outputStylesheet library="resources" name="css/googlemapstyle.css"/>
+        <!-- Scripts Links-->
+        <script src="resources/bower_components/modernizr/modernizr.js"></script>
+        <script src="resources/bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    </h:head>
+    <h:body>
+        <div class="landing">
+            <div class="landing-container row">
+                <center>
+                    <div class="logo2">
+                        <p>
+                            <a href="index.xhtml">
+                                <img class="shadowy l-art" src="resources/images/VG_logo_leaves_WEB_LOGO.png" alt=""/></a></p>
+                        <p>
+                            <a href="index.xhtml"><img class="shadowy l-title" src="resources/images/Green_Logo_WEB_TITLE.png" alt=""/></a>
+                        </p>
+                    </div>
+                </center>
+                <center>
+                    <h3>Wondering how green your suburb is?</h3>
+                    <p>Away from numbers and statistics, as simple as colors and stars.</p>
+
+
+                    <a class="button radius medium" href="index.xhtml">Enter site</a>
+                    <a class="button radius medium" data-reveal-id="myModal">Watch demo</a>
+                </center>
+                <div id="myModal" class="reveal-modal medium" data-reveal="true" aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+                    <div class="flex-video widescreen">
+                        <iframe width="550" height="315" src="https://www.youtube.com/embed/cZZBXcj24v4" frameborder="0" allowfullscreen="true"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="stick-to-bottom">
+                <p>Developed by A1 Foundation at Monash University</p>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT -->
+        <script src="resources/bower_components/foundation/js/foundation.min.js"></script>
+        <script src="resources/js/app.js"></script>
+        <!-- END JAVASCRIPT -->
+    </h:body>
+</html>
+
