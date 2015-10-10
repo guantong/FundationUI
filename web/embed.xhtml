@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Embed Green Rating</title>
+        <!--CSS Links -->
+        <link href="resources/css/app.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/landing.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/animate.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/bower_components/foundation-icon-fonts/foundation-icons.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/transitions.css" rel="stylesheet" type="text/css"/>
+        <h:outputStylesheet library="resources" name="css/googlemapstyle.css"/>
+        <!-- Scripts Links-->
+        <script src="resources/bower_components/modernizr/modernizr.js"></script>
+        <script src="resources/bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    </h:head>
+    <h:body>
+        <div style="width: 300px; left: 40px;">
+            <p style="font-size: 20px; color: #fff;">
+                Copy the following code to embed the rating in your website. Please use your own API key.
+
+                <pre style="font-size: 10px; color: #fff;
+                     width: 400px;                          /* specify width  */
+                     white-space: pre-wrap;                 /* CSS3 browsers  */
+                     white-space: -moz-pre-wrap !important; /* 1999+ Mozilla  */
+                     white-space: -pre-wrap;                /* Opera 4 thru 6 */
+                     white-space: -o-pre-wrap;              /* Opera 7 and up */
+                     word-wrap: break-word;                 /* IE 5.5+ and up */
+                     /* overflow-x: auto; */                /* Firefox 2 only */
+                     /* width: 99%; */		       /* only if needed */">
+                    &lt;div style=&quot;width: 170px; height: 150px; position: absolute; background-color: whitesmoke; top:0; bottom: 0; left: 0; right: 0; margin: auto; text-align: center; border-radius: 10px;&quot;&gt;
+                    &lt;h3&gt; Melbourne &lt;/h3&gt;
+                    &lt;h4&gt; Over all rating &lt;/h4&gt;
+                    &lt;div style=&quot;color: #66cc00; font-size: 40px;&quot; id=&quot;rating&quot;&gt;&lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;script type=&quot;text/javascript&quot;&gt;
+                    // Builds a Fusion Tables SQL query and hands the result to  dataHandler
+                    var queryUrlHead = 'https://www.googleapis.com/fusiontables/v2/query?sql=';
+                    var queryUrlTail = '&amp;key=AIzaSyAwdAuZ4I1Y-ImtBmZ16Cratta-gAPLWdA';
+
+                    //please remove api key if this is mean for others party to use, developer should register thier own api keys.
+
+                    var tableId = '19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc';
+                    var postcode = 3000; // or assign postcode to a textfield text value
+
+                    // write your SQL as normal, then encode it
+                    var query = &quot;SELECT 'Overall Rating' FROM &quot; + tableId + &quot; WHERE Postcode = &quot; + postcode; // you can either can it to 'Suburb Name' or use postcode from a user entered input e.g. textfield
+                    var queryurl = encodeURI(queryUrlHead + query + queryUrlTail);
+
+                    var jqxhr = $.get(queryurl, dataHandler, &quot;jsonp&quot;); //it will parse result to a json object. representation is up to whoever want to use it 
+                    //alert(jqxhr);
+                    document.getElementById(&quot;rating&quot;).innerHTML = jqxhr;
+                    &lt;/script&gt;              
+                </pre>
+            </p>
+        </div>
+
+        <div style="width: 170px; height: 150px; position: absolute; background-color: whitesmoke; top:0; bottom: 0; left: 0; right: 0; margin: auto; text-align: center; border-radius: 10px;">
+            <h3> Melbourne </h3>
+            <h4> Over all rating </h4>
+            <div style="color: #66cc00; font-size: 40px;" id="rating">4.5</div>
+        </div>
+
+        <script type="text/javascript">
+            // Builds a Fusion Tables SQL query and hands the result to  dataHandler
+            var queryUrlHead = 'https://www.googleapis.com/fusiontables/v2/query?sql=';
+            var queryUrlTail = '&amp;key=AIzaSyAwdAuZ4I1Y-ImtBmZ16Cratta-gAPLWdA';
+
+            //please remove api key if this is mean for others party to use, developer should register thier own api keys.
+
+            var tableId = '19mLu-3XSHxXjAs3E7-LCCO8jlrf3cOEZPgnOEqWc';
+            var postcode = 3000; // or assign postcode to a textfield text value
+
+            // write your SQL as normal, then encode it
+            var query = "SELECT 'Overall Rating' FROM " + tableId + " WHERE Postcode = " + postcode; // you can either can it to 'Suburb Name' or use postcode from a user entered input e.g. textfield
+            var queryurl = encodeURI(queryUrlHead + query + queryUrlTail);
+
+            var jqxhr = $.get(queryurl, dataHandler, "jsonp"); //it will parse result to a json object. representation is up to whoever want to use it 
+            //alert(jqxhr);
+            document.getElementById("rating").innerHTML = jqxhr;
+        </script>
+    </h:body>
+</html>
+
